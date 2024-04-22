@@ -48,7 +48,7 @@
 
 
     <li class="nav-item ">
-        <a class="nav-link" href="medecines.php">
+        <a class="nav-link" href="medicines.php">
             <i class="fas fa-prescription"></i>
             Medicine
         </a>

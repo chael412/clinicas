@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2024 at 07:40 AM
+-- Generation Time: Apr 22, 2024 at 04:13 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -83,9 +83,9 @@ CREATE TABLE `consultations` (
 --
 
 INSERT INTO `consultations` (`ct_id`, `u_id`, `chief_complaints`, `recommendation`, `process_date`) VALUES
-(1, 1, 'none', 'eat well', '2024-03-25 13:26:45'),
-(10, 9, 'nhh', 'hh', '2024-04-22 05:09:25'),
-(11, 8, 'hahajhjat', 'werttt', '2024-04-22 05:38:23');
+(1, 9, 'ghy', 'asdfg', '2024-04-22 13:39:36'),
+(2, 7, 'hananan', 'bgttt', '2024-04-22 13:56:05'),
+(3, 6, 'kumain ng tama', 'matulog ng maaga', '2024-04-22 14:00:19');
 
 -- --------------------------------------------------------
 
@@ -96,26 +96,22 @@ INSERT INTO `consultations` (`ct_id`, `u_id`, `chief_complaints`, `recommendatio
 CREATE TABLE `consult_medicine` (
   `cm_id` int(11) NOT NULL,
   `ct_id` int(11) NOT NULL,
-  `Ambroxol_Tab` int(1) NOT NULL DEFAULT 1,
-  `Amoxcilin_Tab` int(1) NOT NULL DEFAULT 1,
-  `Ascorbic_Tab` int(1) NOT NULL DEFAULT 1,
-  `Azithromycin_Tab` int(1) NOT NULL DEFAULT 1,
-  `Cefalixin_Cap` int(1) NOT NULL DEFAULT 1,
-  `Catapres_Tab` int(1) NOT NULL DEFAULT 1,
-  `Chlorphenamine_Tab` int(1) NOT NULL DEFAULT 1,
-  `Cinnarize_Tab` int(1) NOT NULL DEFAULT 1,
-  `Ciprofloxacin_Tab` int(1) NOT NULL DEFAULT 1,
-  `Co_Amoxicillin_Tab` int(1) NOT NULL DEFAULT 1
+  `mdn_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `consult_medicine`
 --
 
-INSERT INTO `consult_medicine` (`cm_id`, `ct_id`, `Ambroxol_Tab`, `Amoxcilin_Tab`, `Ascorbic_Tab`, `Azithromycin_Tab`, `Cefalixin_Cap`, `Catapres_Tab`, `Chlorphenamine_Tab`, `Cinnarize_Tab`, `Ciprofloxacin_Tab`, `Co_Amoxicillin_Tab`) VALUES
-(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-(7, 10, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0),
-(8, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+INSERT INTO `consult_medicine` (`cm_id`, `ct_id`, `mdn_id`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3),
+(4, 1, 4),
+(5, 2, 2),
+(6, 2, 4),
+(7, 3, 3),
+(8, 3, 4);
 
 -- --------------------------------------------------------
 
@@ -634,7 +630,7 @@ ALTER TABLE `confinement`
 -- AUTO_INCREMENT for table `consultations`
 --
 ALTER TABLE `consultations`
-  MODIFY `ct_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ct_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `consult_medicine`
