@@ -532,34 +532,32 @@ if (isset($_POST['consult_add'])) {
     $recommendation = $_POST['recommendation'];
 
     // Collect medication data
-    $ambroxol = $_POST['ambroxol'];
-    $amoxcilin = $_POST['amoxcilin'];
-    $ascorbic = $_POST['ascorbic'];
-    $azithromycin = $_POST['azithromycin'];
-    $cefalixin = $_POST['cefalixin'];
-    $catapres = $_POST['catapres'];
-    $chlorphenamine = $_POST['chlorphenamine'];
-    $cinnarize = $_POST['cinnarize'];
-    $ciprofloxacin = $_POST['ciprofloxacin'];
-    $co_Amoxicillin = $_POST['co_Amoxicillin'];
+    $medicines = $_POST['medicine']; // Note the change to plural 'medicines'
 
-    // Perform database insertion
+    // Perform database insertion for consultation
     $query = "INSERT INTO consultations (u_id, chief_complaints, recommendation) VALUES ('$uID', '$complaints', '$recommendation')";
     $result = mysqli_query($conn, $query);
 
     if ($result) {
         $ct_id = mysqli_insert_id($conn);
-        $query2 = "INSERT INTO consult_medicine(ct_id, Ambroxol_Tab, Amoxcilin_Tab, Ascorbic_Tab, Azithromycin_Tab, Cefalixin_Cap, Catapres_Tab, Chlorphenamine_Tab, Cinnarize_Tab, Ciprofloxacin_Tab, Co_Amoxicillin_Tab) VALUES ('$ct_id', '$ambroxol', '$amoxcilin', '$ascorbic', '$azithromycin', '$cefalixin', '$catapres', '$chlorphenamine', '$cinnarize', '$ciprofloxacin', '$co_Amoxicillin')";
 
-        $result2 = mysqli_query($conn, $query2);
+        // Iterate over selected medicines and insert each one
+        foreach ($medicines as $medicine) {
+            $query2 = "INSERT INTO consult_medicine(ct_id, mdn_id) VALUES ('$ct_id', '$medicine')";
+            $result2 = mysqli_query($conn, $query2);
 
-        if ($result2) {
-            echo 'success';
-        } else {
-            echo 'error';
+            if (!$result2) {
+                // Rollback the consultation insertion if any medicine insertion fails
+                mysqli_query($conn, "DELETE FROM consultations WHERE id='$ct_id'");
+                echo 'error';
+                exit; // Exit the script early
+            }
         }
+
+        echo 'success';
     } else {
         echo 'error';
     }
 }
+
 

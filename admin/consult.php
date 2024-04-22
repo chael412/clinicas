@@ -1,9 +1,11 @@
 <?php
-
 include ('includes/header.php');
 include ('includes/navbar.php');
 include ('modal/modal-consult.php');
+
 ?>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 
 
 <div class="container-fluid">
@@ -19,12 +21,14 @@ include ('modal/modal-consult.php');
         <div class="card-body">
 
             <?php
-            $query = "SELECT ct.ct_id, us.u_id, cm.cm_id, CONCAT(us.firstname, ' ', us.middlename,' ', us.lastname) AS user_fullname, ct.chief_complaints, ct.recommendation, ct.process_date, cm.Ambroxol_Tab, cm.Amoxcilin_Tab, cm.Ascorbic_Tab, cm.Azithromycin_Tab, cm.Cefalixin_Cap, cm.Catapres_Tab, cm.Chlorphenamine_Tab, cm.Cinnarize_Tab, cm.Ciprofloxacin_Tab, cm.Co_Amoxicillin_Tab
-            FROM consult_medicine cm
-            INNER JOIN consultations AS ct ON cm.ct_id = ct.ct_id 
-            INNER JOIN users AS us ON ct.u_id = us.u_id          
-            GROUP BY us.u_id, ct.ct_id      
+            $query = "SELECT ct.ct_id,us.u_id, CONCAT(us.firstname, ' ', us.middlename,' ', us.lastname) AS user_fullname, ct.chief_complaints, ct.recommendation, ct.process_date, GROUP_CONCAT(m.medicine_name SEPARATOR ', ') AS medicines
+            FROM consultations ct
+            INNER JOIN consult_medicine cm ON ct.ct_id = cm.ct_id
+            LEFT JOIN medicine m ON cm.mdn_id = m.mdn_id
+            INNER JOIN users us ON ct.u_id = us.u_id
+            GROUP BY ct.ct_id    
             ORDER BY ct.ct_id DESC            
+                       
             ";
             $query_run = mysqli_query($conn, $query);
 
@@ -57,7 +61,7 @@ include ('modal/modal-consult.php');
                                             <div class="col col-lg-2">
                                                 <form action="medcert_view.php" method="POST">
                                                     <input type="hidden" name="view_id" value="<?= $row['ct_id']; ?>">
-                                                    <button type="submit" name="view_ojt_btn"
+                                                    <button type="submit" name="view_medcert_btn"
                                                         class="d-none d-sm-inline-block btn btn-sm btn-outline-primary shadow-sm"><i
                                                             class="fa fa-eye" aria-hidden="true"></i></button>
                                                 </form>
@@ -101,3 +105,12 @@ include ('modal/modal-consult.php');
 include ('includes/scripts.php');
 include ('includes/footer.php');
 ?>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Initialize Select2 for the categories dropdown
+        $('#medicine').select2();
+
+
+    })
+</script>

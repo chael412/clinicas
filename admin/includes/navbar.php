@@ -47,12 +47,12 @@
 
 
 
-    <!-- <li class="nav-item ">
+    <li class="nav-item ">
         <a class="nav-link" href="medecines.php">
             <i class="fas fa-prescription"></i>
             Medicine
         </a>
-    </li> -->
+    </li>
 
 
 

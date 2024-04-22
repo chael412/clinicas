@@ -953,17 +953,7 @@ $('#consult_add_btn').on('click', function (e) {
 	var uID = $('#uID').val();
 	var complaints = $('#complaints').val();
 	var recommendation = $('#recommendation').val();
-
-	var ambroxol = $('#ambroxol').is(':checked') ? 1 : 0;
-	var amoxcilin = $('#amoxcilin').is(':checked') ? 1 : 0;
-	var ascorbic = $('#ascorbic').is(':checked') ? 1 : 0;
-	var azithromycin = $('#azithromycin').is(':checked') ? 1 : 0;
-	var cefalixin = $('#cefalixin').is(':checked') ? 1 : 0;
-	var catapres = $('#catapres').is(':checked') ? 1 : 0;
-	var chlorphenamine = $('#chlorphenamine').is(':checked') ? 1 : 0;
-	var cinnarize = $('#cinnarize').is(':checked') ? 1 : 0;
-	var ciprofloxacin = $('#ciprofloxacin').is(':checked') ? 1 : 0;
-	var co_Amoxicillin = $('#co_Amoxicillin').is(':checked') ? 1 : 0;
+	var medicine = $('#medicine').val();
 
 	//Check if any of the required fields are empty
 	if (!uID || !complaints || !recommendation) {
@@ -980,16 +970,7 @@ $('#consult_add_btn').on('click', function (e) {
 		uID: uID,
 		complaints: complaints,
 		recommendation: recommendation,
-		ambroxol: ambroxol,
-		amoxcilin: amoxcilin,
-		ascorbic: ascorbic,
-		azithromycin: azithromycin,
-		cefalixin: cefalixin,
-		catapres: catapres,
-		chlorphenamine: chlorphenamine,
-		cinnarize: cinnarize,
-		ciprofloxacin: ciprofloxacin,
-		co_Amoxicillin: co_Amoxicillin,
+		medicine: medicine,
 	};
 
 	console.log(data);

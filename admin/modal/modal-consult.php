@@ -13,7 +13,7 @@
 
         <div class="modal-body">
           <div class="row justify-content-between">
-            <div class="col-6" style="border-right: 2px solid #9ca3af">
+            <div class="col-7" style="border-right: 2px solid #9ca3af">
               <div class="form-group d-flex flex-column">
                 <label>Client Name</label>
                 <input type="hidden" id="uID" class="form-control form-control-sm">
@@ -34,76 +34,26 @@
                   placeholder="Type your recommendation here..."></textarea>
               </div>
             </div>
-            <div class="col-6">
-              <div>
+            <div class="col-5">
+              <div class="form-group">
                 <h5 class="bg-info py-1 px-2 w-75 text-light">Medicine</h5>
-                <div class="form-group">
-
-                  <div class="form-check">
-                    <input id="ambroxol" class="form-check-input" type="checkbox">
-                    <label class="form-check-label">
-                      Ambroxol Tab
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input id="amoxcilin" class="form-check-input" type="checkbox">
-                    <label class="form-check-label">
-                      Amoxcilin Tab
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input id="ascorbic" class="form-check-input" type="checkbox">
-                    <label class="form-check-label">
-                      Ascorbic Tab
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="azithromycin">
-                    <label class="form-check-label">
-                      Azithromycin Tab
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="cefalixin">
-                    <label class="form-check-label" for="defaultCheck2">
-                      Cefalixin Cap
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="catapres">
-                    <label class="form-check-label" for="defaultCheck2">
-                      Catapres Tab
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="chlorphenamine">
-                    <label class="form-check-label" for="defaultCheck2">
-                      Chlorphenamine M. Tab
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="cinnarize">
-                    <label class="form-check-label" for="defaultCheck2">
-                      Cinnarize Tab
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="ciprofloxacin">
-                    <label class="form-check-label" for="defaultCheck2">
-                      Ciprofloxacin Tab
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="co_Amoxicillin">
-                    <label class="form-check-label" for="defaultCheck2">
-                      Co-Amoxicillin Tab
-                    </label>
-                  </div>
-                </div>
-
-
+                <select id="medicine" name="medicine[]" multiple style="width: 100%;">
+                  <?php
+                  $query = "SELECT mdn_id, medicine_name FROM medicine";
+                  $result = mysqli_query($conn, $query);
+                  if (mysqli_num_rows($result) > 0) {
+                    echo '<option value=" " disabled> ------ Select a medicine ------ </option>';
+                    while ($row = mysqli_fetch_assoc($result)) {
+                      echo '<option value="' . $row['mdn_id'] . '">' . $row['medicine_name'] . '</option>';
+                    }
+                  } else {
+                    echo '<option value="">No medicine found</option>';
+                  }
+                  ?>
+                </select>
               </div>
             </div>
+
 
 
           </div>
