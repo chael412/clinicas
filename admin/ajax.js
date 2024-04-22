@@ -999,3 +999,104 @@ $('#consult_add_btn').on('click', function (e) {
 		},
 	});
 });
+
+/// ===================================== MEDICINE SECTION===============================================================
+$('#medicine_add_btn').on('click', function (e) {
+	e.preventDefault();
+
+	var medicine = $('#medicine').val();
+
+	var data = {
+		medicine_add: true,
+		medicine: medicine,
+	};
+
+	$.ajax({
+		type: 'POST',
+		url: 'code.php',
+		data: data,
+		success: function (response) {
+			if (response == 'success') {
+				Swal.fire({
+					icon: 'success',
+					title: 'Success',
+					text: 'Medicine Successfully Added',
+				});
+				$('#medicineform_add')[0].reset();
+				$('#modal_medicineADD').modal('hide');
+				$('.medicines_table').load(window.location.href + ' .medicines_table');
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Failed to add medcine',
+				});
+			}
+		},
+	});
+});
+
+$('#medicine_update_btn').on('click', function (e) {
+	e.preventDefault();
+
+	var mdn_id = $('#mdn_id').val();
+	var medicine = $('#medicine').val();
+
+	console.log(medicine);
+	console.log(mdn_id);
+
+	var data = {
+		medicine_update: true,
+		mdn_id: mdn_id,
+		medicine: medicine,
+	};
+
+	console.log(data);
+
+	$.ajax({
+		type: 'POST',
+		url: 'code.php',
+		data: data,
+		success: function (response) {
+			if (response == 'success') {
+				Swal.fire({
+					icon: 'success',
+					title: 'Success',
+					text: 'Medicine Successfully Updated',
+				}).then((result) => {
+					if (result.isConfirmed) {
+						window.location.href = 'medicines.php';
+					}
+				});
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Medicine update failed',
+				});
+			}
+		},
+	});
+});
+
+function deleteMedicine(mdnID) {
+	if (confirm('Are you sure you want to delete this Medicine?')) {
+		$.ajax({
+			url: 'code.php',
+			type: 'GET',
+			data: { mdn_idz: mdnID },
+			success: function (response) {
+				Swal.fire({
+					icon: 'success',
+					title: 'Success',
+					text: response,
+					confirmButtonText: 'OK',
+				}).then((result) => {
+					if (result.isConfirmed) {
+						window.location.href = 'medicines.php';
+					}
+				});
+			},
+		});
+	}
+}

@@ -20,14 +20,13 @@ include ('modal/modal-medicine.php');
 
             <?php
             $query = "SELECT mdn_id, medicine_name FROM medicine 
-            ORDER BY mdn_id DESC
-            
+            ORDER BY mdn_id DESC          
             ";
             $query_run = mysqli_query($conn, $query);
 
             ?>
             <div class="table-responsive">
-                <table id="datatableid" class="ojts_table table table-bordered" width="100%" cellspacing="0">
+                <table id="datatableid" class="medicines_table table table-bordered" width="100%" cellspacing="0">
                     <thead class="thead-light">
                         <tr>
                             <th style="width: 10%">No.</th>
@@ -56,16 +55,16 @@ include ('modal/modal-medicine.php');
                                         <div class="row justify-content-center">
 
                                             <div class="col col-lg-2 mx-1">
-                                                <form action="medcert_edit.php" method="POST">
+                                                <form action="medicine_edit.php" method="POST">
                                                     <input type="hidden" name="edit_id" value="<?= $row['mdn_id']; ?>">
-                                                    <button type="submit" name="edit_medcert_btn"
+                                                    <button type="submit" name="edit_medicine_btn"
                                                         class="d-none d-sm-inline-block btn btn-sm btn-outline-success shadow-sm"><i
                                                             class="fas fa-edit"></i></button>
                                                 </form>
                                             </div>
                                             <div class="col col-lg-2">
                                                 <button type="button" name="del_student"
-                                                    onclick="deleteMedcert(<?= $row['mdn_id'] ?>)"
+                                                    onclick="deleteMedicine(<?= $row['mdn_id'] ?>)"
                                                     class="d-none d-sm-inline-block btn btn-sm btn-outline-danger shadow-sm">
                                                     <i class="fas fa-trash"></i>
                                                 </button>

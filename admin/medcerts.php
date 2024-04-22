@@ -61,7 +61,7 @@ include ('modal/modal-medcert.php');
                                             <div class="col col-lg-2">
                                                 <form action="medcert_view.php" method="POST">
                                                     <input type="hidden" name="view_id" value="<?= $row['mc_id']; ?>">
-                                                    <button type="submit" name="view_medcert_btn"
+                                                    <button disabled type="submit" name="view_medcert_btn"
                                                         class="d-none d-sm-inline-block btn btn-sm btn-outline-primary shadow-sm"><i
                                                             class="fa fa-eye" aria-hidden="true"></i></button>
                                                 </form>
@@ -75,7 +75,7 @@ include ('modal/modal-medcert.php');
                                                 </form>
                                             </div>
                                             <div class="col col-lg-2">
-                                                <button type="button" name="del_student"
+                                                <button disabled type="button" name="del_student"
                                                     onclick="deleteMedcert(<?= $row['mc_id'] ?>)"
                                                     class="d-none d-sm-inline-block btn btn-sm btn-outline-danger shadow-sm">
                                                     <i class="fas fa-trash"></i>

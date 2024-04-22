@@ -9,7 +9,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="adminform_add">
+      <form id="medicineform_add">
 
         <div class="modal-body">
 
@@ -25,7 +25,7 @@
         <div class="modal-footer">
           <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-outline-secondary shadow-sm"
             data-dismiss="modal"><i class="fas fa-ban"></i> Cancel</button>
-          <button type="submit" id="medecine_add_btn" name="registerbtn"
+          <button type="submit" id="medicine_add_btn" name="registerbtn"
             class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
             <i class="fas fa-save mx-1"></i>Save
           </button>

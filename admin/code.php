@@ -561,3 +561,48 @@ if (isset($_POST['consult_add'])) {
 }
 
 
+//#######################################################  Medicine Section #######################################################
+if (isset($_POST['medicine_add'])) {
+    $medicine = $_POST['medicine'];
+
+    $query = "INSERT INTO medicine (medicine_name) VALUES ('$medicine')";
+    $result = mysqli_query($conn, $query);
+
+    if ($result) {
+        echo 'success';
+    } else {
+        echo 'error';
+    }
+}
+
+if (isset($_POST['medicine_update'])) {
+    $mdn_id = $_POST['mdn_id'];
+    $medicine_name = $_POST['medicine'];
+
+    $query = "UPDATE medicine SET medicine_name='$medicine_name' WHERE mdn_id='$mdn_id' ";
+
+    $query_run = mysqli_query($conn, $query);
+
+    if ($query_run) {
+        echo "success";
+    } else {
+        echo "error";
+    }
+
+}
+
+if (isset($_GET['mdn_idz'])) {
+    $mdnID = $_GET['mdn_idz'];
+
+    $deleteQuery = "DELETE FROM medicine WHERE mdn_id = '$mdnID'";
+
+    if (mysqli_query($conn, $deleteQuery)) {
+        echo "Medicine Deleted Successfully!";
+        exit;
+    } else {
+        echo "Error deleting record: " . mysqli_error($conn);
+    }
+}
+
+
+

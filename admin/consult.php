@@ -59,7 +59,7 @@ include ('modal/modal-consult.php');
                                     <td>
                                         <div class="row justify-content-center">
                                             <div class="col col-lg-2">
-                                                <form action="medcert_view.php" method="POST">
+                                                <form action="consult_view.php" method="POST">
                                                     <input type="hidden" name="view_id" value="<?= $row['ct_id']; ?>">
                                                     <button type="submit" name="view_medcert_btn"
                                                         class="d-none d-sm-inline-block btn btn-sm btn-outline-primary shadow-sm"><i
