@@ -1,0 +1,16 @@
+SELECT mh.mh_id, mh.mh_id, ct.chief_complaints, ct.recommendation, ct.process_date, mh.Hyperthension, mh.Diabetes FROM medical_history mh
+INNER JOIN mhistory_desease AS mhd ON mh.mh_id = mhd.mh_id
+INNER JOIN consultations AS ct ON mh.ct_id = ct.ct_id
+INNER JOIN users AS us ON ct.u_id = us.u_id
+INNER JOIN students AS s ON us.u_id = s.u_id
+INNER JOIN user_accs AS uac ON s.uac_id = uac.uac_id
+
+GROUP BY us.u_id
+
+
+
+SELECT mh.mh_id, mh.mh_id, us.u_id, CONCAT(us.firstname, ' ', us.middlename,' ', us.lastname) AS user_fullname, ct.chief_complaints, ct.recommendation, ct.process_date, mh.Hyperthension, mh.Diabetes, mh.Cardiovascular_desease, mh.PTB, mh.Hyperacidity, mh.Allergy, mh.Epilepsy, mh.Asthma, mh.Dysmenorrhea, mh.liver_Desease FROM medical_history mh
+INNER JOIN mhistory_desease AS mhd ON mh.mh_id = mhd.mh_id
+INNER JOIN consultations AS ct ON mh.ct_id = ct.ct_id
+INNER JOIN users AS us ON ct.u_id = us.u_id
+GROUP BY us.u_id
