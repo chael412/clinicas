@@ -28,7 +28,6 @@ include ('modal/modal-consult.php');
             INNER JOIN users us ON ct.u_id = us.u_id
             GROUP BY  us.u_id
             ORDER BY ct.ct_id DESC            
-                       
             ";
             $query_run = mysqli_query($conn, $query);
 
@@ -110,6 +109,52 @@ include ('includes/footer.php');
     $(document).ready(function () {
         // Initialize Select2 for the categories dropdown
         $('#medicine').select2();
+
+        $("#addMedicineBtn").click(function () {
+            var numInputs = $(".additional-medicine-input").length + 1;
+
+            var newMedicineInput = `
+            <div class="row additional-medicine-input">
+            <div class="col-6">
+                <div class="form-group">
+                <label>Medicine Name</label>
+                    <select id="medicine1" name="medicine[]" class="form-control form-control-sm" >
+                        <?php
+                        $query = "SELECT mdn_id, medicine_name FROM medicine";
+                        $result = mysqli_query($conn, $query);
+                        if (mysqli_num_rows($result) > 0) {
+
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo '<option value="' . $row['mdn_id'] . '">' . $row['medicine_name'] . '</option>';
+                            }
+                        } else {
+                            echo '<option value="">No medicine found</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                <label>Quantity</label>
+                <input type="number" name="quantity[]" class="form-control form-control-sm">
+                </div>
+            </div>
+            <div class="col-2">
+                <button type="button" id="remove-medicine-input"
+                    class="d-none d-sm-inline-block btn btn-sm btn-danger" style="margin-top: 30px">
+                    x
+                </button>
+            </div>
+            </div>
+        `;
+
+            $("#additionalMedicineInputs").append(newMedicineInput);
+        });
+
+        $(document).on("click", "#remove-medicine-input", function () {
+            $(this).closest(".additional-medicine-input").remove();
+        });
 
 
     })

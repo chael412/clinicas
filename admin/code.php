@@ -528,37 +528,55 @@ if (isset($_POST['consult_add'])) {
     $uID = $_POST['uID'];
     $complaints = $_POST['complaints'];
     $recommendation = $_POST['recommendation'];
-    $quantity = $_POST['quantity'];
     $med_desc = $_POST['med_desc'];
 
-    // Collect medication data
-    $medicines = $_POST['medicine']; // Note the change to plural 'medicines'
+    $medicines = $_POST['medicines'];
+    $quantities = $_POST['quantities'];
 
-    // Perform database insertion for consultation
-    $query = "INSERT INTO consultations (u_id, chief_complaints, recommendation, quantity, med_desc) VALUES ('$uID', '$complaints', '$recommendation',' $quantity',' $med_desc')";
+
+    $query = "INSERT INTO consultations (u_id, chief_complaints, recommendation, med_desc) VALUES ('$uID', '$complaints', '$recommendation', '$med_desc')";
     $result = mysqli_query($conn, $query);
 
     if ($result) {
         $ct_id = mysqli_insert_id($conn);
 
-        // Iterate over selected medicines and insert each one
-        foreach ($medicines as $medicine) {
-            $query2 = "INSERT INTO consult_medicine(ct_id, mdn_id) VALUES ('$ct_id', '$medicine')";
+        $medicines = $_POST['medicines'];
+        $quantities = $_POST['quantities'];
+
+        // Loop 
+        foreach ($medicines as $key => $medicine) {
+            // Extract medicine ID and quantity
+            $medicine_id = $medicine['id'];
+            $quantity = $quantities[$key];
+
+            // Add medicine data to the array
+            $medicineData[] = array(
+                'medicine_id' => $medicine_id,
+                'quantity' => $quantity
+            );
+
+
+            $query2 = "INSERT INTO consult_medicine (ct_id, mdn_id, cm_quantity) VALUES ('$ct_id', '$medicine_id', '$quantity')";
             $result2 = mysqli_query($conn, $query2);
 
-            if (!$result2) {
-                // Rollback the consultation insertion if any medicine insertion fails
-                mysqli_query($conn, "DELETE FROM consultations WHERE id='$ct_id'");
+
+            if ($result) {
+                echo 'success';
+
+            } else {
                 echo 'error';
-                exit; // Exit the script early
+                exit;
             }
         }
 
-        echo 'success';
+
+
     } else {
         echo 'error';
     }
 }
+
+
 
 
 //#######################################################  Medicine Section #######################################################

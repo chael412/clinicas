@@ -283,18 +283,7 @@ function performSearch(searchTerm) {
 			var tbody = $('#modal_ojtREQ .ojtsearch_table');
 			tbody.empty();
 			$.each(res.data, function (index, res) {
-				var row =
-					'<tr>' +
-					'<td>' +
-					res.student_no +
-					'</td>' +
-					'<td>' +
-					res.student_name +
-					'</td>' +
-					'<td>' +
-					res.actions +
-					'</td>' +
-					'</tr>';
+				var row = '<tr>' + '<td>' + res.student_no + '</td>' + '<td>' + res.student_name + '</td>' + '<td>' + res.actions + '</td>' + '</tr>';
 				tbody.append(row);
 			});
 		},
@@ -326,18 +315,7 @@ $(document).on('click', '#search_ojt_btn', function () {
 			var tbody = $('#modal_ojtREQ .ojtsearch_table');
 			tbody.empty();
 			$.each(res.data, function (index, res) {
-				var row =
-					'<tr>' +
-					'<td>' +
-					res.student_no +
-					'</td>' +
-					'<td>' +
-					res.student_name +
-					'</td>' +
-					'<td>' +
-					res.actions +
-					'</td>' +
-					'</tr>';
+				var row = '<tr>' + '<td>' + res.student_no + '</td>' + '<td>' + res.student_name + '</td>' + '<td>' + res.actions + '</td>' + '</tr>';
 				tbody.append(row);
 			});
 		},
@@ -381,18 +359,7 @@ $('#student_add_btn').on('click', function (e) {
 	var sex = $('#sex').val();
 	var contact_no = $('#contact_no').val();
 
-	if (
-		!student_no ||
-		!course_id ||
-		!firstname ||
-		!middlename ||
-		!lastname ||
-		!username ||
-		!password ||
-		!birthdate ||
-		!sex ||
-		!contact_no
-	) {
+	if (!student_no || !course_id || !firstname || !middlename || !lastname || !username || !password || !birthdate || !sex || !contact_no) {
 		Swal.fire({
 			icon: 'error',
 			title: 'Oops...',
@@ -416,7 +383,7 @@ $('#student_add_btn').on('click', function (e) {
 	};
 
 	console.log(data);
-	console.log("Clicked");
+	console.log('Clicked');
 	$.ajax({
 		type: 'POST',
 		url: 'code.php',
@@ -458,19 +425,7 @@ $('#student_update_btn').on('click', function (e) {
 	var sex = $('#sex').val();
 	var contact_no = $('#contact_no').val();
 
-	if (
-		!student_no ||
-		!sID ||
-		!course_id ||
-		!firstname ||
-		!middlename ||
-		!lastname ||
-		!username ||
-		!password ||
-		!birthdate ||
-		!sex ||
-		!contact_no
-	) {
+	if (!student_no || !sID || !course_id || !firstname || !middlename || !lastname || !username || !password || !birthdate || !sex || !contact_no) {
 		Swal.fire({
 			icon: 'error',
 			title: 'Oops...',
@@ -559,18 +514,7 @@ $(document).on('click', '#search_rle_btn', function () {
 			var tbody = $('#modal_rleREQ .rlesearch_table');
 			tbody.empty();
 			$.each(res.data, function (index, res) {
-				var row =
-					'<tr>' +
-					'<td>' +
-					res.student_no +
-					'</td>' +
-					'<td>' +
-					res.student_name +
-					'</td>' +
-					'<td>' +
-					res.actions +
-					'</td>' +
-					'</tr>';
+				var row = '<tr>' + '<td>' + res.student_no + '</td>' + '<td>' + res.student_name + '</td>' + '<td>' + res.actions + '</td>' + '</tr>';
 				tbody.append(row);
 			});
 		},
@@ -611,14 +555,7 @@ $('#rlemed_add_btn').on('click', function (e) {
 	var fecalysisFile = $('#fecalysis')[0].files[0];
 
 	// Check if any of the required fields are empty
-	if (
-		!sID ||
-		!urinalysisFile ||
-		!xRayFile ||
-		!pregnancyTestFile ||
-		!screeningFile ||
-		!fecalysisFile
-	) {
+	if (!sID || !urinalysisFile || !xRayFile || !pregnancyTestFile || !screeningFile || !fecalysisFile) {
 		Swal.fire({
 			icon: 'error',
 			title: 'Oops...',
@@ -678,18 +615,7 @@ $(document).on('click', '#search_teach_btn', function () {
 			var tbody = $('#modal_teachREQ .teachsearch_table');
 			tbody.empty();
 			$.each(res.data, function (index, res) {
-				var row =
-					'<tr>' +
-					'<td>' +
-					res.student_no +
-					'</td>' +
-					'<td>' +
-					res.student_name +
-					'</td>' +
-					'<td>' +
-					res.actions +
-					'</td>' +
-					'</tr>';
+				var row = '<tr>' + '<td>' + res.student_no + '</td>' + '<td>' + res.student_name + '</td>' + '<td>' + res.actions + '</td>' + '</tr>';
 				tbody.append(row);
 			});
 		},
@@ -786,18 +712,7 @@ $(document).on('click', '#search_food_btn', function () {
 			var tbody = $('#modal_foodREQ .foodsearch_table');
 			tbody.empty();
 			$.each(res.data, function (index, res) {
-				var row =
-					'<tr>' +
-					'<td>' +
-					res.student_no +
-					'</td>' +
-					'<td>' +
-					res.student_name +
-					'</td>' +
-					'<td>' +
-					res.actions +
-					'</td>' +
-					'</tr>';
+				var row = '<tr>' + '<td>' + res.student_no + '</td>' + '<td>' + res.student_name + '</td>' + '<td>' + res.actions + '</td>' + '</tr>';
 				tbody.append(row);
 			});
 		},
@@ -838,14 +753,7 @@ $('#foodmed_add_btn').on('click', function (e) {
 	var fecalysisFile = $('#fecalysis')[0].files[0];
 
 	// Check if any of the required fields are empty
-	if (
-		!sID ||
-		!urinalysisFile ||
-		!xRayFile ||
-		!pregnancyTestFile ||
-		!screeningFile ||
-		!fecalysisFile
-	) {
+	if (!sID || !urinalysisFile || !xRayFile || !pregnancyTestFile || !screeningFile || !fecalysisFile) {
 		Swal.fire({
 			icon: 'error',
 			title: 'Oops...',
@@ -905,18 +813,7 @@ $(document).on('click', '#search_consult_btn', function () {
 			var tbody = $('#modal_consultREQ .consultsearch_table');
 			tbody.empty();
 			$.each(res.data, function (index, res) {
-				var row =
-					'<tr>' +
-					'<td>' +
-					res.index +
-					'</td>' +
-					'<td>' +
-					res.client_name +
-					'</td>' +
-					'<td>' +
-					res.actions +
-					'</td>' +
-					'</tr>';
+				var row = '<tr>' + '<td>' + res.index + '</td>' + '<td>' + res.client_name + '</td>' + '<td>' + res.actions + '</td>' + '</tr>';
 				tbody.append(row);
 			});
 		},
@@ -952,53 +849,70 @@ $('#consult_add_btn').on('click', function (e) {
 	var uID = $('#uID').val();
 	var complaints = $('#complaints').val();
 	var recommendation = $('#recommendation').val();
-	var medicine = $('#medicine').val();
-	var quantity = $('#quantity').val();
 	var med_desc = $('#med_desc').val();
 
-	//Check if any of the required fields are empty
-	if (!uID || !complaints || !recommendation) {
-		Swal.fire({
-			icon: 'error',
-			title: 'Oops...',
-			text: 'Please fill in all the required fields.',
-		});
-		return;
-	}
+	// Initialize empty arrays to store selected medicines and quantities
+	var medicines = [];
+	var quantities = [];
 
+	// Loop through each medicine input field
+	$('select[name="medicine[]"]').each(function () {
+		var medicineName = $(this).find('option:selected').text(); // Get the text (name) of the selected option
+		var medicineId = $(this).val(); // Get the value (ID) of the selected option
+
+		// Find the corresponding quantity input field
+		var quantity = $(this).closest('.row').find('input[name="quantity[]"]').val(); // Get the corresponding quantity
+
+		// Add medicine name and quantity to arrays
+		medicines.push({ name: medicineName, id: medicineId });
+		quantities.push(quantity);
+	});
+
+	// Check if any of the required fields are empty
+	// if (!uID || !complaints || !recommendation) {
+	//     Swal.fire({
+	//         icon: 'error',
+	//         title: 'Oops...',
+	//         text: 'Please fill in all the required fields.',
+	//     });
+	//     return;
+	// }
+
+	// Combine medicines and quantities into an array of objects
 	var data = {
 		consult_add: true,
 		uID: uID,
 		complaints: complaints,
 		recommendation: recommendation,
-		medicine: medicine,
-		quantity: quantity,
-		med_desc: med_desc
+		medicines: medicines,
+		quantities: quantities,
+		med_desc: med_desc,
 	};
 
-	console.log(quantity);
+	console.log(data);
 
 	$.ajax({
 		type: 'POST',
 		url: 'code.php',
 		data: data,
 		success: function (response) {
-			if (response == 'success') {
-				Swal.fire({
-					icon: 'success',
-					title: 'Success',
-					text: 'Consultation Successfully Created',
-				});
-				$('#consultform_add')[0].reset();
-				$('#modal_consultADD').modal('hide');
-				$('.consult_table').load(window.location.href + ' .consult_table');
-			} else {
-				Swal.fire({
-					icon: 'error',
-					title: 'Oops...',
-					text: 'Failed to create consultation',
-				});
-			}
+			console.log(response);
+			// if (response == 'success') {
+			// 	Swal.fire({
+			// 		icon: 'success',
+			// 		title: 'Success',
+			// 		text: 'Consultation Successfully Created',
+			// 	});
+			// 	$('#consultform_add')[0].reset();
+			// 	$('#modal_consultADD').modal('hide');
+			// 	$('.consult_table').load(window.location.href + ' .consult_table');
+			// } else {
+			// 	Swal.fire({
+			// 		icon: 'error',
+			// 		title: 'Oops...',
+			// 		text: 'Failed to create consultation',
+			// 	});
+			// }
 		},
 	});
 });
@@ -1013,7 +927,7 @@ $('#medicine_add_btn').on('click', function (e) {
 	var data = {
 		medicine_add: true,
 		medicine: medicine,
-		quantity: quantity
+		quantity: quantity,
 	};
 
 	$.ajax({
@@ -1055,7 +969,7 @@ $('#medicine_update_btn').on('click', function (e) {
 		medicine_update: true,
 		mdn_id: mdn_id,
 		medicine: medicine,
-		quantity: quantity
+		quantity: quantity,
 	};
 
 	console.log(data);
