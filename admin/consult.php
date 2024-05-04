@@ -26,7 +26,7 @@ include ('modal/modal-consult.php');
             INNER JOIN consult_medicine cm ON ct.ct_id = cm.ct_id
             LEFT JOIN medicine m ON cm.mdn_id = m.mdn_id
             INNER JOIN users us ON ct.u_id = us.u_id
-            GROUP BY ct.ct_id    
+            GROUP BY  us.u_id
             ORDER BY ct.ct_id DESC            
                        
             ";
@@ -60,7 +60,7 @@ include ('modal/modal-consult.php');
                                         <div class="row justify-content-center">
                                             <div class="col col-lg-2">
                                                 <form action="consult_view.php" method="POST">
-                                                    <input type="hidden" name="view_id" value="<?= $row['ct_id']; ?>">
+                                                    <input type="hidden" name="view_id" value="<?= $row['u_id']; ?>">
                                                     <button type="submit" name="view_medcert_btn"
                                                         class="d-none d-sm-inline-block btn btn-sm btn-outline-primary shadow-sm"><i
                                                             class="fa fa-eye" aria-hidden="true"></i></button>

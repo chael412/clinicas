@@ -18,6 +18,11 @@
             <input type="text" id="medicine" name="medicine" class="form-control form-control-sm"
               placeholder="Enter a medicine">
           </div>
+          <div class="form-group">
+                <label>Quantity</label>
+                <input type="number" id="quantity" name="quantity" class="form-control form-control-sm ">
+              </div>
+          
 
 
 

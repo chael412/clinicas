@@ -37,7 +37,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">All Users:</h6>
                 <a class="collapse-item" href="admin.php">Admins</a>
-                <a class="collapse-item" href="students.php">Student</a>
+                <a class="collapse-item" href="students.php">Students</a>
                 <a class="collapse-item" href="#">Employees</a>
                 <a class="collapse-item" href="#">Visitors</a>
             </div>
@@ -61,13 +61,13 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Consulatation
+        Consultation
     </div>
 
     <li class="nav-item ">
         <a class="nav-link" href="consult.php">
             <i class="fas fa-user-md"></i>
-            <span>Consulatation</span></a>
+            <span>Consultation</span></a>
     </li>
 
 

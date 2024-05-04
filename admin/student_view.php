@@ -20,38 +20,7 @@ include ('includes/navbar.php');
             foreach ($query_run as $row) {
                 ?>
                 <div class="card-header py-3 m-0 d-flex align-items-center justify-content-between">
-                    <h6>
-                        <span class=" font-weight-bold text-success">Student Information</span>
-                        <?php
-                        $stype = $row['s_type'];
-                        $stypeText = '';
-                        switch ($stype) {
-                            case 0:
-                                $stypeText = ' ';
-                                break;
-                            case 1:
-                                $stypeText = 'ojt';
-                                break;
-                            case 2:
-                                $stypeText = 'rle';
-                                break;
-                            case 3:
-                                $stypeText = 'practice teaching';
-                                break;
-                            case 4:
-                                $stypeText = 'food major';
-                                break;
-                            default:
-                                $stypeText = 'Unknown';
-                                break;
-                        }
-                        ?>
-                        <span class="badge rounded-pill bg-info fs-6 px-3 py-1">
-                            <?= $stypeText ?>
-                        </span>
-
-
-                    </h6>
+                   
                     <a href="students.php" name="cancel_btn"
                         class="btn  d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                             class="fas fa-chevron-circle-left"></i> Back</a>
@@ -61,25 +30,6 @@ include ('includes/navbar.php');
 
 
                     <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label>Student Type</label>
-                                <select name="s_type" id="s_type" class="form-control form-control-sm" readonly disabled>
-                                    <option value="0" <?php if ($row['s_type'] == 0)
-                                        echo 'selected'; ?>>None</option>
-                                    <option value="1" <?php if ($row['s_type'] == 1)
-                                        echo 'selected'; ?>>OJT's</option>
-                                    <option value="2" <?php if ($row['s_type'] == 2)
-                                        echo 'selected'; ?>>RLE
-                                    </option>
-                                    <option value="3" <?php if ($row['s_type'] == 3)
-                                        echo 'selected'; ?>>Practice Teaching
-                                    </option>
-                                    <option value="4" <?php if ($row['s_type'] == 4)
-                                        echo 'selected'; ?>>Food Major</option>
-                                </select>
-                            </div>
-                        </div>
                         <div class="col"></div>
 
 

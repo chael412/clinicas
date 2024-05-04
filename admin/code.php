@@ -4,7 +4,6 @@ require ('../config/dbconfig.php');
 
 /// ===================================== STUDENT SECTION===============================================================
 if (isset($_POST['student_add'])) {
-    $s_type = $_POST['s_type'];
     $student_no = $_POST['student_no'];
     $course_id = $_POST['course_id'];
     $firstname = $_POST['firstname'];
@@ -25,7 +24,7 @@ if (isset($_POST['student_add'])) {
         $result2 = mysqli_query($conn, $query2);
         if ($result2) {
             $u_id = mysqli_insert_id($conn);
-            $query3 = "INSERT INTO students (student_no, u_id, uac_id, cs_id, s_type) VALUES ('$student_no', '$u_id', '$uac_id', '$course_id', '$s_type')";
+            $query3 = "INSERT INTO students (student_no, u_id, uac_id, cs_id) VALUES ('$student_no', '$u_id', '$uac_id', '$course_id')";
             $result3 = mysqli_query($conn, $query3);
             if ($result3) {
                 echo "success";
@@ -43,7 +42,6 @@ if (isset($_POST['student_add'])) {
 }
 
 if (isset($_POST['student_update'])) {
-    $s_type = $_POST['s_type'];
     $sID = $_POST['sID'];
     $student_no = $_POST['student_no'];
     $course_id = $_POST['course_id'];
@@ -68,7 +66,7 @@ if (isset($_POST['student_update'])) {
 
         if ($result) {
             // Finally, update students table
-            $query = "UPDATE students SET cs_id='$course_id', s_type='$s_type' WHERE s_id='$sID'";
+            $query = "UPDATE students SET cs_id='$course_id' WHERE s_id='$sID'";
             $result = mysqli_query($conn, $query);
 
             if ($result) {
@@ -530,12 +528,14 @@ if (isset($_POST['consult_add'])) {
     $uID = $_POST['uID'];
     $complaints = $_POST['complaints'];
     $recommendation = $_POST['recommendation'];
+    $quantity = $_POST['quantity'];
+    $med_desc = $_POST['med_desc'];
 
     // Collect medication data
     $medicines = $_POST['medicine']; // Note the change to plural 'medicines'
 
     // Perform database insertion for consultation
-    $query = "INSERT INTO consultations (u_id, chief_complaints, recommendation) VALUES ('$uID', '$complaints', '$recommendation')";
+    $query = "INSERT INTO consultations (u_id, chief_complaints, recommendation, quantity, med_desc) VALUES ('$uID', '$complaints', '$recommendation',' $quantity',' $med_desc')";
     $result = mysqli_query($conn, $query);
 
     if ($result) {
@@ -564,8 +564,9 @@ if (isset($_POST['consult_add'])) {
 //#######################################################  Medicine Section #######################################################
 if (isset($_POST['medicine_add'])) {
     $medicine = $_POST['medicine'];
+    $quantity = $_POST['quantity'];
 
-    $query = "INSERT INTO medicine (medicine_name) VALUES ('$medicine')";
+    $query = "INSERT INTO medicine (medicine_name, quantity) VALUES ('$medicine','$quantity')";
     $result = mysqli_query($conn, $query);
 
     if ($result) {
@@ -578,8 +579,9 @@ if (isset($_POST['medicine_add'])) {
 if (isset($_POST['medicine_update'])) {
     $mdn_id = $_POST['mdn_id'];
     $medicine_name = $_POST['medicine'];
+    $quantity = $_POST['quantity'];
 
-    $query = "UPDATE medicine SET medicine_name='$medicine_name' WHERE mdn_id='$mdn_id' ";
+    $query = "UPDATE medicine SET medicine_name='$medicine_name', quantity = '$quantity' WHERE mdn_id='$mdn_id' ";
 
     $query_run = mysqli_query($conn, $query);
 

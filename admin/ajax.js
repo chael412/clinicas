@@ -370,7 +370,6 @@ $(document).on('click', '.select_ojt', function () {
 $('#student_add_btn').on('click', function (e) {
 	e.preventDefault();
 
-	var s_type = $('#s_type').val();
 	var student_no = $('#student_no').val();
 	var course_id = $('#course_id').val();
 	var firstname = $('#firstname').val();
@@ -404,7 +403,6 @@ $('#student_add_btn').on('click', function (e) {
 
 	var data = {
 		student_add: true,
-		s_type: s_type,
 		student_no: student_no,
 		course_id: course_id,
 		firstname: firstname,
@@ -418,6 +416,7 @@ $('#student_add_btn').on('click', function (e) {
 	};
 
 	console.log(data);
+	console.log("Clicked");
 	$.ajax({
 		type: 'POST',
 		url: 'code.php',
@@ -954,6 +953,8 @@ $('#consult_add_btn').on('click', function (e) {
 	var complaints = $('#complaints').val();
 	var recommendation = $('#recommendation').val();
 	var medicine = $('#medicine').val();
+	var quantity = $('#quantity').val();
+	var med_desc = $('#med_desc').val();
 
 	//Check if any of the required fields are empty
 	if (!uID || !complaints || !recommendation) {
@@ -971,9 +972,11 @@ $('#consult_add_btn').on('click', function (e) {
 		complaints: complaints,
 		recommendation: recommendation,
 		medicine: medicine,
+		quantity: quantity,
+		med_desc: med_desc
 	};
 
-	console.log(data);
+	console.log(quantity);
 
 	$.ajax({
 		type: 'POST',
@@ -1005,10 +1008,12 @@ $('#medicine_add_btn').on('click', function (e) {
 	e.preventDefault();
 
 	var medicine = $('#medicine').val();
+	var quantity = $('#quantity').val();
 
 	var data = {
 		medicine_add: true,
 		medicine: medicine,
+		quantity: quantity
 	};
 
 	$.ajax({
@@ -1041,6 +1046,7 @@ $('#medicine_update_btn').on('click', function (e) {
 
 	var mdn_id = $('#mdn_id').val();
 	var medicine = $('#medicine').val();
+	var quantity = $('#quantity').val();
 
 	console.log(medicine);
 	console.log(mdn_id);
@@ -1049,6 +1055,7 @@ $('#medicine_update_btn').on('click', function (e) {
 		medicine_update: true,
 		mdn_id: mdn_id,
 		medicine: medicine,
+		quantity: quantity
 	};
 
 	console.log(data);

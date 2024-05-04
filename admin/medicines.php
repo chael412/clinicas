@@ -19,7 +19,7 @@ include ('modal/modal-medicine.php');
         <div class="card-body">
 
             <?php
-            $query = "SELECT mdn_id, medicine_name FROM medicine 
+            $query = "SELECT mdn_id, medicine_name, quantity FROM medicine 
             ORDER BY mdn_id DESC          
             ";
             $query_run = mysqli_query($conn, $query);
@@ -31,7 +31,9 @@ include ('modal/modal-medicine.php');
                         <tr>
                             <th style="width: 10%">No.</th>
 
-                            <th style="width: 70%">Medicine Name</th>
+                            <th style="width: 60%">Medicine Name</th>
+                            
+                            <th style="width: 5%">Quantity</th>
                             <th style="width: 20%"></th>
                         </tr>
                     </thead>
@@ -49,6 +51,9 @@ include ('modal/modal-medicine.php');
 
                                     <td>
                                         <?php echo $row['medicine_name']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $row['quantity']; ?>
                                     </td>
 
                                     <td>

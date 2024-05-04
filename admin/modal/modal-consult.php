@@ -52,7 +52,17 @@
                   ?>
                 </select>
               </div>
+              <div class="form-group">
+                <label>Quantity</label>
+                <input type="number" id="quantity" class="form-control form-control-sm ">
+              </div>
+              <div class="form-group">
+                <label>Med Desc</label>
+                <textarea id="med_desc" rows="4" cols="50" class="form-control"
+                  placeholder="Type your recommendation here..."></textarea>
+              </div>
             </div>
+            
 
 
 

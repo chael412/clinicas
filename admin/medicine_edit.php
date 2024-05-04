@@ -31,9 +31,15 @@ include ('includes/navbar.php');
                         <div class="form-group">
                             <label>Medicine Name</label>
                             <input type="text" id="medicine" name="medicine" value="<?= $row['medicine_name'] ?>"
-                                class="form-control form-control-sm" required placeholder="Enter a medicine">
+                                class="form-control form-
+                                -sm" required placeholder="Enter a medicine">
                         </div>
-
+                        <div class="form-group">
+                            <label>Quantity</label>
+                            <input type="text" id="quantity" name="quantity" value="<?= $row['quantity'] ?>"
+                                class="form-control form-
+                                -sm" required placeholder="Enter a quantity">
+                        </div>
 
                         <a href="medicines.php" name="cancel_btn"
                             class="btn  d-none d-sm-inline-block btn-sm btn-outline-secondary shadow-sm"><i
