@@ -4,23 +4,25 @@
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Create Consultation</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Create Consultationx</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <form id="consultform_add">
-        <div class="modal-body">
+        <div class="modal-body" style="overflow-y: auto; max-height: calc(90vh - 120px);">
           <div class="row justify-content-between">
             <div class="col-6" style="border-right: 2px solid #9ca3af">
-              <div class="form-group d-flex flex-column">
+              <div class="form-group">
                 <label>Client Name</label>
                 <input type="hidden" id="uID" class="form-control form-control-sm">
-                <a href="#" class="btn btn-primary btn-icon-split w-75">
-                  <input type="text" id="client_name" class="form-control form-control-sm " disabled>
-                  <button id="search_consult_btn" type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-                    data-target="#modal_consultREQ">Select</button>
-                </a>
+                <div class="input-group">
+                  <input type="text" id="client_name" class="form-control form-control-sm" disabled>
+                  <div class="input-group-append">
+                    <button id="search_consult_btn" type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                      data-target="#modal_consultREQ">Select</button>
+                  </div>
+                </div>
               </div>
               <div class="form-group">
                 <label>Chief Complaints</label>
@@ -60,40 +62,34 @@
                 <div class="col-4">
                   <div class="form-group">
                     <label>Quantity</label>
-                    <input type="number" name="quantity[]" id="quantity" class="form-control form-control-sm " />
-
+                    <input type="number" name="quantity[]" class="form-control form-control-sm" />
                   </div>
                 </div>
-
-
               </div>
-
-              <!-- =========== Additional medicine and quantity fields can be added here  =========== -->
               <div id="additionalMedicineInputs"></div>
               <button type="button" id="addMedicineBtn" class="btn btn-primary btn-sm">Add More Medicine</button>
-
               <div class="row">
                 <div class="col">
-                  <label>Medicine Descrition</label>
+                  <label>Medicine Description</label>
                   <textarea id="med_desc" rows="4" cols="50" class="form-control"
-                    placeholder="Type your recommendation here..."></textarea>
+                    placeholder="Type your medicine description here..."></textarea>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-outline-secondary shadow-sm"
             data-dismiss="modal"><i class="fas fa-ban"></i> Cancel</button>
-          <button type="submit" id="consult_add_btn" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
-            <i class="fas fa-save mx-1"></i>Save
-          </button>
+          <button type="submit" id="consult_add_btn"
+            class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i
+              class="fas fa-save mx-1"></i>Save</button>
         </div>
       </form>
     </div>
   </div>
 </div>
+
 
 
 <!-- #################################################################### -->

@@ -708,6 +708,7 @@ $(document).on('click', '#search_food_btn', function () {
 		method: 'GET',
 		dataType: 'json',
 		success: function (res) {
+			console.log(res);
 			$('#modal_rleREQ').modal('show');
 			var tbody = $('#modal_foodREQ .foodsearch_table');
 			tbody.empty();
@@ -869,14 +870,14 @@ $('#consult_add_btn').on('click', function (e) {
 	});
 
 	// Check if any of the required fields are empty
-	// if (!uID || !complaints || !recommendation) {
-	//     Swal.fire({
-	//         icon: 'error',
-	//         title: 'Oops...',
-	//         text: 'Please fill in all the required fields.',
-	//     });
-	//     return;
-	// }
+	if (!uID || !complaints || !recommendation) {
+		Swal.fire({
+			icon: 'error',
+			title: 'Oops...',
+			text: 'Please fill in all the required fields.',
+		});
+		return;
+	}
 
 	// Combine medicines and quantities into an array of objects
 	var data = {
@@ -897,22 +898,22 @@ $('#consult_add_btn').on('click', function (e) {
 		data: data,
 		success: function (response) {
 			console.log(response);
-			// if (response == 'success') {
-			// 	Swal.fire({
-			// 		icon: 'success',
-			// 		title: 'Success',
-			// 		text: 'Consultation Successfully Created',
-			// 	});
-			// 	$('#consultform_add')[0].reset();
-			// 	$('#modal_consultADD').modal('hide');
-			// 	$('.consult_table').load(window.location.href + ' .consult_table');
-			// } else {
-			// 	Swal.fire({
-			// 		icon: 'error',
-			// 		title: 'Oops...',
-			// 		text: 'Failed to create consultation',
-			// 	});
-			// }
+			if (response == 'success') {
+				Swal.fire({
+					icon: 'success',
+					title: 'Success',
+					text: 'Consultation Successfully Created',
+				});
+				$('#consultform_add')[0].reset();
+				$('#modal_consultADD').modal('hide');
+				$('.consult_table').load(window.location.href + ' .consult_table');
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Failed to create consultation',
+				});
+			}
 		},
 	});
 });

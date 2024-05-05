@@ -16,6 +16,7 @@ include ('modal/modal-consult.php');
                 <button type="button" class="d-none d-sm-inline-block float-right btn btn-sm btn-success shadow-sm m-1"
                     data-toggle="modal" data-target="#modal_consultADD"><i class="fas fa-plus mx-1"></i>Create
                     Consult</button>
+
             </h5>
         </div>
         <div class="card-body">

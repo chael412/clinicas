@@ -545,7 +545,6 @@ if (isset($_POST['consult_add'])) {
 
         // Loop 
         foreach ($medicines as $key => $medicine) {
-            // Extract medicine ID and quantity
             $medicine_id = $medicine['id'];
             $quantity = $quantities[$key];
 
