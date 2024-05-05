@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2024 at 04:13 PM
+-- Generation Time: May 06, 2024 at 01:32 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -75,6 +75,7 @@ CREATE TABLE `consultations` (
   `u_id` int(11) NOT NULL,
   `chief_complaints` varchar(100) NOT NULL,
   `recommendation` varchar(100) NOT NULL,
+  `med_desc` varchar(255) NOT NULL,
   `process_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -82,10 +83,10 @@ CREATE TABLE `consultations` (
 -- Dumping data for table `consultations`
 --
 
-INSERT INTO `consultations` (`ct_id`, `u_id`, `chief_complaints`, `recommendation`, `process_date`) VALUES
-(1, 9, 'ghy', 'asdfg', '2024-04-22 13:39:36'),
-(2, 7, 'hananan', 'bgttt', '2024-04-22 13:56:05'),
-(3, 6, 'kumain ng tama', 'matulog ng maaga', '2024-04-22 14:00:19');
+INSERT INTO `consultations` (`ct_id`, `u_id`, `chief_complaints`, `recommendation`, `med_desc`, `process_date`) VALUES
+(1, 4, 'hh', 'hhhh', 'h', '2024-05-04 07:54:37'),
+(2, 1, 'nahaha', 'nahahah', 'no comment', '2024-05-04 23:48:42'),
+(3, 1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Libero enim sed faucibus turpis in eu mi. Suspendisse interdum consectetur libero id. Aenean et tortor at risus viverra adipiscing ', '2024-05-05 00:36:27');
 
 -- --------------------------------------------------------
 
@@ -96,22 +97,21 @@ INSERT INTO `consultations` (`ct_id`, `u_id`, `chief_complaints`, `recommendatio
 CREATE TABLE `consult_medicine` (
   `cm_id` int(11) NOT NULL,
   `ct_id` int(11) NOT NULL,
-  `mdn_id` int(11) NOT NULL
+  `mdn_id` int(11) NOT NULL,
+  `cm_quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `consult_medicine`
 --
 
-INSERT INTO `consult_medicine` (`cm_id`, `ct_id`, `mdn_id`) VALUES
-(1, 1, 1),
-(2, 1, 2),
-(3, 1, 3),
-(4, 1, 4),
-(5, 2, 2),
-(6, 2, 4),
-(7, 3, 3),
-(8, 3, 4);
+INSERT INTO `consult_medicine` (`cm_id`, `ct_id`, `mdn_id`, `cm_quantity`) VALUES
+(1, 1, 2, 6),
+(2, 1, 4, 7),
+(3, 2, 4, 33),
+(4, 2, 7, 34),
+(5, 3, 4, 2),
+(6, 3, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -264,18 +264,21 @@ INSERT INTO `medical_present` (`mp_id`, `ispresent`, `mp_diagnosis`, `mp_treatme
 
 CREATE TABLE `medicine` (
   `mdn_id` int(11) NOT NULL,
-  `medicine_name` varchar(100) NOT NULL
+  `medicine_name` varchar(100) NOT NULL,
+  `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `medicine`
 --
 
-INSERT INTO `medicine` (`mdn_id`, `medicine_name`) VALUES
-(1, 'paracetamol'),
-(2, 'ascorbic acid'),
-(3, 'Mefenamic acid'),
-(4, 'Amoxicillin');
+INSERT INTO `medicine` (`mdn_id`, `medicine_name`, `quantity`) VALUES
+(2, 'ascorbic acid', 10000),
+(3, 'Mefenamic acid', 1000000),
+(4, 'Amoxicillin Cap', 0),
+(5, 'Ambroxol Tab', 0),
+(6, 'Azithromycin Tab', 0),
+(7, 'vitamin x', 32);
 
 -- --------------------------------------------------------
 
@@ -636,7 +639,7 @@ ALTER TABLE `consultations`
 -- AUTO_INCREMENT for table `consult_medicine`
 --
 ALTER TABLE `consult_medicine`
-  MODIFY `cm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `cm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `courses`
@@ -678,7 +681,7 @@ ALTER TABLE `medical_present`
 -- AUTO_INCREMENT for table `medicine`
 --
 ALTER TABLE `medicine`
-  MODIFY `mdn_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `mdn_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `med_cert`
