@@ -66,18 +66,11 @@ include ('modal/modal-consult.php');
                                                             class="fa fa-eye" aria-hidden="true"></i></button>
                                                 </form>
                                             </div>
-                                            <div class="col col-lg-2 mx-1">
-                                                <form action="consult_edit.php" method="POST">
-                                                    <input type="hidden" name="edit_ojt" value="<?= $row['ct_id']; ?>">
-                                                    <button disabled type="submit" name="edit_ojt_btn"
-                                                        class="d-none d-sm-inline-block btn btn-sm btn-outline-success shadow-sm"><i
-                                                            class="fas fa-edit"></i></button>
-                                                </form>
-                                            </div>
+
                                             <div class="col col-lg-2">
-                                                <button disabled type="button" name="del_student"
+                                                <button type="button" name="del_student"
                                                     onclick="deleteCT(<?= $row['ct_id'] ?>)"
-                                                    class="d-none d-sm-inline-block btn btn-sm btn-outline-danger shadow-sm">
+                                                    class=" mx-2 d-none d-sm-inline-block btn btn-sm btn-outline-danger shadow-sm">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                             </div>
