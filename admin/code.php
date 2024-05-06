@@ -570,66 +570,50 @@ if (isset($_POST['consult_add'])) {
 }
 
 if (isset($_POST['consult_update'])) {
-    $ct_id = $_POST['ct_id'];
+    $ctId = $_POST['ct_id'];
     $complaints = $_POST['complaints'];
     $recommendation = $_POST['recommendation'];
     $med_desc = $_POST['med_desc'];
+    $medicines = $_POST['medicines'];
+    $quantities = $_POST['quantities'];
 
-    // Update the consultations table
-    $update_query = "UPDATE consultations SET chief_complaints = '$complaints', recommendation = '$recommendation', med_desc = '$med_desc' WHERE ct_id = '$ct_id'";
-    $update_result = mysqli_query($conn, $update_query);
+    // Update consultations table
+    $updateQuery = "UPDATE consultations SET chief_complaints = '$complaints', recommendation = '$recommendation', med_desc = '$med_desc' WHERE ct_id = '$ctId'";
+    $updateResult = mysqli_query($conn, $updateQuery);
 
-    // Initialize consultation success flag
-    $consultationSuccess = false;
+    if ($updateResult) {
+        // Delete existing consult_medicine entries for this consultation
+        $deleteQuery = "DELETE FROM consult_medicine WHERE ct_id = '$ctId'";
+        $deleteResult = mysqli_query($conn, $deleteQuery);
 
-    // Check if the update was successful
-    if ($update_result) {
-        $consultationSuccess = true; // Consultation update successful
+        if ($deleteResult) {
+            // Insert new consult_medicine entries
+            $success = true;
+            foreach ($medicines as $key => $medicine) {
+                $medicine_id = $medicine['id'];
+                $quantity = $quantities[$key];
 
-        // Process each medicine update or insertion
-        foreach ($_POST['medicines'] as $key => $medicine) {
-            $cm_id = $medicine['cm_id'];
-            $quantity = $_POST['quantities'][$key];
+                $insertQuery = "INSERT INTO consult_medicine (ct_id, mdn_id, cm_quantity) VALUES ('$ctId', '$medicine_id', '$quantity')";
+                $insertResult = mysqli_query($conn, $insertQuery);
 
-            // Check if this medicine exists in the consult_medicine table
-            if ($cm_id != '') {
-                // Update the quantity for existing medicine
-                $update_med_query = "UPDATE consult_medicine SET cm_quantity = '$quantity' WHERE cm_id = '$cm_id'";
-                $update_med_result = mysqli_query($conn, $update_med_query);
-
-                // Check if the update was successful
-                if (!$update_med_result) {
-                    $consultationSuccess = false; // Update failed
-                    break; // Exit loop
-                }
-            } else {
-                // Insert new medicine if it doesn't exist
-                $mdn_id = $medicine['id'];
-                $insert_med_query = "INSERT INTO consult_medicine (ct_id, mdn_id, cm_quantity) VALUES ('$ct_id', '$mdn_id', '$quantity')";
-                $insert_med_result = mysqli_query($conn, $insert_med_query);
-
-                // Check if the insertion was successful
-                if (!$insert_med_result) {
-                    $consultationSuccess = false; // Insertion failed
-                    break; // Exit loop
+                if (!$insertResult) {
+                    $success = false;
+                    break;
                 }
             }
-        }
 
-        // Check consultation success flag
-        if ($consultationSuccess) {
-            // Return success message as JSON
-            echo json_encode(array('status' => 'success'));
+            if ($success) {
+                echo 'success';
+            } else {
+                echo 'error';
+            }
         } else {
-            // Return error message as JSON
-            echo json_encode(array('status' => 'error'));
+            echo 'error';
         }
     } else {
-        // Return error message as JSON if consultation update failed
-        echo json_encode(array('status' => 'error'));
+        echo 'error';
     }
 }
-
 
 
 

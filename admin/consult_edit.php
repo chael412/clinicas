@@ -33,7 +33,7 @@ include ('includes/navbar.php');
                     $ctID = $row['ct_id'];
                     ?>
 
-                    <form id="consultform_edit" action="code.php" method="post">
+                    <form id="consultform_edit">
                         <div class="modal-body" style="overflow-y: auto; max-height: calc(90vh - 120px);">
                             <div class="row justify-content-between">
                                 <div class="col-6" style="border-right: 2px solid #9ca3af">
@@ -79,7 +79,7 @@ include ('includes/navbar.php');
                                                                 <label>Medicine Name</label>
 
                                                                 <select class="form-control form-control-sm" id="medicines"
-                                                                    name="medicine" required>
+                                                                    name="medicine[]" required>
                                                                     <option value="" disabled>------ Select Medicine -------
                                                                     </option>
                                                                     <?php
@@ -109,16 +109,10 @@ include ('includes/navbar.php');
                                                             <div class="form-group">
                                                                 <label>Quantity</label>
                                                                 <input type="number" class="form-control form-control-sm"
-                                                                    value="<?= $medicine['cm_quantity'] ?>">
+                                                                    value="<?= $medicine['cm_quantity'] ?>" name="quantity[]">
                                                             </div>
                                                         </div>
-                                                        <div class="col-2">
-                                                            <button type="button" id="remove-current-medicine"
-                                                                class="d-none d-sm-inline-block btn btn-sm btn-danger"
-                                                                style="margin-top: 30px">
-                                                                x
-                                                            </button>
-                                                        </div>
+
                                                     </div>
 
 

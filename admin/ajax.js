@@ -917,70 +917,71 @@ $('#consult_add_btn').on('click', function (e) {
 	});
 });
 
-// $(document).on('click', '#consult_update_btn', function (e) {
-// 	e.preventDefault();
+$(document).on('click', '#consult_update_btn', function (e) {
+	e.preventDefault();
 
-// 	var ctId = $('#ct_id').val();
-// 	var complaints = $('#complaints').val();
-// 	var recommendation = $('#recommendation').val();
-// 	var med_desc = $('#med_desc').val();
+	var ctId = $('#ct_id').val();
+	var complaints = $('#complaints').val();
+	var recommendation = $('#recommendation').val();
+	var med_desc = $('#med_desc').val();
 
-// 	var medicines = [];
-// 	var quantities = [];
+	var medicines = [];
+	var quantities = [];
 
-// 	$('select[name="medicine[]"]').each(function () {
-// 		var medicineId = $(this).val();
-// 		var quantity = $(this).closest('.row').find('input[name="quantity[]"]').val();
+	$('select[name="medicine[]"]').each(function () {
+		var medicineId = $(this).val();
+		var quantity = $(this).closest('.row').find('input[name="quantity[]"]').val();
 
-// 		medicines.push({ id: medicineId, cm_id: $(this).closest('.row').find('#cmID').val() });
-// 		quantities.push(quantity);
-// 	});
+		medicines.push({ id: medicineId, cm_id: $(this).closest('.row').find('#cmID').val() });
+		quantities.push(quantity);
+	});
 
-// 	if (!complaints || !recommendation) {
-// 		Swal.fire({
-// 			icon: 'error',
-// 			title: 'Oops...',
-// 			text: 'Please fill in all the required fields.',
-// 		});
-// 		return;
-// 	}
+	if (!complaints || !recommendation) {
+		Swal.fire({
+			icon: 'error',
+			title: 'Oops...',
+			text: 'Please fill in all the required fields.',
+		});
+		return;
+	}
 
-// 	var data = {
-// 		consult_update: true,
-// 		ct_id: ctId,
-// 		complaints: complaints,
-// 		recommendation: recommendation,
-// 		med_desc: med_desc,
-// 		medicines: medicines,
-// 		quantities: quantities,
-// 	};
+	var data = {
+		consult_update: true,
+		ct_id: ctId,
+		complaints: complaints,
+		recommendation: recommendation,
+		med_desc: med_desc,
+		medicines: medicines,
+		quantities: quantities,
+	};
 
-// 	$.ajax({
-// 		type: 'POST',
-// 		url: 'code.php',
-// 		data: data,
-// 		dataType: 'json',
-// 		success: function (response) {
-// 			console.log(response);
-// 			if (response.status === 'success') {
-// 				Swal.fire({
-// 					icon: 'success',
-// 					title: 'Success',
-// 					text: 'Consultation Successfully Updated',
-// 				});
-// 				window.location.href = 'consult.php';
-// 			} else {
-// 				Swal.fire({
-// 					icon: 'error',
-// 					title: 'Oops...',
-// 					text: 'Failed to update consultation',
-// 				});
-// 			}
-// 		},
-// 	});
-// });
+	console.log(quantities);
+
+	$.ajax({
+		type: 'POST',
+		url: 'code.php',
+		data: data,
+		success: function (response) {
+			console.log(response);
+			if (response === 'success') {
+				Swal.fire({
+					icon: 'success',
+					title: 'Success',
+					text: 'Consultation Successfully Updated',
+				});
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Failed to update consultation',
+				});
+			}
+		},
+	});
+});
 
 /// ===================================== MEDICINE SECTION===============================================================
+
 $('#medicine_add_btn').on('click', function (e) {
 	e.preventDefault();
 
