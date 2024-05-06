@@ -20,7 +20,7 @@ include ('includes/navbar.php');
             if (isset($_POST['edit_btn'], $_POST['edit_id'])) {
                 $ct_id = $_POST['edit_id'];
 
-                $query = "SELECT ct.ct_id, us.u_id, cm.cm_id, CONCAT(us.firstname, ' ', us.middlename, ' ', us.lastname) AS user_fullname, ct.chief_complaints, ct.recommendation, ct.process_date, GROUP_CONCAT(CONCAT(m.medicine_name, ' (', cm.cm_quantity, ')') SEPARATOR ', ') AS medicines_with_quantity, ct.med_desc
+                $query = "SELECT ct.ct_id, us.u_id, cm.cm_id, cm.mdn_id, CONCAT(us.firstname, ' ', us.middlename, ' ', us.lastname) AS user_fullname, ct.chief_complaints, ct.recommendation, ct.process_date, GROUP_CONCAT(CONCAT(m.medicine_name, ' (', cm.cm_quantity, ')') SEPARATOR ', ') AS medicines_with_quantity, ct.med_desc
                 FROM consultations ct
                 INNER JOIN consult_medicine cm ON ct.ct_id = cm.ct_id 
                 LEFT JOIN medicine m ON cm.mdn_id = m.mdn_id 
@@ -72,13 +72,36 @@ include ('includes/navbar.php');
                                                 while ($medicine = mysqli_fetch_assoc($result_medicine)) {
                                                     ?>
                                                     <div class="row">
+
                                                         <input type="hidden" id="cmID" value="<?= $medicine['cm_id'] ?>">
                                                         <div class="col-8">
                                                             <div class="form-group">
                                                                 <label>Medicine Name</label>
-                                                                <input type="text" id="medicines" name="medicine[]"
-                                                                    class="form-control form-control-sm"
-                                                                    value=" <?= $medicine['medicine_name'] ?>" disabled>
+
+                                                                <select class="form-control form-control-sm" id="medicines"
+                                                                    name="medicine" required>
+                                                                    <option value="" disabled>------ Select Medicine -------
+                                                                    </option>
+                                                                    <?php
+                                                                    $displayDept = "SELECT * FROM medicine";
+                                                                    $deptResult = mysqli_query($conn, $displayDept);
+
+                                                                    if (mysqli_num_rows($deptResult) > 0) {
+                                                                        foreach ($deptResult as $deptItem) {
+                                                                            $selected = ($deptItem['mdn_id'] == $medicine['mdn_id']) ? 'selected' : '';
+                                                                            ?>
+                                                                            <option value='<?= $deptItem['mdn_id'] ?>' <?= $selected ?>>
+                                                                                <?= $deptItem['medicine_name'] ?>
+                                                                            </option>
+                                                                            <?php
+                                                                        }
+                                                                    } else {
+                                                                        echo '<option>No Medicine found!</option>';
+                                                                    }
+                                                                    ?>
+                                                                </select>
+
+
 
                                                             </div>
                                                         </div>
@@ -108,9 +131,7 @@ include ('includes/navbar.php');
                                         </div>
                                     </div>
 
-                                    <div id="additionalMedicineInputs"></div>
-                                    <button type="button" id="addMedicineBtn" class="btn btn-primary btn-sm">Add More
-                                        Medicine</button>
+
 
                                     <div class="row">
                                         <div class="col">
@@ -144,82 +165,3 @@ include ('includes/navbar.php');
 include ('includes/scripts.php');
 include ('includes/footer.php');
 ?>
-<script>
-    $(document).ready(function () {
-        $("#addMedicineBtn").click(function () {
-            var numInputs = $(".additional-medicine-input").length + 1;
-
-            var newMedicineInput = `
-    <div class="row additional-medicine-input">
-        <div class="col-8">
-            <div class="form-group">
-                <label>Medicine Name</label>
-                <select id="medicine${numInputs}" name="medicine[]" class="form-control form-control-sm">
-                <?php
-                $query = "SELECT mdn_id, medicine_name FROM medicine";
-                $result = mysqli_query($conn, $query);
-                if (mysqli_num_rows($result) > 0) {
-                    ?>
-                                                <option value="" disabled selected>------- Select Medicine --------</option>
-                                                <?php
-                                                while ($row = mysqli_fetch_assoc($result)) {
-                                                    echo '<option value="' . $row['mdn_id'] . '">' . $row['medicine_name'] . '</option>';
-                                                }
-                } else {
-                    echo '<option value="">No medicine found</option>';
-                }
-                ?>
-                </select>
-            </div>
-        </div>
-        <div class="col-2">
-            <div class="form-group">
-                <label>Quantity</label>
-                <input type="number" name="quantity[]" class="form-control form-control-sm">
-            </div>
-        </div>
-        <div class="col-2">
-            <button type="button" class="remove-medicine-input btn btn-sm btn-danger" style="margin-top: 30px">x</button>
-        </div>
-    </div>`;
-
-            $("#additionalMedicineInputs").append(newMedicineInput);
-        });
-
-        $(document).on("click", ".remove-medicine-input", function () {
-            $(this).closest(".additional-medicine-input").remove();
-        });
-
-        $(document).on("click", "#remove-current-medicine", function () {
-            var cmId = $(this).closest(".row").find("#cmID").val();
-
-            var confirmed = confirm("Are you sure you want to remove this medicine?");
-
-            if (confirmed) {
-                $.ajax({
-                    url: "consult_medicine_delete.php",
-                    type: "POST",
-                    data: { cm_id: cmId },
-                    dataType: "json",
-                    success: function (response) {
-                        if (response.status === "success") {
-
-                            $(this).closest(".row").remove();
-                            alert(response.message);
-                            window.location.reload();
-                        } else {
-                            alert("Failed to delete consult medicine. Please try again later.");
-                        }
-                    },
-                    error: function () {
-                        alert("Failed to delete consult medicine. Please try again later.");
-                    }
-                });
-            }
-        });
-
-
-
-    });
-
-</script>
