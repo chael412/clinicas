@@ -569,10 +569,73 @@ if (isset($_POST['consult_add'])) {
     }
 }
 
+if (isset($_POST['consult_update'])) {
+    $ct_id = $_POST['ct_id'];
+    $complaints = $_POST['complaints'];
+    $recommendation = $_POST['recommendation'];
+    $med_desc = $_POST['med_desc'];
+
+    // Update the consultations table
+    $update_query = "UPDATE consultations SET chief_complaints = '$complaints', recommendation = '$recommendation', med_desc = '$med_desc' WHERE ct_id = '$ct_id'";
+    $update_result = mysqli_query($conn, $update_query);
+
+    // Initialize consultation success flag
+    $consultationSuccess = false;
+
+    // Check if the update was successful
+    if ($update_result) {
+        $consultationSuccess = true; // Consultation update successful
+
+        // Process each medicine update or insertion
+        foreach ($_POST['medicines'] as $key => $medicine) {
+            $cm_id = $medicine['cm_id'];
+            $quantity = $_POST['quantities'][$key];
+
+            // Check if this medicine exists in the consult_medicine table
+            if ($cm_id != '') {
+                // Update the quantity for existing medicine
+                $update_med_query = "UPDATE consult_medicine SET cm_quantity = '$quantity' WHERE cm_id = '$cm_id'";
+                $update_med_result = mysqli_query($conn, $update_med_query);
+
+                // Check if the update was successful
+                if (!$update_med_result) {
+                    $consultationSuccess = false; // Update failed
+                    break; // Exit loop
+                }
+            } else {
+                // Insert new medicine if it doesn't exist
+                $mdn_id = $medicine['id'];
+                $insert_med_query = "INSERT INTO consult_medicine (ct_id, mdn_id, cm_quantity) VALUES ('$ct_id', '$mdn_id', '$quantity')";
+                $insert_med_result = mysqli_query($conn, $insert_med_query);
+
+                // Check if the insertion was successful
+                if (!$insert_med_result) {
+                    $consultationSuccess = false; // Insertion failed
+                    break; // Exit loop
+                }
+            }
+        }
+
+        // Check consultation success flag
+        if ($consultationSuccess) {
+            // Return success message as JSON
+            echo json_encode(array('status' => 'success'));
+        } else {
+            // Return error message as JSON
+            echo json_encode(array('status' => 'error'));
+        }
+    } else {
+        // Return error message as JSON if consultation update failed
+        echo json_encode(array('status' => 'error'));
+    }
+}
+
+
 
 
 
 //#######################################################  Medicine Section #######################################################
+
 if (isset($_POST['medicine_add'])) {
     $medicine = $_POST['medicine'];
     $quantity = $_POST['quantity'];

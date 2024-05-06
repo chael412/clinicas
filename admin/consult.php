@@ -68,7 +68,7 @@ include ('modal/modal-consult.php');
                                             </div>
 
                                             <div class="col col-lg-2">
-                                                <button type="button" name="del_student"
+                                                <button disabled type="button" name="del_student"
                                                     onclick="deleteCT(<?= $row['ct_id'] ?>)"
                                                     class=" mx-2 d-none d-sm-inline-block btn btn-sm btn-outline-danger shadow-sm">
                                                     <i class="fas fa-trash"></i>
@@ -118,11 +118,11 @@ include ('includes/footer.php');
                         $result = mysqli_query($conn, $query);
                         if (mysqli_num_rows($result) > 0) {
                             ?>
-                                <option value="" disabled selected>------- Select Medicine --------</option>
-                                <?php
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                    echo '<option value="' . $row['mdn_id'] . '">' . $row['medicine_name'] . '</option>';
-                                }
+                                        <option value="" disabled selected>------- Select Medicine --------</option>
+                                        <?php
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            echo '<option value="' . $row['mdn_id'] . '">' . $row['medicine_name'] . '</option>';
+                                        }
                         } else {
                             echo '<option value="">No medicine found</option>';
                         }
