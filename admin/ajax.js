@@ -858,12 +858,11 @@ $('#consult_add_btn').on('click', function (e) {
 
 	// Loop through each medicine input field
 	$('select[name="medicine[]"]').each(function () {
-		var medicineName = $(this).find('option:selected').text(); // Get the text (name) of the selected option
-		var medicineId = $(this).val(); // Get the value (ID) of the selected option
+		var medicineName = $(this).find('option:selected').text();
+		var medicineId = $(this).val();
 
 		// Find the corresponding quantity input field
-		var quantity = $(this).closest('.row').find('input[name="quantity[]"]').val(); // Get the corresponding quantity
-
+		var quantity = $(this).closest('.row').find('input[name="quantity[]"]').val();
 		// Add medicine name and quantity to arrays
 		medicines.push({ name: medicineName, id: medicineId });
 		quantities.push(quantity);

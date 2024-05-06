@@ -72,23 +72,28 @@ include ('includes/navbar.php');
                                                 while ($medicine = mysqli_fetch_assoc($result_medicine)) {
                                                     ?>
                                                     <div class="row">
-                                                        <div class="col-9">
+                                                        <div class="col-8">
                                                             <div class="form-group">
                                                                 <label>Medicine Name</label>
-                                                                <select id="medicines" name="medicine[]"
-                                                                    class="form-control form-control-sm">
-                                                                    <option value="<?= $medicine['mdn_id'] ?>">
-                                                                        <?= $medicine['medicine_name'] ?>
-                                                                    </option>
-                                                                </select>
+                                                                <input type="text" id="medicines" name="medicine[]"
+                                                                    class="form-control form-control-sm"
+                                                                    value=" <?= $medicine['medicine_name'] ?>" disabled>
+
                                                             </div>
                                                         </div>
-                                                        <div class="col-3">
+                                                        <div class="col-2">
                                                             <div class="form-group">
                                                                 <label>Quantity</label>
                                                                 <input type="text" class="form-control form-control-sm"
-                                                                    value="<?= $medicine['cm_quantity'] ?>" disabled>
+                                                                    value="<?= $medicine['cm_quantity'] ?>">
                                                             </div>
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <button type="button" id="remove-medicine-input"
+                                                                class="d-none d-sm-inline-block btn btn-sm btn-danger"
+                                                                style="margin-top: 30px">
+                                                                x
+                                                            </button>
                                                         </div>
                                                     </div>
 

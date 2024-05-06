@@ -537,39 +537,33 @@ if (isset($_POST['consult_add'])) {
     $query = "INSERT INTO consultations (u_id, chief_complaints, recommendation, med_desc) VALUES ('$uID', '$complaints', '$recommendation', '$med_desc')";
     $result = mysqli_query($conn, $query);
 
+    $consultationSuccess = false;
+
     if ($result) {
         $ct_id = mysqli_insert_id($conn);
 
-        $medicines = $_POST['medicines'];
-        $quantities = $_POST['quantities'];
-
-        // Loop 
+        // Loop through medicines
         foreach ($medicines as $key => $medicine) {
             $medicine_id = $medicine['id'];
             $quantity = $quantities[$key];
 
-            // Add medicine data to the array
-            $medicineData[] = array(
-                'medicine_id' => $medicine_id,
-                'quantity' => $quantity
-            );
-
-
             $query2 = "INSERT INTO consult_medicine (ct_id, mdn_id, cm_quantity) VALUES ('$ct_id', '$medicine_id', '$quantity')";
             $result2 = mysqli_query($conn, $query2);
 
-
-            if ($result) {
-                echo 'success';
-
+            if (!$result2) {
+                $consultationSuccess = false;
+                break;
             } else {
-                echo 'error';
-                exit;
+                $consultationSuccess = true;
             }
         }
 
 
-
+        if ($consultationSuccess) {
+            echo 'success';
+        } else {
+            echo 'error';
+        }
     } else {
         echo 'error';
     }

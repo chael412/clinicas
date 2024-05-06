@@ -48,9 +48,13 @@
                       $query = "SELECT mdn_id, medicine_name FROM medicine";
                       $result = mysqli_query($conn, $query);
                       if (mysqli_num_rows($result) > 0) {
-
+                        ?>
+                        <option value="" disabled selected>------- Select Medicine --------</option>
+                        <?php
                         while ($row = mysqli_fetch_assoc($result)) {
-                          echo '<option value="' . $row['mdn_id'] . '">' . $row['medicine_name'] . '</option>';
+                          ?>
+                          <option value="<?= $row['mdn_id'] ?>"> <?= $row['medicine_name'] ?></option>
+                          <?php
                         }
                       } else {
                         echo '<option value="">No medicine found</option>';
