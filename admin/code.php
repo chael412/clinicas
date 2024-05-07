@@ -2,7 +2,7 @@
 
 require ('../config/dbconfig.php');
 
-/// ===================================== STUDENT SECTION===============================================================
+/// ===================================== STUDENT SECTION ===============================================================
 if (isset($_POST['student_add'])) {
     $student_no = $_POST['student_no'];
     $course_id = $_POST['course_id'];
