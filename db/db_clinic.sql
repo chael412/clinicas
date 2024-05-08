@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2024 at 01:32 AM
+-- Generation Time: May 08, 2024 at 02:09 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -86,7 +86,13 @@ CREATE TABLE `consultations` (
 INSERT INTO `consultations` (`ct_id`, `u_id`, `chief_complaints`, `recommendation`, `med_desc`, `process_date`) VALUES
 (1, 4, 'hh', 'hhhh', 'h', '2024-05-04 07:54:37'),
 (2, 1, 'nahaha', 'nahahah', 'no comment', '2024-05-04 23:48:42'),
-(3, 1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Libero enim sed faucibus turpis in eu mi. Suspendisse interdum consectetur libero id. Aenean et tortor at risus viverra adipiscing ', '2024-05-05 00:36:27');
+(3, 1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Libero enim sed faucibus turpis in eu mi. Suspendisse interdum consectetur libero id. Aenean et tortor at risus viverra adipiscing ', '2024-05-05 00:36:27'),
+(4, 2, 'vv', 'vv', 'ju', '2024-05-05 23:44:52'),
+(5, 8, 'bg', 'bgg', 'mkhg', '2024-05-05 23:54:08'),
+(6, 6, 'jjj', 'jjjj', 'jjjj', '2024-05-05 23:54:41'),
+(7, 7, 'nnjnn', 'nnnn', 'mmmma', '2024-05-05 23:57:05'),
+(8, 9, 'ss', 'ss', 'ss', '2024-05-06 02:13:48'),
+(9, 3, 'kkkk', 'kkkk', 'kkk', '2024-05-07 03:20:42');
 
 -- --------------------------------------------------------
 
@@ -107,11 +113,21 @@ CREATE TABLE `consult_medicine` (
 
 INSERT INTO `consult_medicine` (`cm_id`, `ct_id`, `mdn_id`, `cm_quantity`) VALUES
 (1, 1, 2, 6),
-(2, 1, 4, 7),
 (3, 2, 4, 33),
 (4, 2, 7, 34),
 (5, 3, 4, 2),
-(6, 3, 2, 3);
+(6, 3, 2, 3),
+(9, 5, 2, 6),
+(73, 4, 2, 3),
+(74, 4, 3, 6),
+(75, 4, 5, 8),
+(85, 8, 7, 10),
+(86, 7, 7, 7),
+(87, 7, 3, 1),
+(88, 6, 7, 1),
+(89, 6, 6, 2),
+(94, 9, 3, 1),
+(95, 9, 7, 2);
 
 -- --------------------------------------------------------
 
@@ -633,13 +649,13 @@ ALTER TABLE `confinement`
 -- AUTO_INCREMENT for table `consultations`
 --
 ALTER TABLE `consultations`
-  MODIFY `ct_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ct_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `consult_medicine`
 --
 ALTER TABLE `consult_medicine`
-  MODIFY `cm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `cm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
 --
 -- AUTO_INCREMENT for table `courses`
