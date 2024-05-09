@@ -40,38 +40,28 @@ if (isset($_POST['student_update'])) {
     $firstname = $_POST['firstname'];
     $middlename = $_POST['middlename'];
     $lastname = $_POST['lastname'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
     $birthdate = $_POST['birthdate'];
     $sex = $_POST['sex'];
     $contact_no = $_POST['contact_no'];
 
 
-    // First, update user_accs table
-    $query = "UPDATE user_accs SET username='$username', password='$password' WHERE uac_id = (SELECT uac_id FROM students WHERE s_id = '$sID')";
+    $query = "UPDATE users SET firstname='$firstname', middlename='$middlename', lastname='$lastname', birthdate='$birthdate', sex='$sex', contact_no='$contact_no' WHERE u_id = (SELECT u_id FROM students WHERE s_id = '$sID')";
     $result = mysqli_query($conn, $query);
 
     if ($result) {
-        // Then, update users table
-        $query = "UPDATE users SET firstname='$firstname', middlename='$middlename', lastname='$lastname', birthdate='$birthdate', sex='$sex', contact_no='$contact_no' WHERE u_id = (SELECT u_id FROM students WHERE s_id = '$sID')";
+        // Finally, update students table
+        $query = "UPDATE students SET cs_id='$course_id' WHERE s_id='$sID'";
         $result = mysqli_query($conn, $query);
 
         if ($result) {
-            // Finally, update students table
-            $query = "UPDATE students SET cs_id='$course_id' WHERE s_id='$sID'";
-            $result = mysqli_query($conn, $query);
-
-            if ($result) {
-                echo "success";
-            } else {
-                echo 'error updating students table';
-            }
+            echo "success";
         } else {
-            echo 'error updating users table';
+            echo 'error updating students table';
         }
     } else {
-        echo 'error updating user_accs table';
+        echo 'error updating users table';
     }
+
 }
 
 if (isset($_GET['stud_idx'])) {

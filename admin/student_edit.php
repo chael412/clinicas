@@ -19,63 +19,20 @@ include ('includes/navbar.php');
 
         <div class="card-body">
             <?php
-            if (isset ($_POST['edit_btn'])) {
+            if (isset($_POST['edit_btn'])) {
                 $id = $_POST['edit_id'];
 
-                $query = "SELECT s.s_id, s.s_type, s.student_no, cs.cs_id, uac.username, uac.password, uac.user_type, us.firstname, us.middlename, us.lastname, us.birthdate, us.sex, us.contact_no  FROM students s
+                $query = "SELECT s.s_id, s.s_type, s.student_no, cs.cs_id, us.firstname, us.middlename, us.lastname, us.birthdate, us.sex, us.contact_no  FROM students s
                 INNER JOIN courses AS cs ON s.cs_id = cs.cs_id
-                INNER JOIN user_accs AS uac ON s.uac_id = uac.uac_id
                 INNER JOIN users AS us ON s.u_id = us.u_id WHERE s_id='$id'";
                 $query_run = mysqli_query($conn, $query);
 
                 foreach ($query_run as $row) {
-                    switch ($row['s_type']) {
-                        case 0:
-                            $stypeText = ' ';
-                            break;
-                        case 1:
-                            $stypeText = "OJT's";
-                            break;
-                        case 2:
-                            $stypeText = 'RLE';
-                            break;
-                        case 3:
-                            $stypeText = 'Practice Teaching';
-                            break;
-                        case 4:
-                            $stypeText = 'Food Major';
-                            break;
-                        default:
-                            $stypeText = 'Unknown';
-                            break;
-                    }
+
                     ?>
                     <form id="studentform_edit">
 
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label>Student Type</label>
-                                    <select name="s_type" id="s_type" class="form-control form-control-sm">
-                                        <option value="0" <?php if ($row['s_type'] == 0)
-                                            echo 'selected'; ?>>None</option>
-                                        <option value="1" <?php if ($row['s_type'] == 1)
-                                            echo 'selected'; ?>>OJT's</option>
-                                        <option value="2" <?php if ($row['s_type'] == 2)
-                                            echo 'selected'; ?>>RLE
-                                        </option>
-                                        <option value="3" <?php if ($row['s_type'] == 3)
-                                            echo 'selected'; ?>>Practice Teaching
-                                        </option>
-                                        <option value="4" <?php if ($row['s_type'] == 4)
-                                            echo 'selected'; ?>>Food Major</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col"></div>
 
-
-                        </div>
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
@@ -111,23 +68,7 @@ include ('includes/navbar.php');
                             </div>
 
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label>Username</label>
-                                    <input type="text" id="username" value="<?= $row['username'] ?>"
-                                        class="form-control form-control-sm">
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label>Password</label>
-                                    <input type="text" id="password" class="form-control form-control-sm">
-                                </div>
-                            </div>
 
-
-                        </div>
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
