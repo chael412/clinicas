@@ -45,20 +45,7 @@
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label>Username</label>
-                <input type="text" id="username" class="form-control form-control-sm" pattern="[A-Za-z\-'. ]+" oninput="this.value = this.value.replace(/[^A-Za-z .'-]/g, '')">
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label>Password</label>
-                <input type="text" id="password" class="form-control form-control-sm">
-              </div>
-            </div>
-          </div>
+          
           <div class="row">
             <div class="col-6">
               <div class="form-group">

@@ -9,36 +9,28 @@ if (isset($_POST['student_add'])) {
     $firstname = $_POST['firstname'];
     $middlename = $_POST['middlename'];
     $lastname = $_POST['lastname'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
     $birthdate = $_POST['birthdate'];
     $sex = $_POST['sex'];
     $contact_no = $_POST['contact_no'];
 
-    $query1 = "INSERT INTO user_accs (username, password) VALUES ('$username', '$password')";
-    $result1 = mysqli_query($conn, $query1);
 
-    if ($result1) {
-        $uac_id = mysqli_insert_id($conn);
-        $query2 = "INSERT INTO users (firstname, middlename, lastname, birthdate, sex, contact_no) VALUES ('$firstname', '$middlename', '$lastname', '$birthdate', '$sex', '$contact_no')";
-        $result2 = mysqli_query($conn, $query2);
-        if ($result2) {
-            $u_id = mysqli_insert_id($conn);
-            $query3 = "INSERT INTO students (student_no, u_id, uac_id, cs_id) VALUES ('$student_no', '$u_id', '$uac_id', '$course_id')";
-            $result3 = mysqli_query($conn, $query3);
-            if ($result3) {
-                echo "success";
-            } else {
-                echo 'error';
-            }
-
+    $query2 = "INSERT INTO users (firstname, middlename, lastname, birthdate, sex, contact_no) VALUES ('$firstname', '$middlename', '$lastname', '$birthdate', '$sex', '$contact_no')";
+    $result2 = mysqli_query($conn, $query2);
+    if ($result2) {
+        $u_id = mysqli_insert_id($conn);
+        $query3 = "INSERT INTO students (student_no, u_id, cs_id) VALUES ('$student_no', '$u_id', '$course_id')";
+        $result3 = mysqli_query($conn, $query3);
+        if ($result3) {
+            echo "success";
         } else {
-            echo 'error 2';
+            echo 'error';
         }
 
     } else {
-        echo 'error 1';
+        echo 'error 2';
     }
+
+
 }
 
 if (isset($_POST['student_update'])) {

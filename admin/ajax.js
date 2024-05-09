@@ -353,13 +353,11 @@ $('#student_add_btn').on('click', function (e) {
 	var firstname = $('#firstname').val();
 	var middlename = $('#middlename').val();
 	var lastname = $('#lastname').val();
-	var username = $('#username').val();
-	var password = $('#password').val();
 	var birthdate = $('#birthdate').val();
 	var sex = $('#sex').val();
 	var contact_no = $('#contact_no').val();
 
-	if (!student_no || !course_id || !firstname || !middlename || !lastname || !username || !password || !birthdate || !sex || !contact_no) {
+	if (!student_no || !course_id || !firstname || !middlename || !lastname || !birthdate || !sex || !contact_no) {
 		Swal.fire({
 			icon: 'error',
 			title: 'Oops...',
@@ -375,8 +373,6 @@ $('#student_add_btn').on('click', function (e) {
 		firstname: firstname,
 		middlename: middlename,
 		lastname: lastname,
-		username: username,
-		password: password,
 		birthdate: birthdate,
 		sex: sex,
 		contact_no: contact_no,

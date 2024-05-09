@@ -18,9 +18,8 @@ include ('modal/modal-student.php');
 
             <?php
 
-            $query = "SELECT s.s_id, s.s_type, s.student_no, cs.cs_id, uac.username, uac.password, uac.user_type, CONCAT(us.firstname,' ', us.middlename,' ' ,us.lastname) AS student_name  FROM students s
+            $query = "SELECT s.s_id, s.s_type, s.student_no, cs.cs_id, CONCAT(us.firstname,' ', us.middlename,' ' ,us.lastname) AS student_name  FROM students s
             INNER JOIN courses AS cs ON s.cs_id = cs.cs_id
-            INNER JOIN user_accs AS uac ON s.uac_id = uac.uac_id
             INNER JOIN users AS us ON s.u_id = us.u_id ORDER BY s.s_id DESC";
             $query_run = mysqli_query($conn, $query);
 
