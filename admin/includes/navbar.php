@@ -38,8 +38,8 @@
                 <h6 class="collapse-header">All Users:</h6>
                 <a class="collapse-item" href="admin.php">Admins</a>
                 <a class="collapse-item" href="students.php">Students</a>
-                <a class="collapse-item" href="#">Employees</a>
-                <a class="collapse-item" href="#">Visitors</a>
+                <a class="collapse-item" href="employees.php">Employees</a>
+                <a class="collapse-item" href="visitors.php">Visitors</a>
             </div>
         </div>
     </li>

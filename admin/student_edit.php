@@ -22,7 +22,7 @@ include ('includes/navbar.php');
             if (isset($_POST['edit_btn'])) {
                 $id = $_POST['edit_id'];
 
-                $query = "SELECT s.s_id, s.s_type, s.student_no, cs.cs_id, us.firstname, us.middlename, us.lastname, us.birthdate, us.sex, us.contact_no  FROM students s
+                $query = "SELECT s.s_id, s.student_no, cs.cs_id, us.firstname, us.middlename, us.lastname, us.birthdate, us.sex, us.contact_no  FROM students s
                 INNER JOIN courses AS cs ON s.cs_id = cs.cs_id
                 INNER JOIN users AS us ON s.u_id = us.u_id WHERE s_id='$id'";
                 $query_run = mysqli_query($conn, $query);

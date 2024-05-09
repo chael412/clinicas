@@ -30,7 +30,7 @@ include ('modal/modal-student.php');
                         <tr>
                             <th style="width: 10%">No.</th>
                             <th style="width: 35%">Student No.</th>
-                            <th style="width: 35%">Fullname</th>
+                            <th style="width: 35%">Student Name</th>
                             <th style="width: 20%"></th>
                         </tr>
                     </thead>
