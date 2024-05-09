@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2024 at 02:09 AM
+-- Generation Time: May 10, 2024 at 01:24 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -126,8 +126,8 @@ INSERT INTO `consult_medicine` (`cm_id`, `ct_id`, `mdn_id`, `cm_quantity`) VALUE
 (87, 7, 3, 1),
 (88, 6, 7, 1),
 (89, 6, 6, 2),
-(94, 9, 3, 1),
-(95, 9, 7, 2);
+(96, 9, 3, 5),
+(97, 9, 7, 8);
 
 -- --------------------------------------------------------
 
@@ -158,6 +158,28 @@ INSERT INTO `courses` (`cs_id`, `course_name`, `acro`) VALUES
 (10, 'Bachelor of  Secondary Education', 'BSED'),
 (11, 'Bachelor of Science in Industrial Technology', 'BSIndus'),
 (12, 'Bachelor of Science in Physical Education', 'BPED');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `departments`
+--
+
+CREATE TABLE `departments` (
+  `dp_id` int(11) NOT NULL,
+  `dp_name` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `departments`
+--
+
+INSERT INTO `departments` (`dp_id`, `dp_name`) VALUES
+(1, 'CEAT'),
+(2, 'CEd'),
+(3, 'CoN'),
+(4, 'SoM'),
+(5, 'Admin');
 
 -- --------------------------------------------------------
 
@@ -196,15 +218,17 @@ CREATE TABLE `employees` (
   `emp_id` int(11) NOT NULL,
   `employee_no` varchar(100) NOT NULL,
   `u_id` int(11) NOT NULL,
-  `uac_id` int(11) NOT NULL
+  `dp_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `employees`
 --
 
-INSERT INTO `employees` (`emp_id`, `employee_no`, `u_id`, `uac_id`) VALUES
-(1, 'atr-12345', 8, 8);
+INSERT INTO `employees` (`emp_id`, `employee_no`, `u_id`, `dp_id`) VALUES
+(1, 'atr-12345', 9, 0),
+(2, 'aaa-019191', 14, 0),
+(3, 'ascc-6666', 15, 0);
 
 -- --------------------------------------------------------
 
@@ -423,22 +447,20 @@ CREATE TABLE `students` (
   `s_id` int(11) NOT NULL,
   `student_no` varchar(11) NOT NULL,
   `u_id` int(11) NOT NULL,
-  `uac_id` int(11) NOT NULL,
-  `cs_id` int(11) NOT NULL,
-  `s_type` int(1) NOT NULL DEFAULT 0 COMMENT '0=default,1=ojt,2=rle,3=teaching,4=food'
+  `cs_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`s_id`, `student_no`, `u_id`, `uac_id`, `cs_id`, `s_type`) VALUES
-(1, '20-12345', 1, 1, 1, 1),
-(2, '22-99999', 2, 2, 4, 1),
-(3, '88-65655', 3, 3, 8, 2),
-(4, '55-00102', 4, 4, 10, 3),
-(5, '44-93933', 5, 5, 1, 3),
-(7, '22-189191', 7, 7, 4, 0);
+INSERT INTO `students` (`s_id`, `student_no`, `u_id`, `cs_id`) VALUES
+(1, '20-12345', 1, 1),
+(2, '22-99999', 2, 4),
+(3, '88-65655', 3, 8),
+(4, '55-00102', 4, 10),
+(5, '44-93933', 5, 1),
+(7, '22-189191', 7, 1);
 
 -- --------------------------------------------------------
 
@@ -467,38 +489,15 @@ INSERT INTO `users` (`u_id`, `firstname`, `middlename`, `lastname`, `birthdate`,
 (4, 'jun', 'a', 'laki', '2002-03-28', 1, '098897844'),
 (5, 'jack', 'a', 'kiel', '2003-03-22', 1, '0987967876'),
 (6, 'joshua', 'asa', 'greymatsi', '2002-03-19', 2, '0898775676'),
-(7, 'song', 'as', 'yang', '2001-05-02', 1, '09898787'),
+(7, 'song', 'asUUUU', 'yang', '2001-05-02', 1, '09898787'),
 (8, 'visit1', 'visit2', 'visit3', '2024-04-17', 1, '09877876767'),
-(9, 'employee1', 'employee2', 'employee3', '2015-04-08', 2, '09567657444');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_accs`
---
-
-CREATE TABLE `user_accs` (
-  `uac_id` int(11) NOT NULL,
-  `u_id` int(11) NOT NULL,
-  `username` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `user_type` int(1) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `user_accs`
---
-
-INSERT INTO `user_accs` (`uac_id`, `u_id`, `username`, `password`, `user_type`) VALUES
-(1, 1, 'leo ', 'leo123', 1),
-(2, 0, 'jet', 'je123', 1),
-(3, 0, 'hanna', 'hanna123', 1),
-(4, 0, 'junie', 'junie123', 1),
-(5, 0, 'jack', 'jack123', 1),
-(6, 0, 'josh', '123', 1),
-(7, 0, 'song', 'song123', 1),
-(8, 8, 'acc_visit1', 'pass_visit1', 3),
-(9, 9, 'acc_employee1', 'pass_employee1', 2);
+(9, 'employee1', 'employee2', 'employee3', '2015-04-08', 2, '09567657444'),
+(10, 'hanso', 'a', 'hyu', '2003-05-01', 1, '089787686'),
+(11, 'lancelot', 'ju', 'poiiu', '2024-05-08', 1, '08797686575'),
+(12, 'moi', 'aa', 'bgty', '2024-05-10', 1, '0989678'),
+(13, 'igno', 'mkk', 'kkk', '2024-05-08', 1, '098978777'),
+(14, 'eros', '', 'cdfff', '2007-05-06', 0, '09787686'),
+(15, 'hyy', '', 'aasa', '2024-05-14', 0, '0987976856');
 
 -- --------------------------------------------------------
 
@@ -510,6 +509,15 @@ CREATE TABLE `visitors` (
   `v_id` int(11) NOT NULL,
   `u_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `visitors`
+--
+
+INSERT INTO `visitors` (`v_id`, `u_id`) VALUES
+(1, 8),
+(2, 12),
+(3, 13);
 
 --
 -- Indexes for dumped tables
@@ -544,6 +552,12 @@ ALTER TABLE `consult_medicine`
 --
 ALTER TABLE `courses`
   ADD PRIMARY KEY (`cs_id`);
+
+--
+-- Indexes for table `departments`
+--
+ALTER TABLE `departments`
+  ADD PRIMARY KEY (`dp_id`);
 
 --
 -- Indexes for table `desease`
@@ -624,10 +638,10 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`u_id`);
 
 --
--- Indexes for table `user_accs`
+-- Indexes for table `visitors`
 --
-ALTER TABLE `user_accs`
-  ADD PRIMARY KEY (`uac_id`);
+ALTER TABLE `visitors`
+  ADD PRIMARY KEY (`v_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -655,13 +669,19 @@ ALTER TABLE `consultations`
 -- AUTO_INCREMENT for table `consult_medicine`
 --
 ALTER TABLE `consult_medicine`
-  MODIFY `cm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `cm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
   MODIFY `cs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `departments`
+--
+ALTER TABLE `departments`
+  MODIFY `dp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `desease`
@@ -673,7 +693,7 @@ ALTER TABLE `desease`
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `food_major`
@@ -733,19 +753,19 @@ ALTER TABLE `rle`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `s_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `s_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT for table `user_accs`
+-- AUTO_INCREMENT for table `visitors`
 --
-ALTER TABLE `user_accs`
-  MODIFY `uac_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+ALTER TABLE `visitors`
+  MODIFY `v_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
