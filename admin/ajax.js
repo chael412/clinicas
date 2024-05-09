@@ -1075,3 +1075,61 @@ function deleteMedicine(mdnID) {
 		});
 	}
 }
+
+// =================================== Visitor Section ======================================================
+$('#visitorform_add').submit(function (e) {
+	e.preventDefault(); // Prevent form submission
+
+	var formData = $(this).serialize();
+	formData += '&visitor_add=1';
+
+	console.log(formData);
+
+	$.ajax({
+		type: 'POST',
+		url: 'code.php',
+		data: formData,
+		success: function (response) {
+			Swal.fire({
+				icon: 'success',
+				title: 'Success',
+				text: 'Visitor Successfully Added',
+			});
+			$('#visitorform_add')[0].reset();
+			$('#modal_visitorADD').modal('hide');
+			$('.visitors_table').load(window.location.href + ' .visitors_table');
+		},
+		error: function (xhr, status, error) {
+			console.log('Error:', error);
+		},
+	});
+});
+
+// =================================== Employees Section ======================================================
+$('#employeeform_add').submit(function (e) {
+	e.preventDefault(); // Prevent form submission
+
+	var formData = $(this).serialize();
+	formData += '&employee_add=1';
+
+	console.log(formData);
+
+	$.ajax({
+		type: 'POST',
+		url: 'code.php',
+		data: formData,
+		success: function (response) {
+			Swal.fire({
+				icon: 'success',
+				title: 'Success',
+				text: 'Employee Successfully Added',
+			});
+			$('#employeeform_add')[0].reset();
+			$('#modal_employeeADD').modal('hide');
+			$('.employees_table').load(window.location.href + ' .employees_table');
+		},
+		error: function (xhr, status, error) {
+			console.log('Error:', error);
+		},
+	});
+});

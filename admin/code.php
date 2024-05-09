@@ -320,168 +320,7 @@ if (isset($_GET['a_idz'])) {
     }
 }
 
-//#######################################################  RLE Section #######################################################
-if (isset($_POST["rle_id"])) {
-    $rle_id = $_POST['rle_id'];
 
-
-    $query = "SELECT s.s_id, s.student_no, cs.cs_id, uac.username, uac.password, uac.user_type, CONCAT(us.firstname,' ', us.middlename,' ' ,us.lastname) AS student_name FROM students s
-    INNER JOIN courses AS cs ON s.cs_id = cs.cs_id
-    INNER JOIN user_accs AS uac ON s.uac_id = uac.uac_id
-    INNER JOIN users AS us ON s.u_id = us.u_id
-    WHERE s.s_id = ?
-    LIMIT 1";
-
-    $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, "i", $rle_id);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    $row = mysqli_fetch_assoc($result);
-
-    if ($row) {
-        echo json_encode($row);
-    } else {
-        echo json_encode(["error" => "No data found for employee with ID: $ojt_id"]);
-    }
-
-    mysqli_close($conn);
-}
-
-if (isset($_POST['rlemed_add'])) {
-    $sID = $_POST['sID'];
-    $urinalysis = $_FILES['urinalysis']['tmp_name'];
-    $x_ray = $_FILES['x_ray']['tmp_name'];
-    $pregnancy_test = $_FILES['pregnancy_test']['tmp_name'];
-    $screening = $_FILES['screening']['tmp_name'];
-    $fecalysis = $_FILES['fecalysis']['tmp_name'];
-
-    $urinalysisPath = "../assets/upload/" . basename($_FILES['urinalysis']['name']);
-    $x_rayPath = "../assets/upload/" . basename($_FILES['x_ray']['name']);
-    $pregnancy_testPath = "../assets/upload/" . basename($_FILES['pregnancy_test']['name']);
-    $screeningPath = "../assets/upload/" . basename($_FILES['screening']['name']);
-    $fecalysisPath = "../assets/upload/" . basename($_FILES['fecalysis']['name']);
-
-
-
-    move_uploaded_file($urinalysis, $urinalysisPath);
-    move_uploaded_file($x_ray, $x_rayPath);
-    move_uploaded_file($pregnancy_test, $pregnancy_testPath);
-    move_uploaded_file($screening, $screeningPath);
-    move_uploaded_file($fecalysis, $fecalysisPath);
-
-    $query = "INSERT INTO rle (s_id, urinalysis, screening, fecalysis, x_ray, pregnancy_test) VALUES ('$sID', '$urinalysisPath',  '$screeningPath', '$fecalysisPath', '$x_rayPath', '$pregnancy_testPath')";
-    $result = mysqli_query($conn, $query);
-
-    if ($result) {
-        echo 'success';
-    } else {
-        echo 'error';
-    }
-}
-
-//#######################################################  Teaching Section #######################################################
-if (isset($_POST["teach_id"])) {
-    $teach_id = $_POST['teach_id'];
-
-
-    $query = "SELECT s.s_id, s.student_no, cs.cs_id, uac.username, uac.password, uac.user_type, CONCAT(us.firstname,' ', us.middlename ,'  ',us.lastname) AS student_name  FROM students s
-    INNER JOIN courses AS cs ON s.cs_id = cs.cs_id
-    INNER JOIN user_accs AS uac ON s.uac_id = uac.uac_id
-    INNER JOIN users AS us ON s.u_id = us.u_id
-    WHERE s.s_id = ? LIMIT 1";
-
-    $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, "i", $teach_id);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    $row = mysqli_fetch_assoc($result);
-
-    if ($row) {
-        echo json_encode($row);
-    } else {
-        echo json_encode(["error" => "No data found for employee with ID: $ojt_id"]);
-    }
-
-    mysqli_close($conn);
-}
-
-if (isset($_POST['teachmed_add'])) {
-    $sID = $_POST['sID'];
-    $urinalysis = $_FILES['urinalysis']['tmp_name'];
-    $x_ray = $_FILES['x_ray']['tmp_name'];
-    $cbc = $_FILES['cbc']['tmp_name'];
-
-    $cbcPath = "../assets/upload/" . basename($_FILES['cbc']['name']);
-    $urinalysisPath = "../assets/upload/" . basename($_FILES['urinalysis']['name']);
-    $x_rayPath = "../assets/upload/" . basename($_FILES['x_ray']['name']);
-
-
-    move_uploaded_file($cbc, $cbcPath);
-    move_uploaded_file($urinalysis, $urinalysisPath);
-    move_uploaded_file($x_ray, $x_rayPath);
-
-
-    $query = "INSERT INTO practice_teaching (s_id, cbc, urinalysis, x_ray) VALUES ('$sID', '$cbcPath', '$urinalysisPath',  '$x_rayPath')";
-    $result = mysqli_query($conn, $query);
-
-    if ($result) {
-        echo 'success';
-    } else {
-        echo 'error';
-    }
-}
-
-//#######################################################  Food Section #######################################################
-if (isset($_POST["food_id"])) {
-    $food_id = $_POST['food_id'];
-
-
-    $query = "SELECT s.s_id, s.student_no, cs.cs_id, uac.username, uac.password, uac.user_type, CONCAT(us.firstname,' ', us.middlename ,'  ',us.lastname) AS student_name  FROM students s
-    INNER JOIN courses AS cs ON s.cs_id = cs.cs_id
-    INNER JOIN user_accs AS uac ON s.uac_id = uac.uac_id
-    INNER JOIN users AS us ON s.u_id = us.u_id
-    WHERE s.s_id = ? LIMIT 1";
-
-    $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, "i", $food_id);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    $row = mysqli_fetch_assoc($result);
-
-    if ($row) {
-        echo json_encode($row);
-    } else {
-        echo json_encode(["error" => "No data found for employee with ID: $ojt_id"]);
-    }
-
-    mysqli_close($conn);
-}
-
-if (isset($_POST['foodmed_add'])) {
-    $sID = $_POST['sID'];
-    $urinalysis = $_FILES['urinalysis']['tmp_name'];
-    $x_ray = $_FILES['x_ray']['tmp_name'];
-    $cbc = $_FILES['cbc']['tmp_name'];
-
-    $cbcPath = "../assets/upload/" . basename($_FILES['cbc']['name']);
-    $urinalysisPath = "../assets/upload/" . basename($_FILES['urinalysis']['name']);
-    $x_rayPath = "../assets/upload/" . basename($_FILES['x_ray']['name']);
-
-
-    move_uploaded_file($cbc, $cbcPath);
-    move_uploaded_file($urinalysis, $urinalysisPath);
-    move_uploaded_file($x_ray, $x_rayPath);
-
-
-    $query = "INSERT INTO practice_teaching (s_id, cbc, urinalysis, x_ray) VALUES ('$sID', '$cbcPath', '$urinalysisPath',  '$x_rayPath')";
-    $result = mysqli_query($conn, $query);
-
-    if ($result) {
-        echo 'success';
-    } else {
-        echo 'error';
-    }
-}
 
 //#######################################################  Consult Section #######################################################
 if (isset($_POST["consult_id"])) {
@@ -599,7 +438,6 @@ if (isset($_POST['consult_update'])) {
 
 
 
-
 //#######################################################  Medicine Section #######################################################
 
 if (isset($_POST['medicine_add'])) {
@@ -647,4 +485,62 @@ if (isset($_GET['mdn_idz'])) {
 }
 
 
+// ==================================================================================== visitor
+if (isset($_POST['visitor_add'])) {
+    $firstname = $_POST['firstname'];
+    $middlename = $_POST['middlename'];
+    $lastname = $_POST['lastname'];
+    $birthdate = $_POST['birthdate'];
+    $sex = $_POST['sex'];
+    $contact_no = $_POST['contact_no'];
 
+
+    $query2 = "INSERT INTO users (firstname, middlename, lastname, birthdate, sex, contact_no) VALUES ('$firstname', '$middlename', '$lastname', '$birthdate', '$sex', '$contact_no')";
+    $result2 = mysqli_query($conn, $query2);
+    if ($result2) {
+        $u_id = mysqli_insert_id($conn);
+        $query3 = "INSERT INTO visitors (u_id) VALUES ('$u_id')";
+        $result3 = mysqli_query($conn, $query3);
+        if ($result3) {
+            echo "success";
+        } else {
+            echo 'error';
+        }
+
+    } else {
+        echo 'error 2';
+    }
+
+
+}
+
+// ===================================================================================== Employee
+if (isset($_POST['employee_add'])) {
+    $employee_no = $_POST['employee_no'];
+    $dp_id = $_POST['dp_id'];
+    $firstname = $_POST['firstname'];
+    $middlename = $_POST['middlename'];
+    $lastname = $_POST['lastname'];
+    $birthdate = $_POST['birthdate'];
+    $sex = $_POST['sex'];
+    $contact_no = $_POST['contact_no'];
+
+
+    $query2 = "INSERT INTO users (firstname, middlename, lastname, birthdate, sex, contact_no) VALUES ('$firstname', '$middlename', '$lastname', '$birthdate', '$sex', '$contact_no')";
+    $result2 = mysqli_query($conn, $query2);
+    if ($result2) {
+        $u_id = mysqli_insert_id($conn);
+        $query3 = "INSERT INTO employees(employee_no, u_id, dp_id) VALUES ('$employee_no', '$u_id', '$dp_id')";
+        $result3 = mysqli_query($conn, $query3);
+        if ($result3) {
+            echo "success";
+        } else {
+            echo 'error';
+        }
+
+    } else {
+        echo 'error 2';
+    }
+
+
+}

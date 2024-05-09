@@ -1,7 +1,7 @@
 <?php
 include ('includes/header.php');
 include ('includes/navbar.php');
-include ('modal/modal-student.php');
+include ('modal/modal-visitor.php');
 ?>
 
 
@@ -9,29 +9,28 @@ include ('modal/modal-student.php');
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h5 class="m-0 font-weight-bold text-brown">Students
+            <h5 class="m-0 font-weight-bold text-brown">Visitors
                 <button type="button" class="d-none d-sm-inline-block float-right btn btn-sm btn-success shadow-sm m-1"
-                    data-toggle="modal" data-target="#modal_studentADD"><i class="fas fa-plus"></i> Add Student</button>
+                    data-toggle="modal" data-target="#modal_visitorADD"><i class="fas fa-plus"></i> Add
+                    Visitors</button>
             </h5>
         </div>
         <div class="card-body">
 
             <?php
 
-            $query = "SELECT s.s_id, s.student_no, cs.cs_id, CONCAT(us.firstname,' ', us.middlename,' ' ,us.lastname) AS student_name  FROM students s
-            INNER JOIN courses AS cs ON s.cs_id = cs.cs_id
-            INNER JOIN users AS us ON s.u_id = us.u_id ORDER BY s.s_id DESC";
+            $query = "SELECT vs.v_id, CONCAT(us.firstname,' ', us.middlename,' ' ,us.lastname) AS visitor_name  FROM visitors vs
+            INNER JOIN users AS us ON vs.u_id = us.u_id ORDER BY vs.v_id DESC";
             $query_run = mysqli_query($conn, $query);
 
             ?>
             <div class="table-responsive">
-                <table id="datatableid" class="students_table table table-bordered" width="100%" cellspacing="0">
+                <table id="datatableid" class="visitors_table table table-bordered" width="100%" cellspacing="0">
                     <thead class="thead-light">
                         <tr>
                             <th style="width: 10%">No.</th>
-                            <th style="width: 35%">Student No.</th>
-                            <th style="width: 35%">Fullname</th>
-                            <th style="width: 20%"></th>
+                            <th style="width: 65%">Visitor Name</th>
+                            <th style="width: 25%"></th>
                         </tr>
                     </thead>
                     <?php
@@ -46,33 +45,30 @@ include ('modal/modal-student.php');
                                     </td>
 
                                     <td>
-                                        <?php echo $row['student_no']; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $row['student_name']; ?>
+                                        <?php echo $row['visitor_name']; ?>
                                     </td>
 
                                     <td>
                                         <div class="row justify-content-center">
                                             <div class="col col-lg-2">
-                                                <form action="student_view.php" method="POST">
-                                                    <input type="hidden" name="view_id" value="<?= $row['s_id']; ?>">
-                                                    <button type="submit" name="view_btn"
+                                                <form action="visitor_view.php" method="POST">
+                                                    <input type="hidden" name="view_id" value="<?= $row['v_id']; ?>">
+                                                    <button disabled type="submit" name="view_btn"
                                                         class="d-none d-sm-inline-block btn btn-sm btn-outline-primary shadow-sm"><i
                                                             class="fa fa-eye" aria-hidden="true"></i></button>
                                                 </form>
                                             </div>
                                             <div class="col col-lg-2 mx-1">
-                                                <form action="student_edit.php" method="POST">
-                                                    <input type="hidden" name="edit_id" value="<?= $row['s_id']; ?>">
-                                                    <button type="submit" name="edit_btn"
+                                                <form action="visitor_edit.php" method="POST">
+                                                    <input type="hidden" name="edit_id" value="<?= $row['v_id']; ?>">
+                                                    <button disabled type="submit" name="edit_btn"
                                                         class="d-none d-sm-inline-block btn btn-sm btn-outline-success shadow-sm"><i
                                                             class="fas fa-edit"></i></button>
                                                 </form>
                                             </div>
                                             <div class="col col-lg-2">
-                                                <button disabled type="button" name="del_student"
-                                                    onclick="deleteStudent(<?= $row['s_id'] ?>)"
+                                                <button disabled type="button" name="del_visitor"
+                                                    onclick="deleteVisitor(<?= $row['v_id'] ?>)"
                                                     class="d-none d-sm-inline-block btn btn-sm btn-outline-danger shadow-sm">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
