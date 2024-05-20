@@ -442,9 +442,13 @@ if (isset($_POST['consult_update'])) {
 
 if (isset($_POST['medicine_add'])) {
     $medicine = $_POST['medicine'];
+    $brand = $_POST['brand'];
+    $medicine_type = $_POST['medicine_type'];
+    $ml = $_POST['ml'];
     $quantity = $_POST['quantity'];
+    $pres_desc = $_POST['pres_desc'];
 
-    $query = "INSERT INTO medicine (medicine_name, quantity) VALUES ('$medicine','$quantity')";
+    $query = "INSERT INTO medicine (medicine_name, brand_name, type_id, ml, quantity, med_prescription) VALUES ('$medicine', '$brand', '$medicine_type', '$ml', '$quantity', '$pres_desc')";
     $result = mysqli_query($conn, $query);
 
     if ($result) {
@@ -456,10 +460,14 @@ if (isset($_POST['medicine_add'])) {
 
 if (isset($_POST['medicine_update'])) {
     $mdn_id = $_POST['mdn_id'];
-    $medicine_name = $_POST['medicine'];
+    $medicine = $_POST['medicine'];
+    $brand = $_POST['brand'];
+    $medicine_type = $_POST['medicine_type'];
+    $ml = $_POST['ml'];
     $quantity = $_POST['quantity'];
+    $pres_desc = $_POST['pres_desc'];
 
-    $query = "UPDATE medicine SET medicine_name='$medicine_name', quantity = '$quantity' WHERE mdn_id='$mdn_id' ";
+    $query = "UPDATE medicine SET medicine_name='$medicine', brand_name='$brand', type_id='$medicine_type', ml='$ml', quantity = '$quantity', med_prescription='$pres_desc'  WHERE mdn_id='$mdn_id' ";
 
     $query_run = mysqli_query($conn, $query);
 

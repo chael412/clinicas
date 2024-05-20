@@ -61,7 +61,7 @@ include ('includes/navbar.php');
 
                                         <div class="col-12">
                                             <?php
-                                            $ct_id = mysqli_real_escape_string($conn, $ct_id); // Assuming $conn is your database connection
+                                            $ct_id = mysqli_real_escape_string($conn, $ct_id); 
                                             $query_medicine = "SELECT m.mdn_id, cm.cm_id, m.medicine_name, cm.cm_quantity
                                             FROM consultations ct
                                             INNER JOIN consult_medicine cm ON ct.ct_id = cm.ct_id 

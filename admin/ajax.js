@@ -975,14 +975,24 @@ $(document).on('click', '#consult_update_btn', function (e) {
 $('#medicine_add_btn').on('click', function (e) {
 	e.preventDefault();
 
+	var brand = $('#brand').val();
 	var medicine = $('#medicine').val();
+	var ml = $('#ml').val();
+	var medicine_type = $('#medicine_type').val();
 	var quantity = $('#quantity').val();
+	var pres_desc = $('#pres_desc').val();
 
 	var data = {
 		medicine_add: true,
+		brand: brand,
 		medicine: medicine,
+		ml: ml,
+		medicine_type: medicine_type,
 		quantity: quantity,
+		pres_desc: pres_desc,
 	};
+
+	//console.log(data);
 
 	$.ajax({
 		type: 'POST',
@@ -1014,16 +1024,24 @@ $('#medicine_update_btn').on('click', function (e) {
 
 	var mdn_id = $('#mdn_id').val();
 	var medicine = $('#medicine').val();
+	var brand = $('#brand').val();
+	var ml = $('#ml').val();
+	var medicine_type = $('#medicine_type').val();
 	var quantity = $('#quantity').val();
+	var pres_desc = $('#pres_desc').val();
 
-	console.log(medicine);
-	console.log(mdn_id);
+	// console.log(medicine);
+	// console.log(mdn_id);
 
 	var data = {
 		medicine_update: true,
 		mdn_id: mdn_id,
+		brand: brand,
 		medicine: medicine,
+		ml: ml,
+		medicine_type: medicine_type,
 		quantity: quantity,
+		pres_desc: pres_desc,
 	};
 
 	console.log(data);
