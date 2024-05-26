@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 10, 2024 at 01:24 AM
+-- Generation Time: May 26, 2024 at 06:53 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -92,7 +92,11 @@ INSERT INTO `consultations` (`ct_id`, `u_id`, `chief_complaints`, `recommendatio
 (6, 6, 'jjj', 'jjjj', 'jjjj', '2024-05-05 23:54:41'),
 (7, 7, 'nnjnn', 'nnnn', 'mmmma', '2024-05-05 23:57:05'),
 (8, 9, 'ss', 'ss', 'ss', '2024-05-06 02:13:48'),
-(9, 3, 'kkkk', 'kkkk', 'kkk', '2024-05-07 03:20:42');
+(9, 3, 'kkkk', 'kkkk', 'kkk', '2024-05-07 03:20:42'),
+(10, 15, 'sample chief com', 'sample recom', 'sample med pres', '2024-05-26 03:57:59'),
+(11, 15, 'gtyayay', 'recomen', 'precribe', '2024-05-26 04:18:55'),
+(12, 15, 'gg chief', 'gg recos', 'gg pres', '2024-05-26 04:21:20'),
+(18, 15, 'hahah chief', 'hahaha recom', 'hahah pres', '2024-05-26 04:52:23');
 
 -- --------------------------------------------------------
 
@@ -127,7 +131,12 @@ INSERT INTO `consult_medicine` (`cm_id`, `ct_id`, `mdn_id`, `cm_quantity`) VALUE
 (88, 6, 7, 1),
 (89, 6, 6, 2),
 (96, 9, 3, 5),
-(97, 9, 7, 8);
+(97, 9, 7, 8),
+(98, 10, 0, 0),
+(99, 12, 3, 10),
+(100, 12, 6, 8),
+(105, 18, 4, 1),
+(106, 18, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -305,20 +314,49 @@ INSERT INTO `medical_present` (`mp_id`, `ispresent`, `mp_diagnosis`, `mp_treatme
 CREATE TABLE `medicine` (
   `mdn_id` int(11) NOT NULL,
   `medicine_name` varchar(100) NOT NULL,
-  `quantity` int(11) NOT NULL
+  `brand_name` varchar(100) NOT NULL,
+  `type_id` int(11) NOT NULL,
+  `ml` decimal(6,2) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `med_prescription` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `medicine`
 --
 
-INSERT INTO `medicine` (`mdn_id`, `medicine_name`, `quantity`) VALUES
-(2, 'ascorbic acid', 10000),
-(3, 'Mefenamic acid', 1000000),
-(4, 'Amoxicillin Cap', 0),
-(5, 'Ambroxol Tab', 0),
-(6, 'Azithromycin Tab', 0),
-(7, 'vitamin x', 32);
+INSERT INTO `medicine` (`mdn_id`, `medicine_name`, `brand_name`, `type_id`, `ml`, `quantity`, `med_prescription`) VALUES
+(2, 'ascorbic acid', '', 2, 0.00, 10000, ''),
+(3, 'Mefenamic acid', '', 2, 0.00, 999999, ''),
+(4, 'Amoxicillin Cap', '', 1, 0.00, 0, ''),
+(5, 'Ambroxol Tab', '', 3, 4.50, 0, ''),
+(6, 'Azithromycin Tab', '', 3, 1.20, 1, ''),
+(7, 'vitamin x', '', 2, 0.00, 32, ''),
+(11, 'sample genericer', 'sample brander', 1, 1.75, 2, 'sample prescription');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `medicine_types`
+--
+
+CREATE TABLE `medicine_types` (
+  `mdntype_id` int(11) NOT NULL,
+  `mdn_id` int(11) NOT NULL,
+  `type_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `medicine_types`
+--
+
+INSERT INTO `medicine_types` (`mdntype_id`, `mdn_id`, `type_id`) VALUES
+(1, 2, 2),
+(2, 3, 2),
+(3, 4, 1),
+(4, 5, 3),
+(5, 6, 3),
+(6, 7, 2);
 
 -- --------------------------------------------------------
 
@@ -465,6 +503,26 @@ INSERT INTO `students` (`s_id`, `student_no`, `u_id`, `cs_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `types`
+--
+
+CREATE TABLE `types` (
+  `type_id` int(11) NOT NULL,
+  `type_name` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `types`
+--
+
+INSERT INTO `types` (`type_id`, `type_name`) VALUES
+(1, 'Capsule'),
+(2, 'Syrup'),
+(3, 'Tablet');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -596,6 +654,12 @@ ALTER TABLE `medicine`
   ADD PRIMARY KEY (`mdn_id`);
 
 --
+-- Indexes for table `medicine_types`
+--
+ALTER TABLE `medicine_types`
+  ADD PRIMARY KEY (`mdntype_id`);
+
+--
 -- Indexes for table `med_cert`
 --
 ALTER TABLE `med_cert`
@@ -632,6 +696,12 @@ ALTER TABLE `students`
   ADD PRIMARY KEY (`s_id`);
 
 --
+-- Indexes for table `types`
+--
+ALTER TABLE `types`
+  ADD PRIMARY KEY (`type_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -663,13 +733,13 @@ ALTER TABLE `confinement`
 -- AUTO_INCREMENT for table `consultations`
 --
 ALTER TABLE `consultations`
-  MODIFY `ct_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ct_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `consult_medicine`
 --
 ALTER TABLE `consult_medicine`
-  MODIFY `cm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `cm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 
 --
 -- AUTO_INCREMENT for table `courses`
@@ -717,7 +787,13 @@ ALTER TABLE `medical_present`
 -- AUTO_INCREMENT for table `medicine`
 --
 ALTER TABLE `medicine`
-  MODIFY `mdn_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `mdn_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `medicine_types`
+--
+ALTER TABLE `medicine_types`
+  MODIFY `mdntype_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `med_cert`
@@ -754,6 +830,12 @@ ALTER TABLE `rle`
 --
 ALTER TABLE `students`
   MODIFY `s_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `types`
+--
+ALTER TABLE `types`
+  MODIFY `type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`

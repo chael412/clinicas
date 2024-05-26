@@ -846,27 +846,26 @@ $('#consult_add_btn').on('click', function (e) {
 	var medicines = [];
 	var quantities = [];
 
-	// Loop through each medicine input field
-	$('select[name="medicine[]"]').each(function () {
-		var medicineName = $(this).find('option:selected').text();
-		var medicineId = $(this).val();
-
-		// Find the corresponding quantity input field
-		var quantity = $(this).closest('.row').find('input[name="quantity[]"]').val();
-		// Add medicine name and quantity to arrays
-		medicines.push({ name: medicineName, id: medicineId });
-		quantities.push(quantity);
-	});
+	// Loop through each added medicine input field
+	$('#additionalMedicineInputs')
+		.find('div.row')
+		.each(function () {
+			var medicineId = $(this).find('input[name="medicine_ids[]"]').val();
+			var quantity = $(this).find('input[name="quantities[]"]').val();
+			// Add medicine id and quantity to arrays
+			medicines.push(medicineId);
+			quantities.push(quantity);
+		});
 
 	// Check if any of the required fields are empty
-	if (!uID || !complaints || !recommendation) {
-		Swal.fire({
-			icon: 'error',
-			title: 'Oops...',
-			text: 'Please fill in all the required fields.',
-		});
-		return;
-	}
+	// if (!uID || !complaints || !recommendation || medicines.length === 0 || quantities.length === 0) {
+	// 	Swal.fire({
+	// 		icon: 'error',
+	// 		title: 'Oops...',
+	// 		text: 'Please fill in all the required fields.',
+	// 	});
+	// 	return;
+	// }
 
 	// Combine medicines and quantities into an array of objects
 	var data = {
@@ -892,15 +891,19 @@ $('#consult_add_btn').on('click', function (e) {
 					icon: 'success',
 					title: 'Success',
 					text: 'Consultation Successfully Created',
+				}).then(() => {
+					$('#consultform_add')[0].reset();
+					$('#modal_consultADD').modal('hide');
+					$('.consult_table').load(window.location.href + ' .consult_table');
+					setTimeout(() => {
+						window.location.reload();
+					}, 2000); // Delay of 2000ms (2 seconds)
 				});
-				$('#consultform_add')[0].reset();
-				$('#modal_consultADD').modal('hide');
-				$('.consult_table').load(window.location.href + ' .consult_table');
 			} else {
 				Swal.fire({
 					icon: 'error',
 					title: 'Oops...',
-					text: 'Failed to create consultation',
+					text: response,
 				});
 			}
 		},

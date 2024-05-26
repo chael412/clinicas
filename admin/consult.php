@@ -99,7 +99,7 @@ include ('includes/scripts.php');
 include ('includes/footer.php');
 ?>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script>
+<!-- <script>
     $(document).ready(function () {
         // Initialize Select2 for the categories dropdown
         $('#medicine').select2();
@@ -154,4 +154,48 @@ include ('includes/footer.php');
 
 
     })
+</script> -->
+<!-- Add this script at the bottom of your HTML file, before the closing body tag -->
+<script>
+    $('#addMedicineBtn').on('click', function () {
+        // Get selected medicine and quantity
+        var medicineSelect = $('#medicines');
+        var selectedMedicine = medicineSelect.find('option:selected').text();
+        var selectedMedicineValue = medicineSelect.val();
+        var quantity = $('input[name="quantity[]"]').val();
+
+        // Validate the input
+        if (!selectedMedicineValue || !quantity || quantity <= 0) {
+            alert('Please select a medicine and enter a valid quantity.');
+            return;
+        }
+
+        // Create a new list item
+        var newMedicineItem = $(`
+        <div class="row mb-2">
+          <div class="col-6">
+            <input type="hidden" name="medicine_ids[]" value="${selectedMedicineValue}">
+            <input type="text" class="form-control form-control-sm" value="${selectedMedicine}" disabled>
+          </div>
+          <div class="col-4">
+            <input type="number" class="form-control form-control-sm" name="quantities[]" value="${quantity}" disabled>
+          </div>
+          <div class="col-2">
+            <button type="button" class="btn btn-danger btn-sm remove-medicine-btn"><i class="fas fa-minus"></i></button>
+          </div>
+        </div>
+      `);
+
+        // Append the new list item to the medicines list
+        $('#additionalMedicineInputs').append(newMedicineItem);
+
+        // Clear the input fields
+        medicineSelect.val('');
+        $('input[name="quantity[]"]').val('');
+
+        // Add event listener for remove button
+        newMedicineItem.find('.remove-medicine-btn').on('click', function () {
+            newMedicineItem.remove();
+        });
+    });
 </script>

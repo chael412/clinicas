@@ -63,20 +63,49 @@
                     </select>
                   </div>
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                   <div class="form-group">
                     <label>Quantity</label>
                     <input type="number" name="quantity[]" class="form-control form-control-sm" />
                   </div>
                 </div>
+                <div class="col-2" style="margin-top: 30px">
+                  <button type="button" id="addMedicineBtn" class="btn btn-primary btn-sm"><i
+                      class="fas fa-plus"></i></button>
+                </div>
               </div>
-              <div id="additionalMedicineInputs"></div>
-              <button type="button" id="addMedicineBtn" class="btn btn-primary btn-sm">Add More Medicine</button>
+
+
+
               <div class="row">
                 <div class="col">
-                  <label>Medicine Description</label>
-                  <textarea id="med_desc" rows="4" cols="50" class="form-control"
-                    placeholder="Type your medicine description here..."></textarea>
+                  <div class="accordion" id="accordionExample">
+                    <div class="card">
+                      <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                          <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                            data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Medicines list
+                          </button>
+                        </h2>
+                      </div>
+
+                      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                        data-parent="#accordionExample">
+                        <div class="card-body">
+                          <div id="additionalMedicineInputs"></div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label>Medicine Prescription</label>
+                  <textarea id="med_desc" rows="4" cols="50" class="form-control"></textarea>
                 </div>
               </div>
             </div>
