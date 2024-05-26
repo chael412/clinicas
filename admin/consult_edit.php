@@ -61,7 +61,7 @@ include ('includes/navbar.php');
 
                                         <div class="col-12">
                                             <?php
-                                            $ct_id = mysqli_real_escape_string($conn, $ct_id); 
+                                            $ct_id = mysqli_real_escape_string($conn, $ct_id);
                                             $query_medicine = "SELECT m.mdn_id, cm.cm_id, m.medicine_name, cm.cm_quantity
                                             FROM consultations ct
                                             INNER JOIN consult_medicine cm ON ct.ct_id = cm.ct_id 
@@ -78,7 +78,7 @@ include ('includes/navbar.php');
                                                             <div class="form-group">
                                                                 <label>Medicine Name</label>
 
-                                                                <select class="form-control form-control-sm" id="medicines"
+                                                                <select disabled class="form-control form-control-sm" id="medicines"
                                                                     name="medicine[]" required>
                                                                     <option value="" disabled>------ Select Medicine -------
                                                                     </option>
@@ -101,14 +101,12 @@ include ('includes/navbar.php');
                                                                     ?>
                                                                 </select>
 
-
-
                                                             </div>
                                                         </div>
                                                         <div class="col-2">
                                                             <div class="form-group">
                                                                 <label>Quantity</label>
-                                                                <input type="number" class="form-control form-control-sm"
+                                                                <input disabled type="number" class="form-control form-control-sm"
                                                                     value="<?= $medicine['cm_quantity'] ?>" name="quantity[]">
                                                             </div>
                                                         </div>
