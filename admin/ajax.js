@@ -789,7 +789,7 @@ $('#foodmed_add_btn').on('click', function (e) {
 	});
 });
 
-/// ===================================== CONSULT SECTION===============================================================
+/// ===================================== 	STUDENT CONSULT SECTION===============================================================
 $(document).on('click', '#search_consult_btn', function () {
 	console.log('clicked');
 	var consult_id = $(this).attr('id');
@@ -911,6 +911,190 @@ $('#consult_add_btn').on('click', function (e) {
 });
 
 $(document).on('click', '#consult_update_btn', function (e) {
+	e.preventDefault();
+
+	var ctId = $('#ct_id').val();
+	var complaints = $('#complaints').val();
+	var recommendation = $('#recommendation').val();
+	var med_desc = $('#med_desc').val();
+
+	var medicines = [];
+	var quantities = [];
+
+	$('select[name="medicine[]"]').each(function () {
+		var medicineId = $(this).val();
+		var quantity = $(this).closest('.row').find('input[name="quantity[]"]').val();
+
+		medicines.push({ id: medicineId, cm_id: $(this).closest('.row').find('#cmID').val() });
+		quantities.push(quantity);
+	});
+
+	if (!complaints || !recommendation) {
+		Swal.fire({
+			icon: 'error',
+			title: 'Oops...',
+			text: 'Please fill in all the required fields.',
+		});
+		return;
+	}
+
+	var data = {
+		consult_update: true,
+		ct_id: ctId,
+		complaints: complaints,
+		recommendation: recommendation,
+		med_desc: med_desc,
+		medicines: medicines,
+		quantities: quantities,
+	};
+
+	console.log(quantities);
+
+	$.ajax({
+		type: 'POST',
+		url: 'code.php',
+		data: data,
+		success: function (response) {
+			console.log(response);
+			if (response === 'success') {
+				Swal.fire({
+					icon: 'success',
+					title: 'Success',
+					text: 'Consultation Successfully Updated',
+				});
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Failed to update consultation',
+				});
+			}
+		},
+	});
+});
+
+/// ===================================== 	EMPLOYEES CONSULT SECTION===============================================================
+$(document).on('click', '#search_consult_btn1', function () {
+	console.log('clicked');
+	var consult_id = $(this).attr('id');
+	console.log(consult_id);
+
+	$.ajax({
+		url: 'fetchconsult1.php',
+		method: 'GET',
+		dataType: 'json',
+		success: function (res) {
+			$('#modal_consultREQ1').modal('show');
+			var tbody = $('#modal_consultREQ1 .consultsearch_table1');
+			tbody.empty();
+			$.each(res.data, function (index, res) {
+				var row = '<tr>' + '<td>' + res.index + '</td>' + '<td>' + res.client_name + '</td>' + '<td>' + res.actions + '</td>' + '</tr>';
+				tbody.append(row);
+			});
+		},
+		error: function (xhr, status, error) {
+			console.error(xhr.responseText);
+		},
+	});
+});
+
+$(document).on('click', '.select_consult1', function () {
+	var consult_id = $(this).attr('id');
+	console.log(consult_id);
+
+	$.ajax({
+		type: 'POST',
+		url: 'code.php',
+		data: { consult_id: consult_id },
+		dataType: 'json',
+		success: function (res) {
+			console.log(res);
+			$('#modal_consultREQ1').modal('hide');
+			// $('#search_input').val('');
+			$('#modal_consultADD1 #uID').val(res.u_id);
+			$('#modal_consultADD1 #client_name').val(res.client_name);
+		},
+	});
+});
+
+$('#consult_add_btn1').on('click', function (e) {
+	e.preventDefault();
+	//alert('clicked');
+
+	var uID = $('#uID').val();
+	var complaints = $('#complaints').val();
+	var recommendation = $('#recommendation').val();
+	var med_desc = $('#med_desc').val();
+
+	// Initialize empty arrays to store selected medicines and quantities
+	var medicines = [];
+	var quantities = [];
+
+	// Loop through each added medicine input field
+	$('#additionalMedicineInputs')
+		.find('div.row')
+		.each(function () {
+			var medicineId = $(this).find('input[name="medicine_ids[]"]').val();
+			var quantity = $(this).find('input[name="quantities[]"]').val();
+			// Add medicine id and quantity to arrays
+			medicines.push(medicineId);
+			quantities.push(quantity);
+		});
+
+	// Check if any of the required fields are empty
+	if (!uID || !complaints || !recommendation || medicines.length === 0 || quantities.length === 0) {
+		Swal.fire({
+			icon: 'error',
+			title: 'Oops...',
+			text: 'Please fill in all the required fields.',
+		});
+		return;
+	}
+
+	// Combine medicines and quantities into an array of objects
+	var data = {
+		consult_add1: true,
+		uID: uID,
+		complaints: complaints,
+		recommendation: recommendation,
+		medicines: medicines,
+		quantities: quantities,
+		med_desc: med_desc,
+	};
+
+	console.log(data);
+
+	$.ajax({
+		type: 'POST',
+		url: 'code.php',
+		data: data,
+		success: function (response) {
+			console.log(response);
+			if (response == 'success') {
+				Swal.fire({
+					icon: 'success',
+					title: 'Success',
+					text: 'Consultation Successfully Created',
+				}).then(() => {
+					$('#consultform_add1')[0].reset();
+					$('#modal_consultADD1').modal('hide');
+					$('.consult_table1').load(window.location.href + ' .consult_table1');
+					setTimeout(() => {
+						window.location.reload();
+					}, 2000); // Delay of 2000ms (2 seconds)
+				});
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: response,
+				});
+			}
+		},
+	});
+});
+
+$(document).on('click', '#consult_update_btn1', function (e) {
 	e.preventDefault();
 
 	var ctId = $('#ct_id').val();

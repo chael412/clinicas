@@ -47,6 +47,8 @@
 
 
 
+
+
     <li class="nav-item ">
         <a class="nav-link" href="medicines.php">
             <i class="fas fa-prescription"></i>
@@ -55,24 +57,36 @@
     </li>
 
 
-
     <!-- Divider -->
     <hr class="sidebar-divider">
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Consultation
-    </div>
 
-    <li class="nav-item ">
-        <a class="nav-link" href="consult.php">
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseConsult"
+            aria-expanded="false" aria-controls="collapseTwo">
             <i class="fas fa-user-md"></i>
-            <span>Consultation</span></a>
+            <span>Consultations</span>
+        </a>
+        <div id="collapseConsult" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar"
+            style="">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="consult.php">Students</a>
+                <a class="collapse-item" href="consult1.php">Employees</a>
+                <a class="collapse-item" href="consult2.php">Visitors</a>
+            </div>
+        </div>
     </li>
 
+    <!-- Heading -->
+    <!-- <div class="sidebar-heading">
+        Consultation
+    </div> -->
+
+
+
 
     <!-- Heading -->
-    <div class="sidebar-heading">
+    <!-- <div class="sidebar-heading">
         Requirments
     </div>
     <li class="nav-item">
@@ -80,7 +94,7 @@
             <i class="fas fa-notes-medical"></i>
             <span>MedCert</span>
         </a>
-    </li>
+    </li> -->
 
 
     <!-- Divider -->

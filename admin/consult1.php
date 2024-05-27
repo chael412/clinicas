@@ -1,7 +1,7 @@
 <?php
 include ('includes/header.php');
 include ('includes/navbar.php');
-include ('modal/modal-consult.php');
+include ('modal/modal-consultEmployees.php');
 
 ?>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -12,9 +12,9 @@ include ('modal/modal-consult.php');
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h5 class="m-0 font-weight-bold text-brown">Student Consultation
+            <h5 class="m-0 font-weight-bold text-brown">Employees Consultation
                 <button type="button" class="d-none d-sm-inline-block float-right btn btn-sm btn-success shadow-sm m-1"
-                    data-toggle="modal" data-target="#modal_consultADD"><i class="fas fa-plus mx-1"></i>Create
+                    data-toggle="modal" data-target="#modal_consultADD1"><i class="fas fa-plus mx-1"></i>Create
                     Consult</button>
 
             </h5>
@@ -27,7 +27,7 @@ include ('modal/modal-consult.php');
             INNER JOIN consult_medicine cm ON ct.ct_id = cm.ct_id
             LEFT JOIN medicine m ON cm.mdn_id = m.mdn_id
             INNER JOIN users us ON ct.u_id = us.u_id
-            INNER JOIN students st ON us.u_id = st.u_id
+            INNER JOIN employees emp ON us.u_id = emp.u_id
             GROUP BY  us.u_id
             ORDER BY ct.ct_id DESC           
             ";
@@ -35,11 +35,11 @@ include ('modal/modal-consult.php');
 
             ?>
             <div class="table-responsive">
-                <table id="datatableid" class="consult_table table table-bordered" width="100%" cellspacing="0">
+                <table id="datatableid" class="consult_table1 table table-bordered" width="100%" cellspacing="0">
                     <thead class="thead-light">
                         <tr>
                             <th style="width: 10%">No.</th>
-                            <th style="width: 70%">Student Name</th>
+                            <th style="width: 70%">Employee Name</th>
                             <th style="width: 20%"></th>
                         </tr>
                     </thead>
@@ -60,7 +60,7 @@ include ('modal/modal-consult.php');
                                     <td>
                                         <div class="row justify-content-center">
                                             <div class="col col-lg-2">
-                                                <form action="consult_view.php" method="POST">
+                                                <form action="consult_view1.php" method="POST">
                                                     <input type="hidden" name="view_id" value="<?= $row['u_id']; ?>">
                                                     <button type="submit" name="view_medcert_btn"
                                                         class="d-none d-sm-inline-block btn btn-sm btn-outline-primary shadow-sm"><i

@@ -431,6 +431,93 @@ if (isset($_POST['consult_add'])) {
     }
 }
 
+if (isset($_POST['consult_add1'])) {
+    // Sanitize input
+    $uID = mysqli_real_escape_string($conn, $_POST['uID']);
+    $complaints = mysqli_real_escape_string($conn, $_POST['complaints']);
+    $recommendation = mysqli_real_escape_string($conn, $_POST['recommendation']);
+    $med_desc = mysqli_real_escape_string($conn, $_POST['med_desc']);
+
+    $medicines = $_POST['medicines'];
+    $quantities = $_POST['quantities'];
+
+    // Check if the requested quantities are available in the inventory
+    $allAvailable = true;
+    $insufficientStock = [];
+
+    foreach ($medicines as $key => $medicine_id) {
+        $quantity = $quantities[$key];
+
+        // Query to check inventory stock
+        $inventoryQuery = "SELECT medicine_name, quantity FROM medicine WHERE mdn_id = ?";
+        $inventoryStmt = mysqli_prepare($conn, $inventoryQuery);
+        mysqli_stmt_bind_param($inventoryStmt, 'i', $medicine_id);
+        mysqli_stmt_execute($inventoryStmt);
+        mysqli_stmt_bind_result($inventoryStmt, $medicine_name, $stock);
+        mysqli_stmt_fetch($inventoryStmt);
+        mysqli_stmt_close($inventoryStmt);
+
+        // Check if stock is sufficient
+        if ($stock < $quantity) {
+            $allAvailable = false;
+            $insufficientStock[] = [
+                'name' => $medicine_name,
+                'available' => $stock
+            ];
+        }
+    }
+
+    if ($allAvailable) {
+        // Insert into consultations table
+        $query = "INSERT INTO consultations (u_id, chief_complaints, recommendation, med_desc) VALUES (?, ?, ?, ?)";
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, 'isss', $uID, $complaints, $recommendation, $med_desc);
+        $result = mysqli_stmt_execute($stmt);
+        $ct_id = mysqli_insert_id($conn);  // Get the inserted consultation ID
+        mysqli_stmt_close($stmt);
+
+        if ($result) {
+            // Prepare statement for inserting into consult_medicine table
+            $query2 = "INSERT INTO consult_medicine (ct_id, mdn_id, cm_quantity) VALUES (?, ?, ?)";
+            $stmt2 = mysqli_prepare($conn, $query2);
+            $consultationSuccess = true;
+
+            foreach ($medicines as $key => $medicine_id) {
+                $quantity = $quantities[$key];
+                mysqli_stmt_bind_param($stmt2, 'iii', $ct_id, $medicine_id, $quantity);
+                $result2 = mysqli_stmt_execute($stmt2);
+
+                if ($result2) {
+                    // Deduct the quantity from the inventory
+                    $updateQuery = "UPDATE medicine SET quantity = quantity - ? WHERE mdn_id = ?";
+                    $updateStmt = mysqli_prepare($conn, $updateQuery);
+                    mysqli_stmt_bind_param($updateStmt, 'ii', $quantity, $medicine_id);
+                    mysqli_stmt_execute($updateStmt);
+                    mysqli_stmt_close($updateStmt);
+                } else {
+                    $consultationSuccess = false;
+                    break;
+                }
+            }
+
+            mysqli_stmt_close($stmt2);
+
+            if ($consultationSuccess) {
+                echo 'success';
+            } else {
+                echo 'error';
+            }
+        } else {
+            echo 'error';
+        }
+    } else {
+        echo 'insufficient stock: ';
+        foreach ($insufficientStock as $medicine) {
+            echo $medicine['name'] . ' (available: ' . $medicine['available'] . '), ';
+        }
+    }
+}
+
 
 if (isset($_POST['consult_update'])) {
     $ctId = $_POST['ct_id'];
