@@ -71,7 +71,14 @@
             style="">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="consult.php">Students</a>
-                <a class="collapse-item" href="consult1.php">Employees</a>
+                <a class="collapse-item dropdown text-secondary dropdown-toggle" href="#" role="button"
+                    data-toggle="dropdown" aria-expanded="false">
+                    Employees
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="consult1.php">Consult</a>
+                    <a class="dropdown-item" href="consult1.2.php">Mothly Consult</a>
+                </div>
                 <a class="collapse-item" href="consult2.php">Visitors</a>
             </div>
         </div>

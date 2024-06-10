@@ -1157,6 +1157,127 @@ $(document).on('click', '#consult_update_btn1', function (e) {
 	});
 });
 
+////////////////11111111111111111111111111111
+$(document).on('click', '#search_consult_btn12', function () {
+	console.log('clicked');
+	var consult_id = $(this).attr('id');
+	// alert(consult_id);
+
+	$.ajax({
+		url: 'fetchconsult12.php',
+		method: 'GET',
+		dataType: 'json',
+		success: function (res) {
+			$('#modal_consultREQ12').modal('show');
+			var tbody = $('#modal_consultREQ12 .consultsearch_table12');
+			tbody.empty();
+			$.each(res.data, function (index, res) {
+				var row = '<tr>' + '<td>' + res.index + '</td>' + '<td>' + res.client_name + '</td>' + '<td>' + res.actions + '</td>' + '</tr>';
+				tbody.append(row);
+			});
+		},
+		error: function (xhr, status, error) {
+			console.error(xhr.responseText);
+		},
+	});
+});
+$(document).on('click', '.select_consult12', function () {
+	var consult_id = $(this).attr('id');
+	console.log(consult_id);
+
+	$.ajax({
+		type: 'POST',
+		url: 'code.php',
+		data: { consult_id: consult_id },
+		dataType: 'json',
+		success: function (res) {
+			console.log(res);
+			$('#modal_consultREQ12').modal('hide');
+			// $('#search_input').val('');
+			$('#modal_consultADD12 #uID').val(res.u_id);
+			$('#modal_consultADD12 #client_name').val(res.client_name);
+		},
+	});
+});
+$('#consult_add_btn12').on('click', function (e) {
+	e.preventDefault();
+	//alert('clicked');
+
+	var uID = $('#uID').val();
+	var complaints = $('#complaints').val();
+	var recommendation = $('#recommendation').val();
+	var med_desc = $('#med_desc').val();
+
+	// Initialize empty arrays to store selected medicines and quantities
+	var medicines = [];
+	var quantities = [];
+
+	// Loop through each added medicine input field
+	$('#additionalMedicineInputs')
+		.find('div.row')
+		.each(function () {
+			var medicineId = $(this).find('input[name="medicine_ids[]"]').val();
+			var quantity = $(this).find('input[name="quantities[]"]').val();
+			// Add medicine id and quantity to arrays
+			medicines.push(medicineId);
+			quantities.push(quantity);
+		});
+
+	// Check if any of the required fields are empty
+	if (!uID || !complaints || !recommendation || medicines.length === 0 || quantities.length === 0) {
+		Swal.fire({
+			icon: 'error',
+			title: 'Oops...',
+			text: 'Please fill in all the required fields.',
+		});
+		return;
+	}
+
+	// Combine medicines and quantities into an array of objects
+	var data = {
+		consult_add12: true,
+		uID: uID,
+		complaints: complaints,
+		recommendation: recommendation,
+		medicines: medicines,
+		quantities: quantities,
+		med_desc: med_desc,
+	};
+
+	console.log(data);
+
+	$.ajax({
+		type: 'POST',
+		url: 'code.php',
+		data: data,
+		success: function (response) {
+			console.log(response);
+			if (response == 'success') {
+				Swal.fire({
+					icon: 'success',
+					title: 'Success',
+					text: 'Consultation Successfully Created',
+				}).then(() => {
+					$('#consultform_add1')[0].reset();
+					$('#modal_consultADD1').modal('hide');
+					$('.consult_table1').load(window.location.href + ' .consult_table1');
+					setTimeout(() => {
+						window.location.reload();
+					}, 2000); // Delay of 2000ms (2 seconds)
+				});
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: response,
+				});
+			}
+		},
+	});
+});
+
+///////////////11111111111111111111111111111
+
 /// ===================================== 	VISITORS CONSULT SECTION===============================================================
 $(document).on('click', '#search_consult_btn2', function () {
 	console.log('clicked');
