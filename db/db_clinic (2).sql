@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 26, 2024 at 06:53 AM
+-- Generation Time: Jun 10, 2024 at 06:26 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -96,7 +96,16 @@ INSERT INTO `consultations` (`ct_id`, `u_id`, `chief_complaints`, `recommendatio
 (10, 15, 'sample chief com', 'sample recom', 'sample med pres', '2024-05-26 03:57:59'),
 (11, 15, 'gtyayay', 'recomen', 'precribe', '2024-05-26 04:18:55'),
 (12, 15, 'gg chief', 'gg recos', 'gg pres', '2024-05-26 04:21:20'),
-(18, 15, 'hahah chief', 'hahaha recom', 'hahah pres', '2024-05-26 04:52:23');
+(18, 15, 'hahah chief', 'hahaha recom', 'hahah pres', '2024-05-26 04:52:23'),
+(19, 5, 'your love', 'nating', 'jajajaj', '2024-05-27 13:05:35'),
+(20, 5, 'aa', 'aa', 'aa', '2024-05-27 13:06:28'),
+(21, 3, 'bb', 'bbb', '', '2024-05-27 13:08:03'),
+(22, 5, 'mmm', 'mmm', 'mmm', '2024-05-27 13:08:33'),
+(23, 7, 'nnn', 'nnn', 'jj', '2024-05-27 13:09:29'),
+(24, 16, 'bb update', 'cdczx', 'yun ka', '2024-05-27 13:15:02'),
+(25, 14, 'yuuauau update version1', 'yahay up', 'tysas', '2024-05-27 14:53:33'),
+(26, 12, 'gggg update', 'gggg hahaha pogi ako', 'ggggg', '2024-05-27 23:45:54'),
+(27, 12, 'aguy', 'hahah bleh', 'hahaah anno na', '2024-05-27 23:49:30');
 
 -- --------------------------------------------------------
 
@@ -136,7 +145,70 @@ INSERT INTO `consult_medicine` (`cm_id`, `ct_id`, `mdn_id`, `cm_quantity`) VALUE
 (99, 12, 3, 10),
 (100, 12, 6, 8),
 (105, 18, 4, 1),
-(106, 18, 5, 1);
+(106, 18, 5, 1),
+(107, 19, 2, 2),
+(108, 20, 7, 2),
+(109, 21, 2, 1),
+(110, 21, 6, 1),
+(111, 22, 7, 1),
+(112, 22, 11, 1),
+(113, 23, 7, 5),
+(114, 23, 2, 2),
+(119, 24, 7, 2),
+(120, 24, 3, 2),
+(125, 25, 2, 5),
+(126, 25, 3, 2),
+(129, 27, 7, 2),
+(130, 27, 3, 1),
+(133, 26, 2, 1),
+(134, 26, 7, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `consult_monthly`
+--
+
+CREATE TABLE `consult_monthly` (
+  `ctm_id` int(11) NOT NULL,
+  `u_id` int(11) NOT NULL,
+  `chief_complaints` varchar(100) NOT NULL,
+  `recommendation` varchar(100) NOT NULL,
+  `med_desc` varchar(100) NOT NULL,
+  `process_date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `consult_monthly`
+--
+
+INSERT INTO `consult_monthly` (`ctm_id`, `u_id`, `chief_complaints`, `recommendation`, `med_desc`, `process_date`) VALUES
+(1, 9, 'sample mnth compliants', 'sample recommendation', '', '2024-06-10 00:23:13'),
+(2, 9, 'month comaplinats', 'tes123', 'test123', '2024-06-10 00:48:40'),
+(3, 9, 'xxxxx', 'xxxxxx', 'xxxx', '2024-06-10 00:49:15'),
+(4, 9, 'xxxxxxxxxxx', 'xxxxxxxxxxxxxxx', 'xxxxxxxxxxxx', '2024-06-10 00:51:09'),
+(5, 9, 'xxxxxxxxxxxxxxx', 'xxxxxxxxxxxxxx', 'xxxxxxxxx', '2024-06-10 00:52:08');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `consult_monthly_medicine`
+--
+
+CREATE TABLE `consult_monthly_medicine` (
+  `ctmm_id` int(11) NOT NULL,
+  `ctm_id` int(11) NOT NULL,
+  `mdn_id` int(11) NOT NULL,
+  `ctmm_quantity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `consult_monthly_medicine`
+--
+
+INSERT INTO `consult_monthly_medicine` (`ctmm_id`, `ctm_id`, `mdn_id`, `ctmm_quantity`) VALUES
+(1, 1, 3, 5),
+(2, 5, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -326,13 +398,13 @@ CREATE TABLE `medicine` (
 --
 
 INSERT INTO `medicine` (`mdn_id`, `medicine_name`, `brand_name`, `type_id`, `ml`, `quantity`, `med_prescription`) VALUES
-(2, 'ascorbic acid', '', 2, 0.00, 10000, ''),
-(3, 'Mefenamic acid', '', 2, 0.00, 999999, ''),
+(2, 'ascorbic acid', '', 2, 0.00, 9988, ''),
+(3, 'Mefenamic acid', '', 2, 0.00, 999994, ''),
 (4, 'Amoxicillin Cap', '', 1, 0.00, 0, ''),
 (5, 'Ambroxol Tab', '', 3, 4.50, 0, ''),
-(6, 'Azithromycin Tab', '', 3, 1.20, 1, ''),
-(7, 'vitamin x', '', 2, 0.00, 32, ''),
-(11, 'sample genericer', 'sample brander', 1, 1.75, 2, 'sample prescription');
+(6, 'Azithromycin Tab', '', 3, 1.20, 0, ''),
+(7, 'vitamin x', '', 2, 0.00, 18, ''),
+(11, 'sample genericer', 'sample brander', 1, 1.75, 1, 'sample prescription');
 
 -- --------------------------------------------------------
 
@@ -498,7 +570,8 @@ INSERT INTO `students` (`s_id`, `student_no`, `u_id`, `cs_id`) VALUES
 (3, '88-65655', 3, 8),
 (4, '55-00102', 4, 10),
 (5, '44-93933', 5, 1),
-(7, '22-189191', 7, 1);
+(7, '22-189191', 7, 1),
+(10, '20-19234', 16, 9);
 
 -- --------------------------------------------------------
 
@@ -555,7 +628,8 @@ INSERT INTO `users` (`u_id`, `firstname`, `middlename`, `lastname`, `birthdate`,
 (12, 'moi', 'aa', 'bgty', '2024-05-10', 1, '0989678'),
 (13, 'igno', 'mkk', 'kkk', '2024-05-08', 1, '098978777'),
 (14, 'eros', '', 'cdfff', '2007-05-06', 0, '09787686'),
-(15, 'hyy', '', 'aasa', '2024-05-14', 0, '0987976856');
+(15, 'hyy', '', 'aasa', '2024-05-14', 0, '0987976856'),
+(16, 'Taguro', 'a', 'Gumenasai', '2001-05-09', 1, '09818181811');
 
 -- --------------------------------------------------------
 
@@ -604,6 +678,18 @@ ALTER TABLE `consultations`
 --
 ALTER TABLE `consult_medicine`
   ADD PRIMARY KEY (`cm_id`);
+
+--
+-- Indexes for table `consult_monthly`
+--
+ALTER TABLE `consult_monthly`
+  ADD PRIMARY KEY (`ctm_id`);
+
+--
+-- Indexes for table `consult_monthly_medicine`
+--
+ALTER TABLE `consult_monthly_medicine`
+  ADD PRIMARY KEY (`ctmm_id`);
 
 --
 -- Indexes for table `courses`
@@ -733,13 +819,25 @@ ALTER TABLE `confinement`
 -- AUTO_INCREMENT for table `consultations`
 --
 ALTER TABLE `consultations`
-  MODIFY `ct_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `ct_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `consult_medicine`
 --
 ALTER TABLE `consult_medicine`
-  MODIFY `cm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
+  MODIFY `cm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
+
+--
+-- AUTO_INCREMENT for table `consult_monthly`
+--
+ALTER TABLE `consult_monthly`
+  MODIFY `ctm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `consult_monthly_medicine`
+--
+ALTER TABLE `consult_monthly_medicine`
+  MODIFY `ctmm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `courses`
@@ -829,7 +927,7 @@ ALTER TABLE `rle`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `s_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `s_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `types`
@@ -841,7 +939,7 @@ ALTER TABLE `types`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `visitors`
