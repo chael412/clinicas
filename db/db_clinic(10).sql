@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 10, 2024 at 06:26 AM
+-- Generation Time: Jun 18, 2024 at 12:26 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -91,7 +91,7 @@ INSERT INTO `consultations` (`ct_id`, `u_id`, `chief_complaints`, `recommendatio
 (5, 8, 'bg', 'bgg', 'mkhg', '2024-05-05 23:54:08'),
 (6, 6, 'jjj', 'jjjj', 'jjjj', '2024-05-05 23:54:41'),
 (7, 7, 'nnjnn', 'nnnn', 'mmmma', '2024-05-05 23:57:05'),
-(8, 9, 'ss', 'ss', 'ss', '2024-05-06 02:13:48'),
+(8, 9, 'sasay', 'ss', 'wala lng description', '2024-05-06 02:13:48'),
 (9, 3, 'kkkk', 'kkkk', 'kkk', '2024-05-07 03:20:42'),
 (10, 15, 'sample chief com', 'sample recom', 'sample med pres', '2024-05-26 03:57:59'),
 (11, 15, 'gtyayay', 'recomen', 'precribe', '2024-05-26 04:18:55'),
@@ -102,9 +102,9 @@ INSERT INTO `consultations` (`ct_id`, `u_id`, `chief_complaints`, `recommendatio
 (21, 3, 'bb', 'bbb', '', '2024-05-27 13:08:03'),
 (22, 5, 'mmm', 'mmm', 'mmm', '2024-05-27 13:08:33'),
 (23, 7, 'nnn', 'nnn', 'jj', '2024-05-27 13:09:29'),
-(24, 16, 'bb update', 'cdczx', 'yun ka', '2024-05-27 13:15:02'),
-(25, 14, 'yuuauau update version1', 'yahay up', 'tysas', '2024-05-27 14:53:33'),
-(26, 12, 'gggg update', 'gggg hahaha pogi ako', 'ggggg', '2024-05-27 23:45:54'),
+(24, 16, 'bb update try', 'cdczx', 'yun ka', '2024-05-27 13:15:02'),
+(25, 14, 'masakit ag panga', 'yahay up', 'type ko sya', '2024-05-27 14:53:33'),
+(26, 12, 'batusay washing', 'gggg hahaha pogi ako', 'ggggg', '2024-05-27 23:45:54'),
 (27, 12, 'aguy', 'hahah bleh', 'hahaah anno na', '2024-05-27 23:49:30');
 
 -- --------------------------------------------------------
@@ -134,7 +134,6 @@ INSERT INTO `consult_medicine` (`cm_id`, `ct_id`, `mdn_id`, `cm_quantity`) VALUE
 (73, 4, 2, 3),
 (74, 4, 3, 6),
 (75, 4, 5, 8),
-(85, 8, 7, 10),
 (86, 7, 7, 7),
 (87, 7, 3, 1),
 (88, 6, 7, 1),
@@ -154,14 +153,15 @@ INSERT INTO `consult_medicine` (`cm_id`, `ct_id`, `mdn_id`, `cm_quantity`) VALUE
 (112, 22, 11, 1),
 (113, 23, 7, 5),
 (114, 23, 2, 2),
-(119, 24, 7, 2),
-(120, 24, 3, 2),
-(125, 25, 2, 5),
-(126, 25, 3, 2),
 (129, 27, 7, 2),
 (130, 27, 3, 1),
-(133, 26, 2, 1),
-(134, 26, 7, 2);
+(137, 24, 7, 2),
+(138, 24, 3, 2),
+(139, 25, 2, 5),
+(140, 25, 3, 2),
+(141, 8, 7, 10),
+(142, 26, 2, 1),
+(143, 26, 7, 2);
 
 -- --------------------------------------------------------
 
@@ -825,7 +825,7 @@ ALTER TABLE `consultations`
 -- AUTO_INCREMENT for table `consult_medicine`
 --
 ALTER TABLE `consult_medicine`
-  MODIFY `cm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
+  MODIFY `cm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
 
 --
 -- AUTO_INCREMENT for table `consult_monthly`

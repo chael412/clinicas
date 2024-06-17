@@ -1275,6 +1275,68 @@ $('#consult_add_btn12').on('click', function (e) {
 		},
 	});
 });
+$(document).on('click', '#consult_update_btn12', function (e) {
+	e.preventDefault();
+
+	var ctId = $('#ct_id').val();
+	var complaints = $('#complaints').val();
+	var recommendation = $('#recommendation').val();
+	var med_desc = $('#med_desc').val();
+
+	var medicines = [];
+	var quantities = [];
+
+	$('select[name="medicine[]"]').each(function () {
+		var medicineId = $(this).val();
+		var quantity = $(this).closest('.row').find('input[name="quantity[]"]').val();
+
+		medicines.push({ id: medicineId, cm_id: $(this).closest('.row').find('#cmID').val() });
+		quantities.push(quantity);
+	});
+
+	if (!complaints || !recommendation) {
+		Swal.fire({
+			icon: 'error',
+			title: 'Oops...',
+			text: 'Please fill in all the required fields.',
+		});
+		return;
+	}
+
+	var data = {
+		consult_update: true,
+		ct_id: ctId,
+		complaints: complaints,
+		recommendation: recommendation,
+		med_desc: med_desc,
+		medicines: medicines,
+		quantities: quantities,
+	};
+
+	console.log(quantities);
+
+	$.ajax({
+		type: 'POST',
+		url: 'code.php',
+		data: data,
+		success: function (response) {
+			console.log(response);
+			if (response === 'success') {
+				Swal.fire({
+					icon: 'success',
+					title: 'Success',
+					text: 'Consultation Successfully Updated',
+				});
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Failed to update consultation',
+				});
+			}
+		},
+	});
+});
 
 ///////////////11111111111111111111111111111
 
