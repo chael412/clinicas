@@ -418,6 +418,8 @@ $('#student_update_btn').on('click', function (e) {
 	var sex = $('#sex').val();
 	var contact_no = $('#contact_no').val();
 
+	// console.log(course_id);
+
 	if (!student_no || !sID || !course_id || !firstname || !middlename || !lastname || !birthdate || !sex || !contact_no) {
 		Swal.fire({
 			icon: 'error',
@@ -440,17 +442,16 @@ $('#student_update_btn').on('click', function (e) {
 		contact_no: contact_no,
 	};
 
-	console.log(data);
 	$.ajax({
 		type: 'POST',
 		url: 'code.php',
 		data: data,
 		success: function (response) {
-			if (response == 'success') {
+			if (response.trim() === 'success') {
 				Swal.fire({
 					icon: 'success',
 					title: 'Success',
-					text: 'Student Update Successfully',
+					text: 'Student updated successfully',
 				}).then((result) => {
 					if (result.isConfirmed) {
 						window.location.href = 'students.php';
@@ -460,9 +461,16 @@ $('#student_update_btn').on('click', function (e) {
 				Swal.fire({
 					icon: 'error',
 					title: 'Oops...',
-					text: 'Failed to update student',
+					text: 'Failed to update studentrr: ' + response,
 				});
 			}
+		},
+		error: function (xhr, status, error) {
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Failed to update student: ' + error,
+			});
 		},
 	});
 });
@@ -1676,6 +1684,98 @@ $('#visitorform_add').submit(function (e) {
 		},
 	});
 });
+$('#visitor_update_btn').on('click', function (e) {
+	e.preventDefault();
+
+	var vID = $('#vID').val();
+	var firstname = $('#firstname').val();
+	var middlename = $('#middlename').val();
+	var lastname = $('#lastname').val();
+	var birthdate = $('#birthdate').val();
+	var sex = $('#sex').val();
+	var contact_no = $('#contact_no').val();
+
+	if (!vID || !firstname || !middlename || !lastname || !birthdate || !sex || !contact_no) {
+		Swal.fire({
+			icon: 'error',
+			title: 'Oops...',
+			text: 'Please fill in all the required fields.',
+		});
+		return;
+	}
+
+	var data = {
+		visitor_update: true,
+		vID: vID,
+		firstname: firstname,
+		middlename: middlename,
+		lastname: lastname,
+		birthdate: birthdate,
+		sex: sex,
+		contact_no: contact_no,
+	};
+
+	$.ajax({
+		type: 'POST',
+		url: 'code.php',
+		data: data,
+		success: function (response) {
+			if (response.trim() === 'success') {
+				Swal.fire({
+					icon: 'success',
+					title: 'Success',
+					text: 'Visitor updated successfully',
+				}).then((result) => {
+					if (result.isConfirmed) {
+						window.location.href = 'visitors.php';
+					}
+				});
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Failed to update visitor: ' + response,
+				});
+			}
+		},
+		error: function (xhr, status, error) {
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Failed to update student: ' + error,
+			});
+		},
+	});
+});
+function deleteVisitor(vID) {
+	if (confirm('Are you sure you want to delete this Visitor?')) {
+		$.ajax({
+			url: 'code.php',
+			type: 'POST',
+			data: { v_idz: vID },
+			success: function (response) {
+				Swal.fire({
+					icon: 'success',
+					title: 'Success',
+					text: response,
+					confirmButtonText: 'OK',
+				}).then((result) => {
+					if (result.isConfirmed) {
+						window.location.href = 'visitors.php';
+					}
+				});
+			},
+			error: function (xhr, status, error) {
+				Swal.fire({
+					icon: 'error',
+					title: 'Error',
+					text: 'An error occurred while deleting the visitor.',
+					confirmButtonText: 'OK',
+				});
+			},
+		});
+	}
+}
 
 // =================================== Employees Section ======================================================
 $('#employeeform_add').submit(function (e) {
@@ -1705,3 +1805,102 @@ $('#employeeform_add').submit(function (e) {
 		},
 	});
 });
+$('#employee_update_btn').on('click', function (e) {
+	e.preventDefault();
+
+	var empID = $('#empID').val();
+	var employee_no = $('#employee_no').val();
+	var dep_id = $('#dep_id').val();
+	var firstname = $('#firstname').val();
+	var middlename = $('#middlename').val();
+	var lastname = $('#lastname').val();
+	var birthdate = $('#birthdate').val();
+	var sex = $('#sex').val();
+	var contact_no = $('#contact_no').val();
+
+	// console.log(dep_id);
+
+	if (!employee_no || !empID || !dep_id || !firstname || !middlename || !lastname || !birthdate || !sex || !contact_no) {
+		Swal.fire({
+			icon: 'error',
+			title: 'Oops...',
+			text: 'Please fill in all the required fields.',
+		});
+		return;
+	}
+
+	var data = {
+		employee_update: true,
+		empID: empID,
+		employee_no: employee_no,
+		dep_id: dep_id,
+		firstname: firstname,
+		middlename: middlename,
+		lastname: lastname,
+		birthdate: birthdate,
+		sex: sex,
+		contact_no: contact_no,
+	};
+
+	$.ajax({
+		type: 'POST',
+		url: 'code.php',
+		data: data,
+		success: function (response) {
+			if (response.trim() === 'success') {
+				Swal.fire({
+					icon: 'success',
+					title: 'Success',
+					text: 'Employee updated successfully',
+				}).then((result) => {
+					if (result.isConfirmed) {
+						window.location.href = 'employees.php';
+					}
+				});
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Failed to update studentrr: ' + response,
+				});
+			}
+		},
+		error: function (xhr, status, error) {
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Failed to update student: ' + error,
+			});
+		},
+	});
+});
+
+function deleteEmployee(empID) {
+	if (confirm('Are you sure you want to delete this Employee?')) {
+		$.ajax({
+			url: 'code.php',
+			type: 'POST',
+			data: { emp_idz: empID },
+			success: function (response) {
+				Swal.fire({
+					icon: 'success',
+					title: 'Success',
+					text: response,
+					confirmButtonText: 'OK',
+				}).then((result) => {
+					if (result.isConfirmed) {
+						window.location.href = 'employees.php';
+					}
+				});
+			},
+			error: function (xhr, status, error) {
+				Swal.fire({
+					icon: 'error',
+					title: 'Error',
+					text: 'An error occurred while deleting the employee.',
+					confirmButtonText: 'OK',
+				});
+			},
+		});
+	}
+}

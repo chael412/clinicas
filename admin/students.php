@@ -71,7 +71,7 @@ include ('modal/modal-student.php');
                                                 </form>
                                             </div>
                                             <div class="col col-lg-2">
-                                                <button disabled type="button" name="del_student"
+                                                <button type="button" name="del_student"
                                                     onclick="deleteStudent(<?= $row['s_id'] ?>)"
                                                     class="d-none d-sm-inline-block btn btn-sm btn-outline-danger shadow-sm">
                                                     <i class="fas fa-trash"></i>

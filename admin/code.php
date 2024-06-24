@@ -44,13 +44,13 @@ if (isset($_POST['student_update'])) {
     $sex = $_POST['sex'];
     $contact_no = $_POST['contact_no'];
 
-
+    // Update the users table
     $query = "UPDATE users SET firstname='$firstname', middlename='$middlename', lastname='$lastname', birthdate='$birthdate', sex='$sex', contact_no='$contact_no' WHERE u_id = (SELECT u_id FROM students WHERE s_id = '$sID')";
     $result = mysqli_query($conn, $query);
 
     if ($result) {
-        // Finally, update students table
-        $query = "UPDATE students SET cs_id='$course_id' WHERE s_id='$sID'";
+        // Update the students table
+        $query = "UPDATE students SET student_no = '$student_no', cs_id='$course_id' WHERE s_id='$sID'";
         $result = mysqli_query($conn, $query);
 
         if ($result) {
@@ -61,38 +61,34 @@ if (isset($_POST['student_update'])) {
     } else {
         echo 'error updating users table';
     }
-
 }
 
 if (isset($_GET['stud_idx'])) {
-    $stud_idx = $_GET['stud_idx'];
+    $sID = $_GET['stud_idx'];
 
-    // Assuming $conn is your database connection
+    // Fetch the user ID associated with the student
+    $user_query = "SELECT u.u_id FROM students s
+                   INNER JOIN users u ON s.u_id = u.u_id 
+                   WHERE s.s_id = $sID";
+    $result = mysqli_query($conn, $user_query);
 
-    // First, delete from the students table
-    $query = "DELETE FROM students WHERE s_id='$stud_idx'";
-    $result = mysqli_query($conn, $query);
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $uID = $row['u_id'];
 
-    if ($result) {
-        // Then, delete from the users table
-        $query = "DELETE FROM users WHERE u_id = (SELECT u_id FROM students WHERE s_id = '$stud_idx')";
-        $result = mysqli_query($conn, $query);
-
-        if ($result) {
-            // Finally, delete from the user_accs table
-            $query = "DELETE FROM user_accs WHERE uac_id = (SELECT uac_id FROM students WHERE s_id = '$stud_idx')";
-            $result = mysqli_query($conn, $query);
-
-            if ($result) {
-                echo "success";
+        $studDel = "DELETE FROM students WHERE s_id = $sID";
+        if (mysqli_query($conn, $studDel)) {
+            $userDel = "DELETE FROM users WHERE u_id = $uID";
+            if (mysqli_query($conn, $userDel)) {
+                echo "Student deleted successfully!";
             } else {
-                echo 'error deleting from user_accs table';
+                echo "Error deleting user record: " . mysqli_error($conn);
             }
         } else {
-            echo 'error deleting from users table';
+            echo "Error deleting student record: " . mysqli_error($conn);
         }
     } else {
-        echo 'error deleting from students table';
+        echo "No user found for the provided student ID.";
     }
 }
 
@@ -739,6 +735,53 @@ if (isset($_POST['visitor_add'])) {
 
 
 }
+if (isset($_POST['visitor_update'])) {
+    $vID = $_POST['vID'];
+    $firstname = $_POST['firstname'];
+    $middlename = $_POST['middlename'];
+    $lastname = $_POST['lastname'];
+    $birthdate = $_POST['birthdate'];
+    $sex = $_POST['sex'];
+    $contact_no = $_POST['contact_no'];
+
+    // Update the users table
+    $query = "UPDATE users SET firstname='$firstname', middlename='$middlename', lastname='$lastname', birthdate='$birthdate', sex='$sex', contact_no='$contact_no' WHERE u_id = (SELECT u_id FROM visitors WHERE v_id = '$vID')";
+    $result = mysqli_query($conn, $query);
+
+    if ($result) {
+        echo "success";
+    } else {
+        echo 'error updating visitor table';
+    }
+}
+if (isset($_POST['v_idz'])) {
+    $vID = $_POST['v_idz'];
+
+    // Fetch the user ID associated with the employee
+    $user_query = "SELECT u.u_id FROM visitors vs
+                   INNER JOIN users u ON vs.u_id = u.u_id 
+                   WHERE vs.v_id = $vID";
+    $result = mysqli_query($conn, $user_query);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $uID = $row['u_id'];
+
+        $vDel = "DELETE FROM visitors WHERE v_id = $vID";
+        if (mysqli_query($conn, $vDel)) {
+            $userDel = "DELETE FROM users WHERE u_id = $uID";
+            if (mysqli_query($conn, $userDel)) {
+                echo "Visitor deleted successfully!";
+            } else {
+                echo "Error deleting user record: " . mysqli_error($conn);
+            }
+        } else {
+            echo "Error deleting visitor record: " . mysqli_error($conn);
+        }
+    } else {
+        echo "No user found for the provided visitor ID.";
+    }
+}
 
 // ===================================================================================== Employee
 if (isset($_POST['employee_add'])) {
@@ -769,4 +812,63 @@ if (isset($_POST['employee_add'])) {
     }
 
 
+}
+
+if (isset($_POST['employee_update'])) {
+    $empID = $_POST['empID'];
+    $employee_no = $_POST['employee_no'];
+    $dep_id = $_POST['dep_id'];
+    $firstname = $_POST['firstname'];
+    $middlename = $_POST['middlename'];
+    $lastname = $_POST['lastname'];
+    $birthdate = $_POST['birthdate'];
+    $sex = $_POST['sex'];
+    $contact_no = $_POST['contact_no'];
+
+    // Update the users table
+    $query = "UPDATE users SET firstname='$firstname', middlename='$middlename', lastname='$lastname', birthdate='$birthdate', sex='$sex', contact_no='$contact_no' WHERE u_id = (SELECT u_id FROM employees WHERE emp_id = '$empID')";
+    $result = mysqli_query($conn, $query);
+
+    if ($result) {
+        // Update the students table
+        $query = "UPDATE employees SET employee_no = '$employee_no', dp_id='$dep_id' WHERE emp_id='$empID'";
+        $result = mysqli_query($conn, $query);
+
+        if ($result) {
+            echo "success";
+        } else {
+            echo 'error updating students table';
+        }
+    } else {
+        echo 'error updating users table';
+    }
+}
+
+if (isset($_POST['emp_idz'])) {
+    $empID = $_POST['emp_idz'];
+
+    // Fetch the user ID associated with the employee
+    $user_query = "SELECT u.u_id FROM employees emp
+                   INNER JOIN users u ON emp.u_id = u.u_id 
+                   WHERE emp.emp_id = $empID";
+    $result = mysqli_query($conn, $user_query);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $uID = $row['u_id'];
+
+        $empDel = "DELETE FROM employees WHERE emp_id = $empID";
+        if (mysqli_query($conn, $empDel)) {
+            $userDel = "DELETE FROM users WHERE u_id = $uID";
+            if (mysqli_query($conn, $userDel)) {
+                echo "Employee deleted successfully!";
+            } else {
+                echo "Error deleting user record: " . mysqli_error($conn);
+            }
+        } else {
+            echo "Error deleting employee record: " . mysqli_error($conn);
+        }
+    } else {
+        echo "No user found for the provided employee ID.";
+    }
 }

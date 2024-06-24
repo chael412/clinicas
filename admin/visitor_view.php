@@ -11,9 +11,8 @@ include ('includes/navbar.php');
         if (isset($_POST['view_btn'], $_POST['view_id'])) {
             $id = $_POST['view_id'];
 
-            $query = "SELECT s.s_id,  s.student_no, cs.cs_id,  us.firstname, us.middlename, us.lastname, us.birthdate, us.sex, us.contact_no  FROM students s
-                INNER JOIN courses AS cs ON s.cs_id = cs.cs_id
-                INNER JOIN users AS us ON s.u_id = us.u_id WHERE s_id='$id'";
+            $query = "SELECT vs.v_id, us.u_id, us.firstname, us.middlename,us.lastname, us.birthdate, us.sex, us.contact_no FROM visitors vs
+                        INNER JOIN users AS us ON vs.u_id = us.u_id  WHERE vs.v_id='$id'";
 
             $query_run = mysqli_query($conn, $query);
 
@@ -21,58 +20,17 @@ include ('includes/navbar.php');
                 ?>
                 <div class="card-header py-3 m-0 d-flex align-items-center justify-content-between">
                     <h6>
-                        <span class=" font-weight-bold text-success">View Student</span>
+                        <span class=" font-weight-bold text-success">View Visitor </span>
                     </h6>
-                    <a href="students.php" name="cancel_btn"
+                    <a href="visitors.php" name="cancel_btn"
                         class="btn  d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                             class="fas fa-chevron-circle-left"></i> Back</a>
                 </div>
 
                 <div class="card-body">
-
-
                     <div class="row">
                         <div class="col"></div>
-
-
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label>Student No.</label>
-                                <input type="hidden" id="sID" value="<?= $row['s_id'] ?>">
-
-                                <input type="text" id="student_no" value="<?= $row['student_no'] ?>"
-                                    class="form-control form-control-sm" readonly disabled>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label>Course</label>
-                                <select class="form-control form-control-sm" id="course_id" required disabled>
-
-                                    <?php
-                                    $displayDept = "SELECT cs_id, course_name, acro FROM courses";
-                                    $deptResult = mysqli_query($conn, $displayDept);
-                                    if (mysqli_num_rows($deptResult) > 0) {
-                                        foreach ($deptResult as $deptItem) {
-                                            $selected = ($deptItem['cs_id'] == $row['cs_id']) ? 'selected' : '';
-                                            ?>
-                                            <option value='<?= $deptItem['cs_id'] ?>' <?= $selected ?>>
-                                                <?= $deptItem['course_name'] ?>
-                                            </option>
-                                            <?php
-                                        }
-                                    } else {
-                                        echo '<option>No Course found!</option>';
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                        </div>
-
-                    </div>
-
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">

@@ -55,24 +55,24 @@ include ('modal/modal-employee.php');
                                     <td>
                                         <div class="row justify-content-center">
                                             <div class="col col-lg-2">
-                                                <form action="student_view.php" method="POST">
+                                                <form action="employee_view.php" method="POST">
                                                     <input type="hidden" name="view_id" value="<?= $row['emp_id']; ?>">
-                                                    <button disabled type="submit" name="view_btn"
+                                                    <button type="submit" name="view_btn"
                                                         class="d-none d-sm-inline-block btn btn-sm btn-outline-primary shadow-sm"><i
                                                             class="fa fa-eye" aria-hidden="true"></i></button>
                                                 </form>
                                             </div>
                                             <div class="col col-lg-2 mx-1">
-                                                <form action="student_edit.php" method="POST">
+                                                <form action="employee_edit.php" method="POST">
                                                     <input type="hidden" name="edit_id" value="<?= $row['emp_id']; ?>">
-                                                    <button disabled type="submit" name="edit_btn"
+                                                    <button type="submit" name="edit_btn"
                                                         class="d-none d-sm-inline-block btn btn-sm btn-outline-success shadow-sm"><i
                                                             class="fas fa-edit"></i></button>
                                                 </form>
                                             </div>
                                             <div class="col col-lg-2">
-                                                <button disabled type="button" name="del_student"
-                                                    onclick="deleteStudent(<?= $row['emp_id'] ?>)"
+                                                <button type="button" name="del_student"
+                                                    onclick="deleteEmployee(<?= $row['emp_id'] ?>)"
                                                     class="d-none d-sm-inline-block btn btn-sm btn-outline-danger shadow-sm">
                                                     <i class="fas fa-trash"></i>
                                                 </button>

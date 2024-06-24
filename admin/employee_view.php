@@ -10,21 +10,21 @@ include ('includes/navbar.php');
 
         <div class="card-header py-3 m-0 d-flex align-items-center justify-content-between">
             <h6>
-                <span class=" font-weight-bold text-success">Edit Student</span>
+                <span class=" font-weight-bold text-success">View Employee</span>
             </h6>
-            <a href="students.php" name="cancel_btn"
+            <a href="employees.php" name="cancel_btn"
                 class="btn  d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                     class="fas fa-chevron-circle-left"></i> Back</a>
         </div>
 
         <div class="card-body">
             <?php
-            if (isset($_POST['edit_btn'])) {
-                $id = $_POST['edit_id'];
+            if (isset($_POST['view_btn'])) {
+                $id = $_POST['view_id'];
 
-                $query = "SELECT s.s_id, s.student_no, cs.cs_id, us.firstname, us.middlename, us.lastname, us.birthdate, us.sex, us.contact_no  FROM students s
-                INNER JOIN courses AS cs ON s.cs_id = cs.cs_id
-                INNER JOIN users AS us ON s.u_id = us.u_id WHERE s_id='$id'";
+                $query = "SELECT emp.emp_id, emp.employee_no,us.firstname, us.middlename,us.lastname, us.birthdate, us.sex, us.contact_no, dep.dp_id, dep.dp_name  FROM employees emp
+                            INNER JOIN users AS us ON emp.u_id = us.u_id
+                            INNER JOIN departments AS dep ON emp.dp_id = dep.dp_id WHERE emp.emp_id='$id'";
                 $query_run = mysqli_query($conn, $query);
 
                 foreach ($query_run as $row) {
@@ -36,27 +36,27 @@ include ('includes/navbar.php');
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label>Student No.</label>
-                                    <input type="hidden" id="sID" value="<?= $row['s_id'] ?>">
+                                    <label>Employee No.</label>
+                                    <input type="hidden" id="empID" value="<?= $row['emp_id'] ?>">
 
-                                    <input type="text" id="student_no" value="<?= $row['student_no'] ?>"
-                                        class="form-control form-control-sm">
+                                    <input type="text" id="employee_no" value="<?= $row['employee_no'] ?>"
+                                        class="form-control form-control-sm" disabled>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <label>Course</label>
-                                    <select class="form-control form-control-sm" id="course_id" required>
+                                    <label>Department</label>
+                                    <select class="form-control form-control-sm" id="dep_id" required disabled>
 
                                         <?php
-                                        $displayDept = "SELECT cs_id, course_name, acro FROM courses";
+                                        $displayDept = "SELECT *FROM departments dept";
                                         $deptResult = mysqli_query($conn, $displayDept);
                                         if (mysqli_num_rows($deptResult) > 0) {
                                             foreach ($deptResult as $deptItem) {
-                                                $selected = ($deptItem['cs_id'] == $row['cs_id']) ? 'selected' : '';
+                                                $selected = ($deptItem['dp_id'] == $row['dp_id']) ? 'selected' : '';
                                                 ?>
-                                                <option value='<?= $deptItem['cs_id'] ?>' <?= $selected ?>>
-                                                    <?= $deptItem['course_name'] ?>
+                                                <option value='<?= $deptItem['dp_id'] ?>' <?= $selected ?>>
+                                                    <?= $deptItem['dp_name'] ?>
                                                 </option>
                                                 <?php
                                             }
@@ -75,15 +75,14 @@ include ('includes/navbar.php');
                                 <div class="form-group">
                                     <label>Firstname</label>
                                     <input type="text" name="firstname" id="firstname" value="<?= $row['firstname'] ?>"
-                                        class="form-control form-control-sm">
+                                        class="form-control form-control-sm" disabled>
                                 </div>
-
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>Middlename</label>
                                     <input type="text" name="" id="middlename" value="<?= $row['middlename'] ?>"
-                                        class="form-control form-control-sm">
+                                        class="form-control form-control-sm" disabled>
                                 </div>
                             </div>
 
@@ -93,7 +92,7 @@ include ('includes/navbar.php');
                                 <div class="form-group">
                                     <label>Lastname</label>
                                     <input type="text" name="lastname" id="lastname" value="<?= $row['lastname'] ?>"
-                                        class="form-control form-control-sm">
+                                        class="form-control form-control-sm" disabled>
                                 </div>
 
                             </div>
@@ -101,7 +100,7 @@ include ('includes/navbar.php');
                                 <div class="form-group">
                                     <label>Birthdate</label>
                                     <input type="date" name="birthdate" id="birthdate" value="<?= $row['birthdate'] ?>"
-                                        class="form-control form-control-sm">
+                                        class="form-control form-control-sm" disabled>
                                 </div>
                             </div>
                         </div>
@@ -111,7 +110,7 @@ include ('includes/navbar.php');
 
                                     <div class="form-group">
                                         <label>Sex</label>
-                                        <select name="sex" id="sex" class="form-control form-control-sm">
+                                        <select name="sex" id="sex" class="form-control form-control-sm" disabled>
                                             <option value="1" <?php if ($row['sex'] == 1)
                                                 echo 'selected'; ?>>Male</option>
                                             <option value="2" <?php if ($row['sex'] == 2)
@@ -126,21 +125,11 @@ include ('includes/navbar.php');
                                 <div class="form-group">
                                     <label>Mobile No.</label>
                                     <input type="text" name="contact_no" id="contact_no" value="<?= $row['contact_no'] ?>"
-                                        class="form-control form-control-sm">
+                                        class="form-control form-control-sm" disabled>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <a href="students.php" name="cancel_btn"
-                                    class="btn  d-none d-sm-inline-block btn-sm btn-outline-secondary shadow-sm"><i
-                                        class="fas fa-ban"></i>
-                                    Cancel</a>
-                                <button type="submit" id="student_update_btn" name="student_update_btn"
-                                    class="btn btn-success delbtn d-none d-sm-inline-block btn btn-sm shadow-sm"><i
-                                        class="fas fa-upload"></i> Update</button>
-                            </div>
-                        </div>
+
                     </form>
 
 
