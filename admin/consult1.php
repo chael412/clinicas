@@ -68,13 +68,7 @@ include ('modal/modal-consultEmployees.php');
                                                 </form>
                                             </div>
 
-                                            <div class="col col-lg-2">
-                                                <button disabled type="button" name="del_student"
-                                                    onclick="deleteCT(<?= $row['ct_id'] ?>)"
-                                                    class=" mx-2 d-none d-sm-inline-block btn btn-sm btn-outline-danger shadow-sm">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </div>
+
                                         </div>
                                     </td>
                                 </tr>

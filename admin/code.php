@@ -607,42 +607,31 @@ if (isset($_POST['consult_update'])) {
     $complaints = $_POST['complaints'];
     $recommendation = $_POST['recommendation'];
     $med_desc = $_POST['med_desc'];
-    $medicines = $_POST['medicines'];
-    $quantities = $_POST['quantities'];
+
 
     // Update consultations table
     $updateQuery = "UPDATE consultations SET chief_complaints = '$complaints', recommendation = '$recommendation', med_desc = '$med_desc' WHERE ct_id = '$ctId'";
     $updateResult = mysqli_query($conn, $updateQuery);
 
     if ($updateResult) {
-        // Delete existing consult_medicine entries for this consultation
-        $deleteQuery = "DELETE FROM consult_medicine WHERE ct_id = '$ctId'";
-        $deleteResult = mysqli_query($conn, $deleteQuery);
+        echo 'success';
+    } else {
+        echo 'error';
+    }
+}
 
-        if ($deleteResult) {
-            // Insert new consult_medicine entries
-            $success = true;
-            foreach ($medicines as $key => $medicine) {
-                $medicine_id = $medicine['id'];
-                $quantity = $quantities[$key];
+if (isset($_POST['consult_update2'])) {
+    $ctId = $_POST['ct_id'];
+    $complaints = $_POST['complaints'];
+    $recommendation = $_POST['recommendation'];
+    $med_desc = $_POST['med_desc'];
 
-                $insertQuery = "INSERT INTO consult_medicine (ct_id, mdn_id, cm_quantity) VALUES ('$ctId', '$medicine_id', '$quantity')";
-                $insertResult = mysqli_query($conn, $insertQuery);
+    // Update consultations table
+    $updateQuery = "UPDATE consult_monthly SET chief_complaints = '$complaints', recommendation = '$recommendation', med_desc = '$med_desc' WHERE ctm_id = '$ctId'";
+    $updateResult = mysqli_query($conn, $updateQuery);
 
-                if (!$insertResult) {
-                    $success = false;
-                    break;
-                }
-            }
-
-            if ($success) {
-                echo 'success';
-            } else {
-                echo 'error';
-            }
-        } else {
-            echo 'error';
-        }
+    if ($updateResult) {
+        echo 'success';
     } else {
         echo 'error';
     }

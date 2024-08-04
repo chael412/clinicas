@@ -9,14 +9,12 @@ include ('modal/modal-consult.php');
 
 
 <div class="container-fluid">
-
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h5 class="m-0 font-weight-bold text-brown">Student Consultation
                 <button type="button" class="d-none d-sm-inline-block float-right btn btn-sm btn-success shadow-sm m-1"
                     data-toggle="modal" data-target="#modal_consultADD"><i class="fas fa-plus mx-1"></i>Create
                     Consult</button>
-
             </h5>
         </div>
         <div class="card-body">
@@ -68,13 +66,7 @@ include ('modal/modal-consult.php');
                                                 </form>
                                             </div>
 
-                                            <div class="col col-lg-2">
-                                                <button disabled type="button" name="del_student"
-                                                    onclick="deleteCT(<?= $row['ct_id'] ?>)"
-                                                    class=" mx-2 d-none d-sm-inline-block btn btn-sm btn-outline-danger shadow-sm">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </div>
+
                                         </div>
                                     </td>
                                 </tr>

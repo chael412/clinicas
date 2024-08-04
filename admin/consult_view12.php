@@ -8,9 +8,9 @@ include ('includes/navbar.php');
     if (isset($_POST['view_medcert_btn'])) {
         $u_id = $_POST['view_id'];
 
-        $query_name = "SELECT ct.ct_id, us.u_id, CONCAT(us.firstname, ' ', us.middlename, ' ', us.lastname) AS user_fullname 
-        FROM consultations ct        
-        INNER JOIN users us ON ct.u_id = us.u_id
+        $query_name = "SELECT ctm.ctm_id, us.u_id, CONCAT(us.firstname, ' ', us.middlename, ' ', us.lastname) AS user_fullname 
+        FROM consult_monthly ctm        
+        INNER JOIN users us ON ctm.u_id = us.u_id
         WHERE us.u_id = '$u_id' LIMIT  1
         ";
         $result_name = mysqli_query($conn, $query_name);
@@ -18,13 +18,13 @@ include ('includes/navbar.php');
         $user_fullname = $row_name ? $row_name['user_fullname'] : "No user found";
 
 
-        $query = "SELECT ct.ct_id, us.u_id, CONCAT(us.firstname, ' ', us.middlename, ' ', us.lastname) AS user_fullname, ct.chief_complaints, ct.recommendation, ct.process_date, GROUP_CONCAT(CONCAT(m.medicine_name, ' (', cm.cm_quantity, ')') SEPARATOR ', ') AS medicines_with_quantity, ct.med_desc
-        FROM consultations ct
-        INNER JOIN consult_medicine cm ON ct.ct_id = cm.ct_id 
-        LEFT JOIN medicine m ON cm.mdn_id = m.mdn_id 
-        INNER JOIN users us ON ct.u_id = us.u_id  
-        WHERE us.u_id = '$u_id'
-        GROUP BY ct.ct_id, us.u_id
+        $query = "SELECT ctm.ctm_id, us.u_id, CONCAT(us.firstname, ' ', us.middlename, ' ', us.lastname) AS user_fullname, ctm.chief_complaints, ctm.recommendation, ctm.process_date, GROUP_CONCAT(CONCAT(m.medicine_name, ' (', cm.ctmm_quantity, ')') SEPARATOR ', ') AS medicines_with_quantity, ctm.med_desc
+                FROM consult_monthly ctm
+                INNER JOIN consult_monthly_medicine cm ON ctm.ctm_id = cm.ctm_id 
+                LEFT JOIN medicine m ON cm.mdn_id = m.mdn_id 
+                INNER JOIN users us ON ctm.u_id = us.u_id  
+                WHERE us.u_id = '$u_id'
+                GROUP BY ctm.ctm_id, us.u_id
         ";
 
         $result = mysqli_query($conn, $query);
@@ -44,7 +44,7 @@ include ('includes/navbar.php');
                     <thead>
                         <tr>
                             <th colspan="2" class="text-center text-primary">
-                                <h4>Consultation Information for <?= $user_fullname ?></h4>
+                                <h4>Monthly Consultation Information for <?= $user_fullname ?></h4>
                             </th>
                         </tr>
                     </thead>
@@ -70,14 +70,18 @@ include ('includes/navbar.php');
                                 </td>
                                 <td>
                                     <span class="">
-                                        <button disabled type="button" name="del_student" onclick="deleteCT(<?= $row['ct_id'] ?>)"
-                                            class="d-none d-sm-inline-block btn btn-sm btn-outline-danger float-right">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+
+                                        <form method="POST" action="">
+                                            <input type="hidden" name="delete_id" value="<?= $row['ctm_id'] ?>">
+                                            <button type="submit" name="del_consult" onclick="return confirmDelete()"
+                                                class="btn btn-sm btn-outline-danger float-right">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
                                     </span>
                                     <span>
                                         <form action="consult_edit12.php" method="POST">
-                                            <input type="hidden" name="edit_id" value="<?= $row['ct_id']; ?>">
+                                            <input type="hidden" name="edit_id" value="<?= $row['ctm_id']; ?>">
                                             <button type="submit" name="edit_btn"
                                                 class="d-none d-sm-inline-block btn btn-sm btn-outline-primary float-right mx-2"><i
                                                     class="fas fa-edit"></i></button>
@@ -112,8 +116,37 @@ include ('includes/navbar.php');
     ?>
 </div>
 
+<script>
+    function confirmDelete() {
+        return confirm('Are you sure you want to delete this consultation?');
+    }
+</script>
+
 
 <?php
 include ('includes/scripts.php');
 include ('includes/footer.php');
+?>
+
+<?php
+if (isset($_POST['del_consult'])) {
+    $ct_id = $_POST['delete_id'];
+
+    // Delete from consult_medicine table
+    $query = "DELETE FROM consult_monthly_medicine WHERE ctmm_id = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, 'i', $ct_id);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    // Delete from consultations table
+    $query = "DELETE FROM consult_monthly WHERE ctm_id = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, 'i', $ct_id);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    // Redirect or display a success message
+    echo "<script>alert('Consultation deleted successfully'); window.location.href = 'consult1.2.php';</script>";
+}
 ?>

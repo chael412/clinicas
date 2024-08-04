@@ -44,7 +44,7 @@ include ('includes/navbar.php');
                     <thead>
                         <tr>
                             <th colspan="2" class="text-center text-primary">
-                                <h4>Consultation Information for <?= $user_fullname ?></h4>
+                                <h4>Student Consultation Information for <?= $user_fullname ?></h4>
                             </th>
                         </tr>
                     </thead>
@@ -70,10 +70,13 @@ include ('includes/navbar.php');
                                 </td>
                                 <td>
                                     <span class="">
-                                        <button disabled type="button" name="del_student" onclick="deleteCT(<?= $row['ct_id'] ?>)"
-                                            class="d-none d-sm-inline-block btn btn-sm btn-outline-danger float-right">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                        <form method="POST" action="">
+                                            <input type="hidden" name="delete_id" value="<?= $row['ct_id'] ?>">
+                                            <button type="submit" name="del_consult" onclick="return confirmDelete()"
+                                                class="btn btn-sm btn-outline-danger float-right">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
                                     </span>
                                     <span>
                                         <form action="consult_edit.php" method="POST">
@@ -111,9 +114,37 @@ include ('includes/navbar.php');
     }
     ?>
 </div>
+<script>
+    function confirmDelete() {
+        return confirm('Are you sure you want to delete this consultation?');
+    }
+</script>
 
 
 <?php
 include ('includes/scripts.php');
 include ('includes/footer.php');
+?>
+
+<?php
+if (isset($_POST['del_consult'])) {
+    $ct_id = $_POST['delete_id'];
+
+    // Delete from consult_medicine table
+    $query = "DELETE FROM consult_medicine WHERE ct_id = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, 'i', $ct_id);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    // Delete from consultations table
+    $query = "DELETE FROM consultations WHERE ct_id = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, 'i', $ct_id);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    // Redirect or display a success message
+    echo "<script>alert('Consultation deleted successfully'); window.location.href = 'consult.php';</script>";
+}
 ?>

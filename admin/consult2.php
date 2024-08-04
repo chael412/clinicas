@@ -35,7 +35,7 @@ include ('modal/modal-consult2.php');
 
             ?>
             <div class="table-responsive">
-                <table id="datatableid" class="consult_table1 table table-bordered" width="100%" cellspacing="0">
+                <table id="datatableid" class="consult_table2 table table-bordered" width="100%" cellspacing="0">
                     <thead class="thead-light">
                         <tr>
                             <th style="width: 10%">No.</th>
@@ -68,13 +68,7 @@ include ('modal/modal-consult2.php');
                                                 </form>
                                             </div>
 
-                                            <div class="col col-lg-2">
-                                                <button disabled type="button" name="del_student"
-                                                    onclick="deleteCT(<?= $row['ct_id'] ?>)"
-                                                    class=" mx-2 d-none d-sm-inline-block btn btn-sm btn-outline-danger shadow-sm">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </div>
+
                                         </div>
                                     </td>
                                 </tr>

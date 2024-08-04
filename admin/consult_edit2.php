@@ -112,8 +112,6 @@ include ('includes/navbar.php');
                                                         </div>
 
                                                     </div>
-
-
                                                     <?php
                                                 }
                                             } else {
@@ -122,8 +120,6 @@ include ('includes/navbar.php');
                                             ?>
                                         </div>
                                     </div>
-
-
 
                                     <div class="row">
                                         <div class="col">

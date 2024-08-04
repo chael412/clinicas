@@ -20,24 +20,24 @@ include ('includes/navbar.php');
             if (isset($_POST['edit_btn'], $_POST['edit_id'])) {
                 $ct_id = $_POST['edit_id'];
 
-                $query = "SELECT ct.ct_id, us.u_id, cm.cm_id, cm.mdn_id, CONCAT(us.firstname, ' ', us.middlename, ' ', us.lastname) AS user_fullname, ct.chief_complaints, ct.recommendation, ct.process_date, GROUP_CONCAT(CONCAT(m.medicine_name, ' (', cm.cm_quantity, ')') SEPARATOR ', ') AS medicines_with_quantity, ct.med_desc
-                FROM consultations ct
-                INNER JOIN consult_medicine cm ON ct.ct_id = cm.ct_id 
-                LEFT JOIN medicine m ON cm.mdn_id = m.mdn_id 
-                INNER JOIN users us ON ct.u_id = us.u_id  
-                WHERE ct.ct_id = '$ct_id'
+                $query = "SELECT ctm.ctm_id, us.u_id, cm.ctmm_id, cm.mdn_id, CONCAT(us.firstname, ' ', us.middlename, ' ', us.lastname) AS user_fullname, ctm.chief_complaints, ctm.recommendation, ctm.process_date, GROUP_CONCAT(CONCAT(m.medicine_name, ' (', cm.ctmm_quantity, ')') SEPARATOR ', ') AS medicines_with_quantity, ctm.med_desc
+                        FROM consult_monthly ctm
+                        INNER JOIN consult_monthly_medicine cm ON ctm.ctm_id = cm.ctm_id
+                        LEFT JOIN medicine m ON cm.mdn_id = m.mdn_id 
+                        INNER JOIN users us ON ctm.u_id = us.u_id  
+                        WHERE ctm.ctm_id = '$ct_id'
                 ";
                 $query_run = mysqli_query($conn, $query);
 
                 foreach ($query_run as $row) {
-                    $ctID = $row['ct_id'];
+                    $ctID = $row['ctm_id'];
                     ?>
 
                     <form id="consultform_edit">
                         <div class="modal-body" style="overflow-y: auto; max-height: calc(90vh - 120px);">
                             <div class="row justify-content-between">
                                 <div class="col-6" style="border-right: 2px solid #9ca3af">
-                                    <input type="hidden" id="ct_id" value="<?= $row['ct_id'] ?>">
+                                    <input type="hidden" id="ct_id" value="<?= $row['ctm_id'] ?>">
                                     <div class="form-group">
                                         <label>Client Name</label>
                                         <input type="hidden" id="uID" class="form-control form-control-sm">
@@ -63,10 +63,10 @@ include ('includes/navbar.php');
                                             <?php
                                             $ct_id = mysqli_real_escape_string($conn, $ct_id);
                                             $query_medicine = "SELECT m.mdn_id, cm.cm_id, m.medicine_name, cm.cm_quantity
-                                            FROM consultations ct
-                                            INNER JOIN consult_medicine cm ON ct.ct_id = cm.ct_id 
+                                            FROM consult_monthly ctm
+                                            INNER JOIN consult_medicine cm ON ctm.ctm_id = cm.ct_id 
                                             LEFT JOIN medicine m ON cm.mdn_id = m.mdn_id 
-                                            WHERE ct.ct_id = '$ct_id'";
+                                            WHERE ctm.ctm_id = '$ct_id'";
                                             $result_medicine = mysqli_query($conn, $query_medicine);
                                             if (mysqli_num_rows($result_medicine) > 0) {
                                                 while ($medicine = mysqli_fetch_assoc($result_medicine)) {
@@ -138,7 +138,7 @@ include ('includes/navbar.php');
                         <div class="modal-footer">
                             <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-outline-secondary shadow-sm"
                                 data-dismiss="modal"><i class="fas fa-ban"></i> Cancel</button>
-                            <button type="submit" id="consult_update_btn" name="consult_update_btn"
+                            <button type="submit" id="consult_update_btn3" name="consult_update_btn"
                                 class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i
                                     class="fas fa-save mx-1"></i>Update</button>
                         </div>
