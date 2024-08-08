@@ -22,7 +22,6 @@
                   <div class="d-flex gap-4">
                     <p> Have an medication present? </p>
                     <span>
-
                       <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="medicationPresent" id="medicationNo"
                           value="0">
@@ -111,8 +110,6 @@
                     </label>
                   </div>
                 </div>
-
-
               </div>
 
             </div>
@@ -127,27 +124,8 @@
                     data-target="#modal_ojtREQ">Select</button>
                 </a>
               </div>
-              <div class="form-group">
-                <label>Urinalysis</label>
-                <input type="file" id="urinalysis" class="form-control form-control-sm">
-              </div>
-              <div class="form-group">
-                <label>X-ray</label>
-                <input type="file" id="x_ray" class="form-control form-control-sm">
-              </div>
-              <div class="form-group">
-                <label>Pregancy Test</label>
-                <input type="file" id="pregnancy_test" class="form-control form-control-sm">
-              </div>
             </div>
-
           </div>
-
-
-
-
-
-
 
         </div>
         <div class="modal-footer">

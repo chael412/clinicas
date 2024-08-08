@@ -2,6 +2,52 @@
 
 require ('../config/dbconfig.php');
 
+//Medical
+if (isset($_POST['student_medical_add'])) {
+    $user_id = $_POST['user_id'];
+    $medicationPresent = $_POST['medicationPresent'];
+    $diagnosis = $_POST['diagnosis'];
+    $treatment = $_POST['treatment'];
+
+    $hyperthension = $_POST['hyperthension'];
+    $diabetes = $_POST['diabetes'];
+    $cardio = $_POST['cardio'];
+    $ptb = $_POST['ptb'];
+    $hyperacidity = $_POST['hyperacidity'];
+    $allergy = $_POST['allergy'];
+    $epilepsy = $_POST['epilepsy'];
+    $asthma = $_POST['asthma'];
+    $dysmenorrhea = $_POST['dysmenorrhea'];
+    $liver = $_POST['liver'];
+
+
+    $query = "INSERT INTO medical_present (ispresent, mp_diagnosis, mp_treatment) VALUES (' $medicationPresent', '$diagnosis', '$treatment')";
+    $result = mysqli_query($conn, $query);
+
+
+    if ($result) {
+        $mp_id = mysqli_insert_id($conn);
+
+        $query2 = "INSERT INTO medical_history (Hyperthension, Diabetes, Cardiovascular_desease, PTB, Hyperacidity, Allergy, Epilepsy, Asthma, Dysmenorrhea, liver_Desease) VALUES ('$hyperthension', '$diabetes', '$cardio', '$ptb', '$hyperacidity', '$allergy', '$epilepsy', ' $asthma', '$dysmenorrhea', '$liver')";
+        $result2 = mysqli_query($conn, $query2);
+
+        if ($result2) {
+            $mh_id = mysqli_insert_id($conn);
+
+            $query3 = "INSERT INTO med_cert (u_id, mh_id, mp_id, med_type) VALUES ('$user_id', '$mh_id', '$mp_id', 1)";
+            $result3 = mysqli_query($conn, $query3);
+            if ($result3) {
+                echo 'success';
+            } else {
+                echo 'error';
+            }
+        } else {
+            echo 'error';
+        }
+    }
+
+}
+
 /// ===================================== STUDENT SECTION ===============================================================
 if (isset($_POST['student_add'])) {
     $student_no = $_POST['student_no'];

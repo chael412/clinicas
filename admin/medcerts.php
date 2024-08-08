@@ -19,14 +19,11 @@ include ('modal/modal-medcert.php');
         <div class="card-body">
 
             <?php
-            $query = "SELECT uac.uac_id, us.u_id, mc.mc_id, mp.mp_id, mh.mh_id, uac.username, uac.password,  CONCAT(us.lastname, ' ', us.firstname,' ', us.middlename) AS full_name, mc.med_type, mp.ispresent, mp.mp_diagnosis, mp.mp_treatment, mh.Hyperthension, mh.Diabetes, mh.Cardiovascular_desease, mh.PTB, mh.Hyperacidity, mh.Allergy, mh.Epilepsy, mh.Asthma, mh.Dysmenorrhea, mh.liver_Desease  FROM  users us
-            INNER JOIN user_accs AS uac ON us.u_id = uac.uac_id
+            $query = "SELECT  mc.mc_id, mp.mp_id, mh.mh_id, CONCAT(us.lastname, ' ', us.firstname,' ', us.middlename) AS full_name, mc.med_type, mp.ispresent, mp.mp_diagnosis, mp.mp_treatment, mh.Hyperthension, mh.Diabetes, mh.Cardiovascular_desease, mh.PTB, mh.Hyperacidity, mh.Allergy, mh.Epilepsy, mh.Asthma, mh.Dysmenorrhea, mh.liver_Desease  FROM  users us
             INNER JOIN med_cert AS mc ON us.u_id = mc.u_id
             INNER JOIN medical_present AS mp ON mc.mp_id = mp.mp_id
             INNER JOIN medical_history AS mh ON mc.mh_id = mh.mh_id
-            ORDER BY mc.mc_id DESC
-            
-            ";
+            ORDER BY mc.mc_id DESC";
             $query_run = mysqli_query($conn, $query);
 
             ?>
@@ -35,7 +32,6 @@ include ('modal/modal-medcert.php');
                     <thead class="thead-light">
                         <tr>
                             <th style="width: 10%">No.</th>
-
                             <th style="width: 70%">Fullname</th>
                             <th style="width: 20%"></th>
                         </tr>
@@ -50,12 +46,9 @@ include ('modal/modal-medcert.php');
                                     <td>
                                         <?= $a++ ?>
                                     </td>
-
-
                                     <td>
                                         <?php echo $row['full_name']; ?>
                                     </td>
-
                                     <td>
                                         <div class="row justify-content-center">
                                             <div class="col col-lg-2">
@@ -118,7 +111,6 @@ include ('includes/footer.php');
                 $('#treatmentGroup').hide();
                 $('#diagnosis, #treatment').prop('disabled', true);
                 $('#diagnosis, #treatment').val('');
-
             }
         });
     });

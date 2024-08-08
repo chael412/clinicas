@@ -18,7 +18,6 @@ include ('modal/modal-consult.php');
             </h5>
         </div>
         <div class="card-body">
-
             <?php
             $query = "SELECT ct.ct_id,us.u_id, CONCAT(us.firstname, ' ', us.middlename,' ', us.lastname) AS user_fullname, ct.chief_complaints, ct.recommendation, ct.process_date, GROUP_CONCAT(m.medicine_name SEPARATOR ', ') AS medicines
             FROM consultations ct
@@ -65,7 +64,6 @@ include ('modal/modal-consult.php');
                                                             class="fa fa-eye" aria-hidden="true"></i></button>
                                                 </form>
                                             </div>
-
 
                                         </div>
                                     </td>

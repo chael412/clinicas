@@ -1,3 +1,84 @@
+/// ===== Medical History Section
+$('#student_medical_add_btn').on('click', function (e) {
+	e.preventDefault();
+	console.log('clicked');
+
+	var user_id = $('#user_id').val();
+
+	var medicationPresent = $('input[name="medicationPresent"]:checked').val();
+	var diagnosis = $('#diagnosis').val();
+	var treatment = $('#treatment').val();
+
+	var hyperthension = $('#hyperthension').is(':checked') ? 1 : 0;
+	var diabetes = $('#diabetes').is(':checked') ? 1 : 0;
+	var cardio = $('#cardio').is(':checked') ? 1 : 0;
+	var ptb = $('#ptb').is(':checked') ? 1 : 0;
+	var hyperacidity = $('#hyperacidity').is(':checked') ? 1 : 0;
+	var allergy = $('#allergy').is(':checked') ? 1 : 0;
+	var epilepsy = $('#epilepsy').is(':checked') ? 1 : 0;
+	var asthma = $('#asthma').is(':checked') ? 1 : 0;
+	var dysmenorrhea = $('#dysmenorrhea').is(':checked') ? 1 : 0;
+	var liver = $('#liver').is(':checked') ? 1 : 0;
+
+	//Check if any of the required fields are empty
+	// if (!ojtID || !urinalysisFile || !xRayFile || !pregnancyTestFile) {
+	// 	Swal.fire({
+	// 		icon: 'error',
+	// 		title: 'Oops...',
+	// 		text: 'Urinalysis, xRay and pregnancyTest are  required.',
+	// 	});
+	// 	return;
+	// }
+
+	var formData = new FormData();
+	formData.append('student_medical_add', true);
+	formData.append('user_id', user_id);
+	formData.append('medicationPresent', medicationPresent);
+	formData.append('diagnosis', diagnosis);
+	formData.append('treatment', treatment);
+	formData.append('hyperthension', hyperthension);
+	formData.append('diabetes', diabetes);
+	formData.append('cardio', cardio);
+	formData.append('ptb', ptb);
+	formData.append('hyperacidity', hyperacidity);
+	formData.append('allergy', allergy);
+	formData.append('epilepsy', epilepsy);
+	formData.append('asthma', asthma);
+	formData.append('dysmenorrhea', dysmenorrhea);
+	formData.append('liver', liver);
+
+	// console Log each key-value pair in FormData
+	// for (let pair of formData.entries()) {
+	// 	console.log(pair[0] + ', ' + pair[1]);
+	// }
+
+	$.ajax({
+		type: 'POST',
+		url: 'code.php',
+		data: formData,
+		contentType: false,
+		processData: false,
+		success: function (response) {
+			if (response == 'success') {
+				Swal.fire({
+					icon: 'success',
+					title: 'Success',
+					text: 'Medical Successfully Created',
+				});
+				$('#ojtform_add')[0].reset();
+				$('#modal_ojtADD').modal('hide');
+				$('.ojts_table').load(window.location.href + ' .ojts_table');
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Failed to create',
+				});
+			}
+		},
+	});
+});
+
 /// ===================================== ADMIN SECTION===============================================================
 $('#admin_add_btn').on('click', function (e) {
 	e.preventDefault();
