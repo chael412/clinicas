@@ -39,10 +39,10 @@ include ('includes/navbar.php');
                                 </div>
 
                                 <div class="form-group">
-                                    <label>ML</label>
-                                    <input type="number" id="ml" name="ml" class="form-control form-control-sm"
+                                    <label>Dossage</label>
+                                    <input type="text" id="ml" name="ml" class="form-control form-control-sm"
                                         onchange="setTwoNumberDecimal" min="0" max="10" step="0.25"
-                                        placeholder="Enter a generic name" value="<?= $row['ml'] ?>">
+                                        placeholder="Enter a Dossage ammount" value="<?= $row['ml'] ?>">
                                 </div>
                                 <div class="form-group">
                                     <select class="form-control form-control-sm" id="medicine_type" name="medicine_type"
@@ -75,14 +75,14 @@ include ('includes/navbar.php');
                                 -sm" required placeholder="Enter a quantity">
                                 </div>
                             </div>
-                            <div class="col">
+                            <!-- <div class="col">
                                 <div class="form-goup">
                                     <label>Medicine Prescription</label>
                                     <textarea id="pres_desc" rows="4" cols="50" class="form-control"
                                         placeholder="Type your medicine description here..."><?= $row['med_prescription'] ?></textarea>
                                 </div>
 
-                            </div>
+                            </div> -->
                         </div>
 
 

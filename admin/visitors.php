@@ -19,8 +19,10 @@ include ('modal/modal-visitor.php');
 
             <?php
 
-            $query = "SELECT vs.v_id, CONCAT(us.firstname,' ', us.middlename,' ' ,us.lastname) AS visitor_name  FROM visitors vs
-            INNER JOIN users AS us ON vs.u_id = us.u_id ORDER BY vs.v_id DESC";
+            $query = "SELECT mc.mc_id, vs.v_id, us.u_id, CONCAT(us.firstname,' ', us.middlename,' ' ,us.lastname) AS visitor_name  FROM visitors vs
+            INNER JOIN users AS us ON vs.u_id = us.u_id 
+            LEFT JOIN med_cert mc ON us.u_id = mc.u_id
+            ORDER BY vs.v_id DESC";
             $query_run = mysqli_query($conn, $query);
 
             ?>
@@ -50,6 +52,18 @@ include ('modal/modal-visitor.php');
 
                                     <td>
                                         <div class="row justify-content-center">
+
+                                            <?php
+                                            // Check if mc_id is empty and display the button if so
+                                            if (empty($row['mc_id'])) { ?>
+                                                <div class="col col-lg-2 mx-2">
+                                                    <a href="visitor_medical_add.php?u_id=<?= htmlspecialchars($row['u_id']) ?>"
+                                                        name="add_medical_history"
+                                                        class="d-none d-sm-inline-block btn btn-sm btn-outline-secondary shadow-sm">
+                                                        <i class="fas fa-notes-medical"></i>
+                                                    </a>
+                                                </div>
+                                            <?php } ?>
                                             <div class="col col-lg-2">
                                                 <form action="visitor_view.php" method="POST">
                                                     <input type="hidden" name="view_id" value="<?= $row['v_id']; ?>">

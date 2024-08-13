@@ -20,7 +20,8 @@ include ('modal/modal-student.php');
             $query = "SELECT us.u_id, st.s_id, st.student_no, us.lastname, us.firstname, us.middlename, mc.mc_id 
                       FROM users us
                       INNER JOIN students st ON us.u_id = st.u_id
-                      LEFT JOIN med_cert mc ON us.u_id = mc.u_id";
+                      LEFT JOIN med_cert mc ON us.u_id = mc.u_id
+                      ORDER BY st.s_id DESC";
             $query_run = mysqli_query($conn, $query);
             ?>
 
@@ -51,7 +52,7 @@ include ('modal/modal-student.php');
                                             // Check if mc_id is empty and display the button if so
                                             if (empty($row['mc_id'])) { ?>
                                                 <div class="col col-lg-2 mx-2">
-                                                    <a href="medical_add.php?u_id=<?= htmlspecialchars($row['u_id']) ?>"
+                                                    <a href="student_medical_add.php?u_id=<?= htmlspecialchars($row['u_id']) ?>"
                                                         name="add_medical_history"
                                                         class="d-none d-sm-inline-block btn btn-sm btn-outline-secondary shadow-sm">
                                                         <i class="fas fa-notes-medical"></i>

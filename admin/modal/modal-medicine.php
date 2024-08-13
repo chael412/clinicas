@@ -1,7 +1,7 @@
 <!-- Add Modal -->
 <div class="modal fade" id="modal_medicineADD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
+  <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Add Medicine</h5>
@@ -10,7 +10,6 @@
         </button>
       </div>
       <form id="medicineform_add">
-
         <div class="modal-body">
           <div class="row">
             <div class="col" style="border-right: 2px solid #9ca3af">
@@ -25,10 +24,9 @@
                   placeholder="Enter a generic name">
               </div>
               <div class="form-group">
-                <label>ML</label>
-                <input type="number" id="ml" name="ml" class="form-control form-control-sm"
-                  onchange="setTwoNumberDecimal" min="0" max="10" step="0.25" value="0.00"
-                  placeholder="Enter a generic name">
+                <label>Dossage</label>
+                <input type="text" id="ml" name="ml" class="form-control form-control-sm" onchange="setTwoNumberDecimal"
+                  min="0" max="10" step="0.25" placeholder="Enter a Dossage ammount">
               </div>
 
               <div class="form-group">
@@ -57,13 +55,13 @@
                 <input type="number" id="quantity" name="quantity" class="form-control form-control-sm ">
               </div>
             </div>
-            <div class="col">
+            <!-- <div class="col">
               <div class="form-goup">
                 <label>Medicine Prescription</label>
                 <textarea id="pres_desc" rows="4" cols="50" class="form-control"
                   placeholder="Type your medicine description here..."></textarea>
               </div>
-            </div>
+            </div> -->
           </div>
 
 

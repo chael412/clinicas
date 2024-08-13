@@ -34,7 +34,7 @@ include ('modal/modal-consultEmployees2.php');
 
             ?>
             <div class="table-responsive">
-                <table id="datatableid" class="consult_table1 table table-bordered" width="100%" cellspacing="0">
+                <table id="datatableid" class="consult_table2 table table-bordered" width="100%" cellspacing="0">
                     <thead class="thead-light">
                         <tr>
                             <th style="width: 10%">No.</th>

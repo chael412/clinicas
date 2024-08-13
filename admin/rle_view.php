@@ -40,7 +40,6 @@ include ('includes/navbar.php');
                     </div>
 
 
-
                     <div class="d-flex justify-content-center flex-column align-items-center">
                         <div class="form-group d-flex flex-column mb-4">
                             <label style="border-bottom: 2px solid grey; font-size: 1.35rem; font-weight: 600">Urinalyis</label>

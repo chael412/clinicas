@@ -109,6 +109,22 @@
                 </div>
               </div>
             </div>
+            <div class="col-12">
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th colspan="2" class="text-center" style="background: #bbf7d0">
+                        <h3>Medical</h3>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody id="medicalData_employee">
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
         <div class="modal-footer">

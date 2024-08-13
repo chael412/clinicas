@@ -19,8 +19,10 @@ include ('modal/modal-employee.php');
 
             <?php
 
-            $query = "SELECT emp.emp_id, emp.employee_no, CONCAT(us.firstname,' ', us.middlename,' ' ,us.lastname) AS employee_name  FROM employees emp
-            INNER JOIN users AS us ON emp.u_id = us.u_id ORDER BY emp.u_id DESC";
+            $query = "SELECT mc.mc_id, us.u_id, emp.emp_id,  emp.employee_no, CONCAT(us.firstname,' ', us.middlename,' ' ,us.lastname) AS employee_name  FROM employees emp
+            INNER JOIN users AS us ON emp.u_id = us.u_id 
+            LEFT JOIN med_cert mc ON us.u_id = mc.u_id
+            ORDER BY emp.u_id DESC";
             $query_run = mysqli_query($conn, $query);
 
             ?>
@@ -54,9 +56,21 @@ include ('modal/modal-employee.php');
 
                                     <td>
                                         <div class="row justify-content-center">
+                                            <?php
+                                            // Check if mc_id is empty and display the button if so
+                                            if (empty($row['mc_id'])) { ?>
+                                                <div class="col col-lg-2 mx-2">
+                                                    <a href="employee_medical_add.php?u_id=<?= htmlspecialchars($row['u_id']) ?>"
+                                                        name="add_medical_history"
+                                                        class="d-none d-sm-inline-block btn btn-sm btn-outline-secondary shadow-sm">
+                                                        <i class="fas fa-notes-medical"></i>
+                                                    </a>
+                                                </div>
+                                            <?php } ?>
                                             <div class="col col-lg-2">
                                                 <form action="employee_view.php" method="POST">
                                                     <input type="hidden" name="view_id" value="<?= $row['emp_id']; ?>">
+                                                    <input type="hidden" name="view_id2" value="<?= $row['u_id']; ?>">
                                                     <button type="submit" name="view_btn"
                                                         class="d-none d-sm-inline-block btn btn-sm btn-outline-primary shadow-sm"><i
                                                             class="fa fa-eye" aria-hidden="true"></i></button>

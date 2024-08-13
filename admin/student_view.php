@@ -11,11 +11,12 @@ include ('includes/navbar.php');
         if (isset($_POST['view_btn'], $_POST['view_id'])) {
             $id = $_POST['view_id'];
 
-            $query = "SELECT s.s_id,  s.student_no, cs.cs_id,  us.firstname, us.middlename, us.lastname, us.birthdate, us.sex, us.contact_no  FROM students s
+            $query = "SELECT s.s_id, us.u_id, s.student_no, cs.cs_id,  us.firstname, us.middlename, us.lastname, us.birthdate, us.sex, us.contact_no  FROM students s
                 INNER JOIN courses AS cs ON s.cs_id = cs.cs_id
                 INNER JOIN users AS us ON s.u_id = us.u_id WHERE s_id='$id'";
-
             $query_run = mysqli_query($conn, $query);
+
+
 
             foreach ($query_run as $row) {
                 ?>
@@ -134,12 +135,141 @@ include ('includes/navbar.php');
                         </div>
                     </div>
 
+                    <hr />
+
+                    <div class="row mt-5">
+
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <?php
+                                $query2 = "SELECT  mc.mc_id, mp.mp_id, mh.mh_id, CONCAT(us.lastname, ' ', us.firstname,' ', us.middlename) AS full_name, mc.med_type, mp.ispresent, mp.mp_diagnosis, mp.mp_treatment, mh.Hyperthension, mh.Diabetes, mh.Cardiovascular_desease, mh.PTB, mh.Hyperacidity, mh.Allergy, mh.Epilepsy, mh.Asthma, mh.Dysmenorrhea, mh.liver_Desease  FROM  users us
+                                                INNER JOIN med_cert AS mc ON us.u_id = mc.u_id
+                                                INNER JOIN medical_present AS mp ON mc.mp_id = mp.mp_id
+                                                INNER JOIN medical_history AS mh ON mc.mh_id = mh.mh_id
+                                                INNER JOIN students s ON us.u_id = s.u_id
+                                                WHERE s.s_id = '$id'";
+                                $query2_run = mysqli_query($conn, $query2);
+                                if (mysqli_num_rows($query2_run) > 0) {
+                                    foreach ($query2_run as $medItem) {
+                                        ?>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="2" class="text-center " style="background: #dcfce7">
+                                                        <h3 class="d-flex justify-content-center gap-4">
+                                                            Medical
+                                                            <?php
+                                                            if ($medItem['mc_id']) {
+                                                                ?>
+                                                                <span>
+                                                                    <form action="student_medical_edit.php" method="POST">
+                                                                        <input type="hidden" name="edit_id" value="<?= $row['u_id'] ?>">
+                                                                        <button type="submit" name="edit_btn"
+                                                                            class="d-none d-sm-inline-block btn btn-sm btn-outline-success shadow-sm">
+                                                                            <i class="fas fa-edit"></i>
+                                                                        </button>
+                                                                    </form>
+                                                                </span>
+
+                                                                <?php
+                                                            }
+
+                                                            ?>
+
+                                                        </h3>
+
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <p><b>Diagnosis:</b> <?= $medItem['mp_diagnosis'] ?></p>
+                                                        <p><b>Treatmen:</b> <?= $medItem['mp_treatment'] ?></p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <p class="card-text"><strong>
+                                                                Hypertension: </strong>
+                                                            <img width="20"
+                                                                src="<?php echo $medItem['Hyperthension'] == 1 ? './assets/check-mark.png' : ($medItem['Hyperthension'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
+                                                        </p>
+                                                        <p class="card-text"><strong>
+                                                                Diabetes: </strong>
+                                                            <img width="20"
+                                                                src="<?php echo $medItem['Diabetes'] == 1 ? './assets/check-mark.png' : ($medItem['Diabetes'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
+                                                        </p>
+                                                        <p class="card-text"><strong>
+                                                                Cardiovascular desease: </strong>
+                                                            <img width="20"
+                                                                src="<?php echo $medItem['Cardiovascular_desease'] == 1 ? './assets/check-mark.png' : ($medItem['Cardiovascular_desease'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
+                                                        </p>
+                                                        <p class="card-text"><strong>
+                                                                PTB: </strong>
+                                                            <img width="20"
+                                                                src="<?php echo $medItem['PTB'] == 1 ? './assets/check-mark.png' : ($medItem['PTB'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
+                                                        </p>
+                                                        <p class="card-text"><strong>
+                                                                Hyperacidity: </strong>
+                                                            <img width="20"
+                                                                src="<?php echo $medItem['Hyperacidity'] == 1 ? './assets/check-mark.png' : ($medItem['Hyperacidity'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
+                                                        </p>
+                                                    </td>
+                                                    <td>
+
+                                                        <p class="card-text"><strong>
+                                                                Allergy: </strong>
+                                                            <img width="20"
+                                                                src="<?php echo $medItem['Allergy'] == 1 ? './assets/check-mark.png' : ($medItem['Allergy'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
+                                                        </p>
+                                                        <p class="card-text"><strong>
+                                                                Epilepsy: </strong>
+                                                            <img width="20"
+                                                                src="<?php echo $medItem['Epilepsy'] == 1 ? './assets/check-mark.png' : ($medItem['Epilepsy'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
+                                                        </p>
+                                                        <p class="card-text"><strong>
+                                                                Dysmenorrhea: </strong>
+                                                            <img width="20"
+                                                                src="<?php echo $medItem['Dysmenorrhea'] == 1 ? './assets/check-mark.png' : ($medItem['Dysmenorrhea'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
+                                                        </p>
+                                                        <p class="card-text"><strong>
+                                                                Liver Desease: </strong>
+                                                            <img width="20"
+                                                                src="<?php echo $medItem['liver_Desease'] == 1 ? './assets/check-mark.png' : ($medItem['liver_Desease'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
+                                                        </p>
+                                                    </td>
+                                                    <?php
+                                    }
+                                } else {
+                                    ?>
+                                                <td>
+                                                    <h3 class="d-flex justify-content-center gap-4" style="background: #dcfce7">
+                                                        Medical</h3>
+                                                    <p class="text-danger">No medical record found!</p>
+                                                </td>
+                                                <?php
+                                }
+                                ?>
+
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
 
                     <?php
             }
         }
         ?>
         </div>
+
     </div>
 
 </div>

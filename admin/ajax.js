@@ -1,73 +1,137 @@
-/// ===== Medical History Section
-$('#student_medical_add_btn').on('click', function (e) {
+/// ===== Student Medical Section
+$('#visitor_medical_update_btn').on('click', function (e) {
 	e.preventDefault();
 	console.log('clicked');
 
-	var user_id = $('#user_id').val();
+	var user_id = $('#visitor_edit_id').val();
+	var mp_id = $('#visitor_edit_mpid').val();
+	var mh_id = $('#visitor_edit_mhid').val();
 
-	var medicationPresent = $('input[name="medicationPresent"]:checked').val();
-	var diagnosis = $('#diagnosis').val();
-	var treatment = $('#treatment').val();
+	var medicationPresent = $('input[name="visitor_edit_medicationPresent"]:checked').val();
+	var diagnosis = $('#visitor_edit_diagnosis').val();
+	var treatment = $('#visitor_edit_treatment').val();
 
-	var hyperthension = $('#hyperthension').is(':checked') ? 1 : 0;
-	var diabetes = $('#diabetes').is(':checked') ? 1 : 0;
-	var cardio = $('#cardio').is(':checked') ? 1 : 0;
-	var ptb = $('#ptb').is(':checked') ? 1 : 0;
-	var hyperacidity = $('#hyperacidity').is(':checked') ? 1 : 0;
-	var allergy = $('#allergy').is(':checked') ? 1 : 0;
-	var epilepsy = $('#epilepsy').is(':checked') ? 1 : 0;
-	var asthma = $('#asthma').is(':checked') ? 1 : 0;
-	var dysmenorrhea = $('#dysmenorrhea').is(':checked') ? 1 : 0;
-	var liver = $('#liver').is(':checked') ? 1 : 0;
+	var hyperthension = $('#visitor_edit_hyperthension').is(':checked') ? 1 : 0;
+	var diabetes = $('#visitor_edit_diabetes').is(':checked') ? 1 : 0;
+	var cardio = $('#visitor_edit_cardio').is(':checked') ? 1 : 0;
+	var ptb = $('#visitor_edit_ptb').is(':checked') ? 1 : 0;
+	var hyperacidity = $('#visitor_edit_hyperacidity').is(':checked') ? 1 : 0;
+	var allergy = $('#visitor_edit_allergy').is(':checked') ? 1 : 0;
+	var epilepsy = $('#visitor_edit_epilepsy').is(':checked') ? 1 : 0;
+	var asthma = $('#visitor_edit_asthma').is(':checked') ? 1 : 0;
+	var dysmenorrhea = $('#visitor_edit_dysmenorrhea').is(':checked') ? 1 : 0;
+	var liver = $('#visitor_edit_liver').is(':checked') ? 1 : 0;
 
-	//Check if any of the required fields are empty
-	// if (!ojtID || !urinalysisFile || !xRayFile || !pregnancyTestFile) {
-	// 	Swal.fire({
-	// 		icon: 'error',
-	// 		title: 'Oops...',
-	// 		text: 'Urinalysis, xRay and pregnancyTest are  required.',
-	// 	});
-	// 	return;
-	// }
+	console.log(user_id);
 
-	var formData = new FormData();
-	formData.append('student_medical_add', true);
-	formData.append('user_id', user_id);
-	formData.append('medicationPresent', medicationPresent);
-	formData.append('diagnosis', diagnosis);
-	formData.append('treatment', treatment);
-	formData.append('hyperthension', hyperthension);
-	formData.append('diabetes', diabetes);
-	formData.append('cardio', cardio);
-	formData.append('ptb', ptb);
-	formData.append('hyperacidity', hyperacidity);
-	formData.append('allergy', allergy);
-	formData.append('epilepsy', epilepsy);
-	formData.append('asthma', asthma);
-	formData.append('dysmenorrhea', dysmenorrhea);
-	formData.append('liver', liver);
+	var data = {
+		visitor_medical_update: true,
+		user_id: user_id,
+		mp_id: mp_id,
+		mh_id: mh_id,
+		medicationPresent: medicationPresent,
+		diagnosis: diagnosis,
+		treatment: treatment,
+		hyperthension: hyperthension,
+		diabetes: diabetes,
+		cardio: cardio,
+		ptb: ptb,
+		hyperacidity: hyperacidity,
+		allergy: allergy,
+		epilepsy: epilepsy,
+		asthma: asthma,
+		dysmenorrhea: dysmenorrhea,
+		liver: liver,
+	};
 
-	// console Log each key-value pair in FormData
-	// for (let pair of formData.entries()) {
-	// 	console.log(pair[0] + ', ' + pair[1]);
-	// }
+	// Debugging: Log the data object
+	console.log(data);
 
 	$.ajax({
 		type: 'POST',
 		url: 'code.php',
-		data: formData,
-		contentType: false,
-		processData: false,
+		data: data,
+		success: function (response) {
+			if (response == 'success') {
+				Swal.fire({
+					icon: 'success',
+					title: 'Success',
+					text: 'Medical Updated Successfully!',
+				}).then(() => {
+					setTimeout(() => {
+						window.location.href = 'visitors.php';
+					}, 500);
+				});
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Failed to update',
+				});
+			}
+		},
+		error: function (xhr, status, error) {
+			console.error('AJAX Error:', status, error);
+		},
+	});
+});
+$('#visitor_medical_add_btn').on('click', function (e) {
+	e.preventDefault();
+	console.log('clicked');
+
+	var user_id = $('#visitor_user_id').val();
+
+	var medicationPresent = $('input[name="visitor_add_medicationPresent"]:checked').val();
+	var diagnosis = $('#visitor_add_diagnosis').val();
+	var treatment = $('#visitor_add_treatment').val();
+
+	var hyperthension = $('#visitor_add_hyperthension').is(':checked') ? 1 : 0;
+	var diabetes = $('#visitor_add_diabetes').is(':checked') ? 1 : 0;
+	var cardio = $('#visitor_add_cardio').is(':checked') ? 1 : 0;
+	var ptb = $('#visitor_add_ptb').is(':checked') ? 1 : 0;
+	var hyperacidity = $('#visitor_add_hyperacidity').is(':checked') ? 1 : 0;
+	var allergy = $('#visitor_add_allergy').is(':checked') ? 1 : 0;
+	var epilepsy = $('#visitor_add_epilepsy').is(':checked') ? 1 : 0;
+	var asthma = $('#visitor_add_asthma').is(':checked') ? 1 : 0;
+	var dysmenorrhea = $('#visitor_add_dysmenorrhea').is(':checked') ? 1 : 0;
+	var liver = $('#visitor_add_liver').is(':checked') ? 1 : 0;
+
+	var data = {
+		visitor_medical_add: true,
+		user_id: user_id,
+		medicationPresent: medicationPresent,
+		diagnosis: diagnosis,
+		treatment: treatment,
+		hyperthension: hyperthension,
+		diabetes: diabetes,
+		cardio: cardio,
+		ptb: ptb,
+		hyperacidity: hyperacidity,
+		allergy: allergy,
+		epilepsy: epilepsy,
+		asthma: asthma,
+		dysmenorrhea: dysmenorrhea,
+		liver: liver,
+	};
+
+	// Debugging: Log the data object
+	console.log(data);
+
+	$.ajax({
+		type: 'POST',
+		url: 'code.php',
+		data: data,
 		success: function (response) {
 			if (response == 'success') {
 				Swal.fire({
 					icon: 'success',
 					title: 'Success',
 					text: 'Medical Successfully Created',
+				}).then(() => {
+					setTimeout(() => {
+						window.location.href = 'visitors.php';
+					}, 500);
 				});
-				$('#ojtform_add')[0].reset();
-				$('#modal_ojtADD').modal('hide');
-				$('.ojts_table').load(window.location.href + ' .ojts_table');
 			} else {
 				Swal.fire({
 					icon: 'error',
@@ -75,6 +139,306 @@ $('#student_medical_add_btn').on('click', function (e) {
 					text: 'Failed to create',
 				});
 			}
+		},
+		error: function (xhr, status, error) {
+			console.error('AJAX Error:', status, error);
+		},
+	});
+});
+
+/// ==== Employee Medical Section
+$('#employee_medical_add_btn').on('click', function (e) {
+	e.preventDefault();
+	console.log('clicked');
+
+	var user_id = $('#employee_user_id').val();
+
+	var medicationPresent = $('input[name="employee_add_medicationPresent"]:checked').val();
+	var diagnosis = $('#employee_add_diagnosis').val();
+	var treatment = $('#employee_add_treatment').val();
+
+	var hyperthension = $('#employee_add_hyperthension').is(':checked') ? 1 : 0;
+	var diabetes = $('#employee_add_diabetes').is(':checked') ? 1 : 0;
+	var cardio = $('#employee_add_cardio').is(':checked') ? 1 : 0;
+	var ptb = $('#employee_add_ptb').is(':checked') ? 1 : 0;
+	var hyperacidity = $('#employee_add_hyperacidity').is(':checked') ? 1 : 0;
+	var allergy = $('#employee_add_allergy').is(':checked') ? 1 : 0;
+	var epilepsy = $('#employee_add_epilepsy').is(':checked') ? 1 : 0;
+	var asthma = $('#employee_add_asthma').is(':checked') ? 1 : 0;
+	var dysmenorrhea = $('#employee_add_dysmenorrhea').is(':checked') ? 1 : 0;
+	var liver = $('#employee_add_liver').is(':checked') ? 1 : 0;
+
+	var data = {
+		employee_medical_add: true,
+		user_id: user_id,
+		medicationPresent: medicationPresent,
+		diagnosis: diagnosis,
+		treatment: treatment,
+		hyperthension: hyperthension,
+		diabetes: diabetes,
+		cardio: cardio,
+		ptb: ptb,
+		hyperacidity: hyperacidity,
+		allergy: allergy,
+		epilepsy: epilepsy,
+		asthma: asthma,
+		dysmenorrhea: dysmenorrhea,
+		liver: liver,
+	};
+
+	// Debugging: Log the data object
+	console.log(data);
+
+	$.ajax({
+		type: 'POST',
+		url: 'code.php',
+		data: data,
+		success: function (response) {
+			if (response == 'success') {
+				Swal.fire({
+					icon: 'success',
+					title: 'Success',
+					text: 'Medical Successfully Created',
+				}).then(() => {
+					setTimeout(() => {
+						window.location.href = 'employees.php';
+					}, 500);
+				});
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Failed to create',
+				});
+			}
+		},
+		error: function (xhr, status, error) {
+			console.error('AJAX Error:', status, error);
+		},
+	});
+});
+$('#employee_medical_update_btn').on('click', function (e) {
+	e.preventDefault();
+	console.log('clicked');
+
+	var user_id = $('#employee_edit_id').val();
+	var mp_id = $('#employee_edit_mpid').val();
+	var mh_id = $('#employee_edit_mhid').val();
+
+	var medicationPresent = $('input[name="employee_edit_medicationPresent"]:checked').val();
+	var diagnosis = $('#employee_edit_diagnosis').val();
+	var treatment = $('#employee_edit_treatment').val();
+
+	var hyperthension = $('#employee_edit_hyperthension').is(':checked') ? 1 : 0;
+	var diabetes = $('#employee_edit_diabetes').is(':checked') ? 1 : 0;
+	var cardio = $('#employee_edit_cardio').is(':checked') ? 1 : 0;
+	var ptb = $('#employee_edit_ptb').is(':checked') ? 1 : 0;
+	var hyperacidity = $('#employee_edit_hyperacidity').is(':checked') ? 1 : 0;
+	var allergy = $('#employee_edit_allergy').is(':checked') ? 1 : 0;
+	var epilepsy = $('#employee_edit_epilepsy').is(':checked') ? 1 : 0;
+	var asthma = $('#employee_edit_asthma').is(':checked') ? 1 : 0;
+	var dysmenorrhea = $('#employee_edit_dysmenorrhea').is(':checked') ? 1 : 0;
+	var liver = $('#employee_edit_liver').is(':checked') ? 1 : 0;
+
+	console.log(user_id);
+
+	var data = {
+		employee_medical_update: true,
+		user_id: user_id,
+		mp_id: mp_id,
+		mh_id: mh_id,
+		medicationPresent: medicationPresent,
+		diagnosis: diagnosis,
+		treatment: treatment,
+		hyperthension: hyperthension,
+		diabetes: diabetes,
+		cardio: cardio,
+		ptb: ptb,
+		hyperacidity: hyperacidity,
+		allergy: allergy,
+		epilepsy: epilepsy,
+		asthma: asthma,
+		dysmenorrhea: dysmenorrhea,
+		liver: liver,
+	};
+
+	// Debugging: Log the data object
+	console.log(data);
+
+	$.ajax({
+		type: 'POST',
+		url: 'code.php',
+		data: data,
+		success: function (response) {
+			if (response == 'success') {
+				Swal.fire({
+					icon: 'success',
+					title: 'Success',
+					text: 'Medical Updated Successfully!',
+				}).then(() => {
+					setTimeout(() => {
+						window.location.href = 'employees.php';
+					}, 500);
+				});
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Failed to update',
+				});
+			}
+		},
+		error: function (xhr, status, error) {
+			console.error('AJAX Error:', status, error);
+		},
+	});
+});
+
+/// ===== Student Medical Section
+$('#student_medical_update_btn').on('click', function (e) {
+	e.preventDefault();
+	console.log('clicked');
+
+	var user_id = $('#student_edit_id').val();
+	var mp_id = $('#student_edit_mpid').val();
+	var mh_id = $('#student_edit_mhid').val();
+
+	var medicationPresent = $('input[name="student_medicationPresent"]:checked').val();
+	var diagnosis = $('#student_edit_diagnosis').val();
+	var treatment = $('#student_edit_treatment').val();
+
+	var hyperthension = $('#student_edit_hyperthension').is(':checked') ? 1 : 0;
+	var diabetes = $('#student_edit_diabetes').is(':checked') ? 1 : 0;
+	var cardio = $('#student_edit_cardio').is(':checked') ? 1 : 0;
+	var ptb = $('#student_edit_ptb').is(':checked') ? 1 : 0;
+	var hyperacidity = $('#student_edit_hyperacidity').is(':checked') ? 1 : 0;
+	var allergy = $('#student_edit_allergy').is(':checked') ? 1 : 0;
+	var epilepsy = $('#student_edit_epilepsy').is(':checked') ? 1 : 0;
+	var asthma = $('#student_edit_asthma').is(':checked') ? 1 : 0;
+	var dysmenorrhea = $('#student_edit_dysmenorrhea').is(':checked') ? 1 : 0;
+	var liver = $('#student_edit_liver').is(':checked') ? 1 : 0;
+
+	console.log(user_id);
+
+	var data = {
+		student_medical_update: true,
+		user_id: user_id,
+		mp_id: mp_id,
+		mh_id: mh_id,
+		medicationPresent: medicationPresent,
+		diagnosis: diagnosis,
+		treatment: treatment,
+		hyperthension: hyperthension,
+		diabetes: diabetes,
+		cardio: cardio,
+		ptb: ptb,
+		hyperacidity: hyperacidity,
+		allergy: allergy,
+		epilepsy: epilepsy,
+		asthma: asthma,
+		dysmenorrhea: dysmenorrhea,
+		liver: liver,
+	};
+
+	// Debugging: Log the data object
+	console.log(data);
+
+	$.ajax({
+		type: 'POST',
+		url: 'code.php',
+		data: data,
+		success: function (response) {
+			if (response == 'success') {
+				Swal.fire({
+					icon: 'success',
+					title: 'Success',
+					text: 'Medical Updated Successfully!',
+				}).then(() => {
+					setTimeout(() => {
+						window.location.href = 'students.php';
+					}, 500);
+				});
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Failed to update',
+				});
+			}
+		},
+		error: function (xhr, status, error) {
+			console.error('AJAX Error:', status, error);
+		},
+	});
+});
+
+$('#student_medical_add_btn').on('click', function (e) {
+	e.preventDefault();
+	console.log('clicked');
+
+	var user_id = $('#student_user_id').val();
+
+	var medicationPresent = $('input[name="student_medicationPresent"]:checked').val();
+	var diagnosis = $('#student_diagnosis').val();
+	var treatment = $('#student_treatment').val();
+
+	var hyperthension = $('#student_hyperthension').is(':checked') ? 1 : 0;
+	var diabetes = $('#student_diabetes').is(':checked') ? 1 : 0;
+	var cardio = $('#student_cardio').is(':checked') ? 1 : 0;
+	var ptb = $('#student_ptb').is(':checked') ? 1 : 0;
+	var hyperacidity = $('#student_hyperacidity').is(':checked') ? 1 : 0;
+	var allergy = $('#student_allergy').is(':checked') ? 1 : 0;
+	var epilepsy = $('#student_epilepsy').is(':checked') ? 1 : 0;
+	var asthma = $('#student_asthma').is(':checked') ? 1 : 0;
+	var dysmenorrhea = $('#student_dysmenorrhea').is(':checked') ? 1 : 0;
+	var liver = $('#student_liver').is(':checked') ? 1 : 0;
+
+	var data = {
+		student_medical_add: true,
+		user_id: user_id,
+		medicationPresent: medicationPresent,
+		diagnosis: diagnosis,
+		treatment: treatment,
+		hyperthension: hyperthension,
+		diabetes: diabetes,
+		cardio: cardio,
+		ptb: ptb,
+		hyperacidity: hyperacidity,
+		allergy: allergy,
+		epilepsy: epilepsy,
+		asthma: asthma,
+		dysmenorrhea: dysmenorrhea,
+		liver: liver,
+	};
+
+	// Debugging: Log the data object
+	console.log(data);
+
+	$.ajax({
+		type: 'POST',
+		url: 'code.php',
+		data: data,
+		success: function (response) {
+			if (response == 'success') {
+				Swal.fire({
+					icon: 'success',
+					title: 'Success',
+					text: 'Medical Successfully Created',
+				}).then(() => {
+					setTimeout(() => {
+						window.location.href = 'students.php';
+					}, 500);
+				});
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Failed to create',
+				});
+			}
+		},
+		error: function (xhr, status, error) {
+			console.error('AJAX Error:', status, error);
 		},
 	});
 });
@@ -92,6 +456,16 @@ $('#admin_add_btn').on('click', function (e) {
 			icon: 'error',
 			title: 'Oops...',
 			text: 'Passwords do not match!',
+		});
+		return;
+	}
+
+	// Check if any of the required fields are empty
+	if (!username || !password || !confirmPassword) {
+		Swal.fire({
+			icon: 'error',
+			title: 'Oops...',
+			text: 'Please fill in all the required fields.',
 		});
 		return;
 	}
@@ -133,6 +507,16 @@ $('#admin_update_btn').on('click', function (e) {
 	var adminID = $('#admin_id').val();
 	var username = $('#username').val();
 	var password = $('#password').val();
+
+	// Check if any of the required fields are empty
+	if (!username || !password) {
+		Swal.fire({
+			icon: 'error',
+			title: 'Oops...',
+			text: 'Please fill in all the required fields.',
+		});
+		return;
+	}
 
 	$.ajax({
 		type: 'POST',
@@ -438,7 +822,7 @@ $('#student_add_btn').on('click', function (e) {
 	var sex = $('#sex').val();
 	var contact_no = $('#contact_no').val();
 
-	if (!student_no || !course_id || !firstname || !middlename || !lastname || !birthdate || !sex || !contact_no) {
+	if (!student_no || !course_id || !firstname || !lastname || !sex) {
 		Swal.fire({
 			icon: 'error',
 			title: 'Oops...',
@@ -501,7 +885,7 @@ $('#student_update_btn').on('click', function (e) {
 
 	// console.log(course_id);
 
-	if (!student_no || !sID || !course_id || !firstname || !middlename || !lastname || !birthdate || !sex || !contact_no) {
+	if (!student_no || !sID || !course_id || !firstname || !lastname || !sex) {
 		Swal.fire({
 			icon: 'error',
 			title: 'Oops...',
@@ -913,11 +1297,62 @@ $(document).on('click', '.select_consult', function () {
 		data: { consult_id: consult_id },
 		dataType: 'json',
 		success: function (res) {
-			console.log(res);
 			$('#modal_consultREQ').modal('hide');
-			// $('#search_input').val('');
-			$('#modal_consultADD #uID').val(res.u_id);
-			$('#modal_consultADD #client_name').val(res.client_name);
+
+			// Update form fields with the data from the server
+			$('#consultform_add #uID').val(res.u_id);
+			$('#consultform_add #client_name').val(res.client_name);
+
+			// Check if medical records exist
+			if (res.mc_id) {
+				// Medical records exist, create the medicalInfo HTML
+				var medicalInfo = `
+                    <tr>
+                        <td colspan="2">
+                            <p><b>Diagnosis:</b> ${res.mp_diagnosis}</p>
+                            <p><b>Treatment:</b> ${res.mp_treatment}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p><strong>Hypertension:</strong> 
+                                <img width="20" src="${res.Hyperthension == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                            <p><strong>Diabetes:</strong> 
+                                <img width="20" src="${res.Diabetes == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                            <p><strong>Cardiovascular disease:</strong> 
+                                <img width="20" src="${res.Cardiovascular_desease == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                            <p><strong>Hyperacidity:</strong> 
+                                <img width="20" src="${res.Hyperacidity == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                        </td>
+                        <td>
+                            <p><strong>Allergy:</strong> 
+                                <img width="20" src="${res.Allergy == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                            <p><strong>Epilepsy:</strong> 
+                                <img width="20" src="${res.Epilepsy == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                            <p><strong>Dysmenorrhea:</strong> 
+                                <img width="20" src="${res.Dysmenorrhea == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                            <p><strong>Liver Disease:</strong> 
+                                <img width="20" src="${res.liver_Desease == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                        </td>
+                    </tr>`;
+
+				// Append the medicalInfo to your table body
+				$('#medicalData').html(medicalInfo);
+			} else {
+				// No medical records, show a message or clear the table
+				$('#medicalData').html('<tr><td colspan="2"><h4 class="text-danger">No medical records found.</h4></td></tr>');
+			}
+		},
+		error: function (xhr, status, error) {
+			console.error(xhr.responseText);
 		},
 	});
 });
@@ -947,14 +1382,14 @@ $('#consult_add_btn').on('click', function (e) {
 		});
 
 	// Check if any of the required fields are empty
-	// if (!uID || !complaints || !recommendation || medicines.length === 0 || quantities.length === 0) {
-	// 	Swal.fire({
-	// 		icon: 'error',
-	// 		title: 'Oops...',
-	// 		text: 'Please fill in all the required fields.',
-	// 	});
-	// 	return;
-	// }
+	if (!uID || !complaints || !recommendation || medicines.length === 0 || quantities.length === 0) {
+		Swal.fire({
+			icon: 'error',
+			title: 'Oops...',
+			text: 'Please fill in all the required fields.',
+		});
+		return;
+	}
 
 	// Combine medicines and quantities into an array of objects
 	var data = {
@@ -1088,20 +1523,75 @@ $(document).on('click', '#search_consult_btn1', function () {
 });
 
 $(document).on('click', '.select_consult1', function () {
-	var consult_id = $(this).attr('id');
-	console.log(consult_id);
+	var consult_id1 = $(this).attr('id');
+	console.log(consult_id1);
 
 	$.ajax({
 		type: 'POST',
 		url: 'code.php',
-		data: { consult_id: consult_id },
+		data: { consult_id1: consult_id1 },
 		dataType: 'json',
 		success: function (res) {
 			console.log(res);
 			$('#modal_consultREQ1').modal('hide');
-			// $('#search_input').val('');
-			$('#modal_consultADD1 #uID').val(res.u_id);
-			$('#modal_consultADD1 #client_name').val(res.client_name);
+
+			// Update form fields with the data from the server
+			$('#consultform_add1 #uID').val(res.u_id);
+			$('#consultform_add1 #client_name').val(res.client_name);
+
+			// Check if medical records exist
+			if (res.mc_id) {
+				// Medical records exist, create the medicalInfo HTML
+				var medicalInfo = `
+                    <tr>
+                        <td colspan="2">
+                            <p><b>Diagnosis:</b> ${res.mp_diagnosis}</p>
+                            <p><b>Treatment:</b> ${res.mp_treatment}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p><strong>Hypertension:</strong> 
+                                <img width="20" src="${res.Hyperthension == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                            <p><strong>Diabetes:</strong> 
+                                <img width="20" src="${res.Diabetes == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                            <p><strong>Cardiovascular disease:</strong> 
+                                <img width="20" src="${res.Cardiovascular_desease == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+							<p><strong>PTB:</strong> 
+                                <img width="20" src="${res.PTB == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                            <p><strong>Hyperacidity:</strong> 
+                                <img width="20" src="${res.Hyperacidity == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                        </td>
+                        <td>
+                            <p><strong>Allergy:</strong> 
+                                <img width="20" src="${res.Allergy == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                            <p><strong>Epilepsy:</strong> 
+                                <img width="20" src="${res.Epilepsy == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                            <p><strong>Dysmenorrhea:</strong> 
+                                <img width="20" src="${res.Dysmenorrhea == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                            <p><strong>Liver Disease:</strong> 
+                                <img width="20" src="${res.liver_Desease == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                        </td>
+                    </tr>`;
+
+				// Append the medicalInfo to your table body
+				$('#medicalData_employee').html(medicalInfo);
+			} else {
+				// No medical records, show a message or clear the table
+				$('#medicalData_employee').html('<tr><td colspan="2"><h4 class="text-danger">No medical records found.</h4></td></tr>');
+			}
+		},
+		error: function (xhr, status, error) {
+			console.error(xhr.responseText);
 		},
 	});
 });
@@ -1271,20 +1761,71 @@ $(document).on('click', '#search_consult_btn12', function () {
 	});
 });
 $(document).on('click', '.select_consult12', function () {
-	var consult_id = $(this).attr('id');
-	console.log(consult_id);
+	var consult_id2 = $(this).attr('id');
+	console.log(consult_id2);
 
 	$.ajax({
 		type: 'POST',
 		url: 'code.php',
-		data: { consult_id: consult_id },
+		data: { consult_id2: consult_id2 },
 		dataType: 'json',
 		success: function (res) {
-			console.log(res);
 			$('#modal_consultREQ12').modal('hide');
-			// $('#search_input').val('');
-			$('#modal_consultADD12 #uID').val(res.u_id);
-			$('#modal_consultADD12 #client_name').val(res.client_name);
+
+			// Update form fields with the data from the server
+			$('#consultform_add2 #uID').val(res.u_id);
+			$('#consultform_add2 #client_name').val(res.client_name);
+
+			// Check if medical records exist
+			if (res.mc_id) {
+				// Medical records exist, create the medicalInfo HTML
+				var medicalInfo = `
+                    <tr>
+                        <td colspan="2">
+                            <p><b>Diagnosis:</b> ${res.mp_diagnosis}</p>
+                            <p><b>Treatment:</b> ${res.mp_treatment}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p><strong>Hypertension:</strong> 
+                                <img width="20" src="${res.Hyperthension == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                            <p><strong>Diabetes:</strong> 
+                                <img width="20" src="${res.Diabetes == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                            <p><strong>Cardiovascular disease:</strong> 
+                                <img width="20" src="${res.Cardiovascular_desease == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                            <p><strong>Hyperacidity:</strong> 
+                                <img width="20" src="${res.Hyperacidity == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                        </td>
+                        <td>
+                            <p><strong>Allergy:</strong> 
+                                <img width="20" src="${res.Allergy == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                            <p><strong>Epilepsy:</strong> 
+                                <img width="20" src="${res.Epilepsy == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                            <p><strong>Dysmenorrhea:</strong> 
+                                <img width="20" src="${res.Dysmenorrhea == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                            <p><strong>Liver Disease:</strong> 
+                                <img width="20" src="${res.liver_Desease == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                        </td>
+                    </tr>`;
+
+				// Append the medicalInfo to your table body
+				$('#medicalData_employee2').html(medicalInfo);
+			} else {
+				// No medical records, show a message or clear the table
+				$('#medicalData_employee2').html('<tr><td colspan="2"><h4 class="text-danger">No medical records found.</h4></td></tr>');
+			}
+		},
+		error: function (xhr, status, error) {
+			console.error(xhr.responseText);
 		},
 	});
 });
@@ -1347,9 +1888,9 @@ $('#consult_add_btn12').on('click', function (e) {
 					title: 'Success',
 					text: 'Consultation Successfully Created',
 				}).then(() => {
-					$('#consultform_add1')[0].reset();
-					$('#modal_consultADD1').modal('hide');
-					$('.consult_table1').load(window.location.href + ' .consult_table1');
+					$('#consultform_add2')[0].reset();
+					$('#modal_consultADD2').modal('hide');
+					$('.consult_table1').load(window.location.href + ' .consult_table2');
 					setTimeout(() => {
 						window.location.reload();
 					}, 2000); // Delay of 2000ms (2 seconds)
@@ -1660,7 +2201,6 @@ $('#medicine_add_btn').on('click', function (e) {
 	var ml = $('#ml').val();
 	var medicine_type = $('#medicine_type').val();
 	var quantity = $('#quantity').val();
-	var pres_desc = $('#pres_desc').val();
 
 	var data = {
 		medicine_add: true,
@@ -1669,7 +2209,6 @@ $('#medicine_add_btn').on('click', function (e) {
 		ml: ml,
 		medicine_type: medicine_type,
 		quantity: quantity,
-		pres_desc: pres_desc,
 	};
 
 	//console.log(data);
@@ -1708,7 +2247,6 @@ $('#medicine_update_btn').on('click', function (e) {
 	var ml = $('#ml').val();
 	var medicine_type = $('#medicine_type').val();
 	var quantity = $('#quantity').val();
-	var pres_desc = $('#pres_desc').val();
 
 	// console.log(medicine);
 	// console.log(mdn_id);
@@ -1721,7 +2259,6 @@ $('#medicine_update_btn').on('click', function (e) {
 		ml: ml,
 		medicine_type: medicine_type,
 		quantity: quantity,
-		pres_desc: pres_desc,
 	};
 
 	console.log(data);

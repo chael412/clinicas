@@ -39,15 +39,16 @@ include ('modal/modal-medcert.php');
                             <div class="d-flex gap-4">
                                 <p> Have an medication present? </p>
                                 <span>
-                                    <input type="hidden" id="user_id" name="user_id" value="<?= $user['u_id'] ?>">
+                                    <input type="hidden" id="employee_user_id" name="employee_user_id"
+                                        value="<?= $user['u_id'] ?>">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="medicationPresent"
-                                            id="medicationNo" value="0">
+                                        <input class="form-check-input" type="radio"
+                                            name="employee_add_medicationPresent" id="medicationNo" value="0">
                                         <label class="form-check-label" for="inlineRadio2">No</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="medicationPresent"
-                                            id="medicationYes" value="1">
+                                        <input class="form-check-input" type="radio"
+                                            name="employee_add_medicationPresent" id="medicationYes" value="1">
                                         <label class="form-check-label" for="inlineRadio1">Yes</label>
                                     </div>
                                 </span>
@@ -55,11 +56,13 @@ include ('modal/modal-medcert.php');
                         </div>
                         <div class="form-group">
                             <label>Diagnosis</label>
-                            <input disabled type="text" id="diagnosis" class="form-control form-control-md">
+                            <input disabled type="text" id="employee_add_diagnosis"
+                                class="form-control form-control-md">
                         </div>
                         <div class="form-group">
                             <label>Treatment</label>
-                            <input disabled type="text" id="treatment" class="form-control form-control-md">
+                            <input disabled type="text" id="employee_add_treatment"
+                                class="form-control form-control-md">
                         </div>
 
                     </div>
@@ -73,61 +76,61 @@ include ('modal/modal-medcert.php');
                         <div class="form-group">
 
                             <div class="form-check">
-                                <input id="hyperthension" class="form-check-input" type="checkbox">
+                                <input id="employee_add_hyperthension" class="form-check-input" type="checkbox">
                                 <label class="form-check-label">
                                     Hyperthension
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input id="diabetes" class="form-check-input" type="checkbox">
+                                <input id="employee_add_diabetes" class="form-check-input" type="checkbox">
                                 <label class="form-check-label">
                                     Diabetes
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input id="cardio" class="form-check-input" type="checkbox">
+                                <input id="employee_add_cardio" class="form-check-input" type="checkbox">
                                 <label class="form-check-label">
                                     Cardiovascular(Heart)Desease
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="ptb">
+                                <input class="form-check-input" type="checkbox" id="employee_add_ptb">
                                 <label class="form-check-label">
                                     PTB
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="hyperacidity">
+                                <input class="form-check-input" type="checkbox" id="employee_add_hyperacidity">
                                 <label class="form-check-label" for="defaultCheck2">
                                     Hyperacidity
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="allergy">
+                                <input class="form-check-input" type="checkbox" id="employee_add_allergy">
                                 <label class="form-check-label" for="defaultCheck2">
                                     Allergy
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="epilepsy">
+                                <input class="form-check-input" type="checkbox" id="employee_add_epilepsy">
                                 <label class="form-check-label" for="defaultCheck2">
                                     Epilepsy
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="asthma">
+                                <input class="form-check-input" type="checkbox" id="employee_add_asthma">
                                 <label class="form-check-label" for="defaultCheck2">
                                     Asthma
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="dysmenorrhea">
+                                <input class="form-check-input" type="checkbox" id="employee_add_dysmenorrhea">
                                 <label class="form-check-label" for="defaultCheck2">
                                     Dysmenorrhea
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="liver">
+                                <input class="form-check-input" type="checkbox" id="employee_add_liver">
                                 <label class="form-check-label" for="defaultCheck2">
                                     liver/Gall Blader Desease
                                 </label>
@@ -139,9 +142,9 @@ include ('modal/modal-medcert.php');
             <div class="row ">
 
                 <div class="col text-end">
-                    <a href="students.php" class="d-none d-sm-inline-block btn btn-sm btn-outline-secondary shadow-sm">
+                    <a href="employees.php" class="d-none d-sm-inline-block btn btn-sm btn-outline-secondary shadow-sm">
                         <i class="fas fa-ban"></i> Cancel</a>
-                    <button type="submit" id="student_medical_add_btn" name="registerbtn"
+                    <button type="submit" id="employee_medical_add_btn" name="registerbtn"
                         class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
                         <i class="fas fa-save mx-1"></i>Save
                     </button>
@@ -163,17 +166,18 @@ include ('includes/footer.php');
 ?>
 <script>
     $(document).ready(function () {
-        $('input[type="radio"][name="medicationPresent"]').change(function () {
+        // Toggle diagnosis and treatment input fields based on medication presence
+        $('input[type="radio"][name="employee_add_medicationPresent"]').change(function () {
             if ($(this).val() == "1") {
-                $('#diagnosisGroup').show();
-                $('#treatmentGroup').show();
-                $('#diagnosis, #treatment').prop('disabled', false);
+                $('#employee_add_diagnosis').prop('disabled', false);
+                $('#employee_add_treatment').prop('disabled', false);
             } else {
-                $('#diagnosisGroup').hide();
-                $('#treatmentGroup').hide();
-                $('#diagnosis, #treatment').prop('disabled', true);
-                $('#diagnosis, #treatment').val('');
+                $('#employee_add_diagnosis').prop('disabled', true).val('');
+                $('#employee_add_treatment').prop('disabled', true).val('');
             }
         });
+
+        // Trigger change to set the initial state based on current selection
+        $('input[type="radio"][name="employee_add_medicationPresent"]:checked').trigger('change');
     });
 </script>
