@@ -1,274 +1,366 @@
 <?php
-
+// Include necessary files
 include ('includes/header.php');
 include ('includes/navbar.php');
-?>
-
-<div class="container-fluid">
-
-    <div class="card shadow mb-4">
-
-        <div class="card-header py-3 m-0 d-flex align-items-center justify-content-between">
-            <h6>
-                <span class=" font-weight-bold text-success">View Employee</span>
-            </h6>
-            <a href="employees.php" name="cancel_btn"
-                class="btn  d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                    class="fas fa-chevron-circle-left"></i> Back</a>
-        </div>
-
-        <div class="card-body">
-            <?php
-            if (isset($_POST['view_btn'])) {
-                $id = $_POST['view_id'];
-                $id2 = $_POST['view_id2'];
-
-                $query = "SELECT emp.emp_id, emp.employee_no, us.u_id,us.firstname, us.middlename,us.lastname, us.birthdate, us.sex, us.contact_no, dep.dp_id, dep.dp_name  FROM employees emp
-                            INNER JOIN users AS us ON emp.u_id = us.u_id
-                            INNER JOIN departments AS dep ON emp.dp_id = dep.dp_id WHERE emp.emp_id='$id'";
-                $query_run = mysqli_query($conn, $query);
-
-                foreach ($query_run as $row) {
-
-                    ?>
-                    <form id="studentform_edit">
 
 
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label>Employee No.</label>
-                                    <input type="hidden" id="empID" value="<?= $row['emp_id'] ?>">
+// Assume $id2 is the variable for which you want to check the record
+$id2 = $_POST['view_id2'];
 
-                                    <input type="text" id="employee_no" value="<?= $row['employee_no'] ?>"
-                                        class="form-control form-control-sm" disabled>
-                                </div>
+// Query to check if there is a record in query2
+$query2 = "SELECT mc.mc_id FROM users us
+            INNER JOIN med_cert AS mc ON us.u_id = mc.u_id
+            WHERE us.u_id = '$id2'";
+$query2_run = mysqli_query($conn, $query2);
+
+// Check if there is a record in query2
+if (mysqli_num_rows($query2_run) == 0) {
+    // No record found, execute the first query
+    $query1 = "SELECT us.u_id, emp.emp_id, emp.employee_no,us.birthdate, us.sex,us.contact_no, us.lastname, us.firstname,us.middlename
+            FROM users us
+            INNER JOIN employees emp ON us.u_id = emp.u_id
+            WHERE us.u_id = '$id2'";
+    $query1_run = mysqli_query($conn, $query1);
+
+    if ($query1_run && mysqli_num_rows($query1_run) > 0) {
+        while ($row = mysqli_fetch_assoc($query1_run)) {
+            ?>
+            <card>
+                <div class="card-header py-3 m-0 d-flex align-items-center justify-content-between">
+                    <h6>
+                        <span class="font-weight-bold text-success">View Employee</span>
+                    </h6>
+                    <a href="employees.php" name="cancel_btn" class="btn d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                        <i class="fas fa-chevron-circle-left"></i> Back
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Employee No.</label>
+                                <input type="hidden" id="empID" value="<?= $row['emp_id'] ?>">
+                                <input type="text" id="employee_no" value="<?= $row['employee_no'] ?>"
+                                    class="form-control form-control-sm" disabled>
                             </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label>Department</label>
-                                    <select class="form-control form-control-sm" id="dep_id" required disabled>
-
-                                        <?php
-                                        $displayDept = "SELECT *FROM departments dept";
-                                        $deptResult = mysqli_query($conn, $displayDept);
-                                        if (mysqli_num_rows($deptResult) > 0) {
-                                            foreach ($deptResult as $deptItem) {
-                                                $selected = ($deptItem['dp_id'] == $row['dp_id']) ? 'selected' : '';
-                                                ?>
-                                                <option value='<?= $deptItem['dp_id'] ?>' <?= $selected ?>>
-                                                    <?= $deptItem['dp_name'] ?>
-                                                </option>
-                                                <?php
-                                            }
-                                        } else {
-                                            echo '<option>No Course found!</option>';
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Department</label>
+                                <select class="form-control form-control-sm" id="dep_id" required disabled>
+                                    <?php
+                                    $displayDept = "SELECT * FROM departments dept";
+                                    $deptResult = mysqli_query($conn, $displayDept);
+                                    if (mysqli_num_rows($deptResult) > 0) {
+                                        foreach ($deptResult as $deptItem) {
+                                            $selected = ($deptItem['dp_id'] == $row['dp_id']) ? 'selected' : '';
+                                            ?>
+                                            <option value='<?= $deptItem['dp_id'] ?>' <?= $selected ?>>
+                                                <?= $deptItem['dp_name'] ?>
+                                            </option>
+                                            <?php
                                         }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label>Firstname</label>
-                                    <input type="text" name="firstname" id="firstname" value="<?= $row['firstname'] ?>"
-                                        class="form-control form-control-sm" disabled>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label>Middlename</label>
-                                    <input type="text" name="" id="middlename" value="<?= $row['middlename'] ?>"
-                                        class="form-control form-control-sm" disabled>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label>Lastname</label>
-                                    <input type="text" name="lastname" id="lastname" value="<?= $row['lastname'] ?>"
-                                        class="form-control form-control-sm" disabled>
-                                </div>
-
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label>Birthdate</label>
-                                    <input type="date" name="birthdate" id="birthdate" value="<?= $row['birthdate'] ?>"
-                                        class="form-control form-control-sm" disabled>
-                                </div>
+                                    } else {
+                                        echo '<option>No Course found!</option>';
+                                    }
+                                    ?>
+                                </select>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="form-group">
+                    </div>
 
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Firstname</label>
+                                <input type="text" name="firstname" id="firstname" value="<?= $row['firstname'] ?>"
+                                    class="form-control form-control-sm" disabled>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Middlename</label>
+                                <input type="text" name="middlename" id="middlename" value="<?= $row['middlename'] ?>"
+                                    class="form-control form-control-sm" disabled>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Lastname</label>
+                                <input type="text" name="lastname" id="lastname" value="<?= $row['lastname'] ?>"
+                                    class="form-control form-control-sm" disabled>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Birthdate</label>
+                                <input type="date" name="birthdate" id="birthdate" value="<?= $row['birthdate'] ?>"
+                                    class="form-control form-control-sm" disabled>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Sex</label>
+                                <select name="sex" id="sex" class="form-control form-control-sm" disabled>
+                                    <option value="1" <?= ($row['sex'] == 1) ? 'selected' : '' ?>>Male</option>
+                                    <option value="2" <?= ($row['sex'] == 2) ? 'selected' : '' ?>>Female</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Mobile No.</label>
+                                <input type="text" name="contact_no" id="contact_no" value="<?= $row['contact_no'] ?>"
+                                    class="form-control form-control-sm" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </card>
+
+
+            <?php
+
+        }
+    } else {
+        echo "No user found with ID .";
+    }
+} else {
+    // Record found, execute the HTML/PHP content
+    ?>
+    <div class="container-fluid">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 m-0 d-flex align-items-center justify-content-between">
+                <h6>
+                    <span class="font-weight-bold text-success">View Employee</span>
+                </h6>
+                <a href="employees.php" name="cancel_btn"
+                    class="btn d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                    <i class="fas fa-chevron-circle-left"></i> Back
+                </a>
+            </div>
+
+            <div class="card-body">
+                <?php
+                if (isset($_POST['view_btn'])) {
+                    $id = $_POST['view_id'];
+
+                    $query = "SELECT emp.emp_id, emp.employee_no, us.u_id, us.firstname, us.middlename, us.lastname, 
+                              us.birthdate, us.sex, us.contact_no, dep.dp_id, dep.dp_name 
+                              FROM employees emp
+                              INNER JOIN users AS us ON emp.u_id = us.u_id
+                              INNER JOIN departments AS dep ON emp.dp_id = dep.dp_id 
+                              WHERE emp.emp_id='$id'";
+                    $query_run = mysqli_query($conn, $query);
+
+                    foreach ($query_run as $row) {
+                        ?>
+                        <form id="studentform_edit">
+                            <div class="row">
+                                <div class="col">
                                     <div class="form-group">
-                                        <label>Sex</label>
-                                        <select name="sex" id="sex" class="form-control form-control-sm" disabled>
-                                            <option value="1" <?php if ($row['sex'] == 1)
-                                                echo 'selected'; ?>>Male</option>
-                                            <option value="2" <?php if ($row['sex'] == 2)
-                                                echo 'selected'; ?>>Female</option>
-
+                                        <label>Employee No.</label>
+                                        <input type="hidden" id="empID" value="<?= $row['emp_id'] ?>">
+                                        <input type="text" id="employee_no" value="<?= $row['employee_no'] ?>"
+                                            class="form-control form-control-sm" disabled>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Department</label>
+                                        <select class="form-control form-control-sm" id="dep_id" required disabled>
+                                            <?php
+                                            $displayDept = "SELECT * FROM departments dept";
+                                            $deptResult = mysqli_query($conn, $displayDept);
+                                            if (mysqli_num_rows($deptResult) > 0) {
+                                                foreach ($deptResult as $deptItem) {
+                                                    $selected = ($deptItem['dp_id'] == $row['dp_id']) ? 'selected' : '';
+                                                    ?>
+                                                    <option value='<?= $deptItem['dp_id'] ?>' <?= $selected ?>>
+                                                        <?= $deptItem['dp_name'] ?>
+                                                    </option>
+                                                    <?php
+                                                }
+                                            } else {
+                                                echo '<option>No Course found!</option>';
+                                            }
+                                            ?>
                                         </select>
                                     </div>
                                 </div>
-
                             </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label>Mobile No.</label>
-                                    <input type="text" name="contact_no" id="contact_no" value="<?= $row['contact_no'] ?>"
-                                        class="form-control form-control-sm" disabled>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Firstname</label>
+                                        <input type="text" name="firstname" id="firstname" value="<?= $row['firstname'] ?>"
+                                            class="form-control form-control-sm" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Middlename</label>
+                                        <input type="text" name="middlename" id="middlename" value="<?= $row['middlename'] ?>"
+                                            class="form-control form-control-sm" disabled>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <hr />
 
-                        <div class="row mt-5">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Lastname</label>
+                                        <input type="text" name="lastname" id="lastname" value="<?= $row['lastname'] ?>"
+                                            class="form-control form-control-sm" disabled>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Birthdate</label>
+                                        <input type="date" name="birthdate" id="birthdate" value="<?= $row['birthdate'] ?>"
+                                            class="form-control form-control-sm" disabled>
+                                    </div>
+                                </div>
+                            </div>
 
-                            <div class="col-12">
-                                <div class="table-responsive">
-                                    <?php
-                                    $query2 = "SELECT  mc.mc_id, mp.mp_id, mh.mh_id, CONCAT(us.lastname, ' ', us.firstname,' ', us.middlename) AS full_name, mc.med_type, mp.ispresent, mp.mp_diagnosis, mp.mp_treatment, mh.Hyperthension, mh.Diabetes, mh.Cardiovascular_desease, mh.PTB, mh.Hyperacidity, mh.Allergy, mh.Epilepsy, mh.Asthma, mh.Dysmenorrhea, mh.liver_Desease  FROM  users us
-                                                INNER JOIN med_cert AS mc ON us.u_id = mc.u_id
-                                                INNER JOIN medical_present AS mp ON mc.mp_id = mp.mp_id
-                                                INNER JOIN medical_history AS mh ON mc.mh_id = mh.mh_id
-                                                INNER JOIN employees emp ON us.u_id = emp.u_id
-                                                WHERE  us.u_id = '$id2'";
-                                    $query2_run = mysqli_query($conn, $query2);
-                                    if (mysqli_num_rows($query2_run) > 0) {
-                                        foreach ($query2_run as $medItem) {
-                                            ?>
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th colspan="2" class="text-center " style="background: #dcfce7">
-                                                            <h3 class="d-flex justify-content-center gap-4">
-                                                                Medical
-                                                                <?php
-                                                                if ($medItem['mc_id']) {
-                                                                    ?>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Sex</label>
+                                        <select name="sex" id="sex" class="form-control form-control-sm" disabled>
+                                            <option value="1" <?= ($row['sex'] == 1) ? 'selected' : '' ?>>Male</option>
+                                            <option value="2" <?= ($row['sex'] == 2) ? 'selected' : '' ?>>Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Mobile No.</label>
+                                        <input type="text" name="contact_no" id="contact_no" value="<?= $row['contact_no'] ?>"
+                                            class="form-control form-control-sm" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+
+                            <div class="row mt-5">
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <?php
+                                        $query2 = "SELECT mc.mc_id, mp.mp_id, mh.mh_id, 
+                                                   CONCAT(us.lastname, ' ', us.firstname,' ', us.middlename) AS full_name, 
+                                                   mc.med_type, mp.ispresent, mp.mp_diagnosis, mp.mp_treatment, 
+                                                   mh.Hyperthension, mh.Diabetes, mh.Cardiovascular_desease, mh.PTB, 
+                                                   mh.Hyperacidity, mh.Allergy, mh.Epilepsy, mh.Asthma, mh.Dysmenorrhea, 
+                                                   mh.liver_Desease  
+                                                   FROM users us
+                                                   INNER JOIN med_cert AS mc ON us.u_id = mc.u_id
+                                                   INNER JOIN medical_present AS mp ON mc.mp_id = mp.mp_id
+                                                   INNER JOIN medical_history AS mh ON mc.mh_id = mh.mh_id
+                                                   INNER JOIN employees emp ON us.u_id = emp.u_id
+                                                   WHERE us.u_id = '$id2'";
+                                        $query2_run = mysqli_query($conn, $query2);
+                                        if (mysqli_num_rows($query2_run) > 0) {
+                                            foreach ($query2_run as $medItem) {
+                                                ?>
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th colspan="2" class="text-center " style="background: #dcfce7">
+                                                                <h3 class="d-flex justify-content-center gap-4">
+                                                                    Medical
                                                                     <span>
                                                                         <a href="employee_medical_edit.php?edit_id=<?= $row['u_id'] ?>"
                                                                             class="d-none d-sm-inline-block btn btn-sm btn-outline-success shadow-sm">
                                                                             <i class="fas fa-edit"></i>
                                                                         </a>
-
                                                                     </span>
-
-                                                                    <?php
-                                                                }
-
-                                                                ?>
-
-                                                            </h3>
-
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-
-                                                    <tr>
-                                                        <td colspan="2">
-                                                            <p><b>Diagnosis:</b> <?= $medItem['mp_diagnosis'] ?></p>
-                                                            <p><b>Treatmen:</b> <?= $medItem['mp_treatment'] ?></p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <p class="card-text"><strong>
-                                                                    Hypertension: </strong>
-                                                                <img width="20"
-                                                                    src="<?php echo $medItem['Hyperthension'] == 1 ? './assets/check-mark.png' : ($medItem['Hyperthension'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
-                                                            </p>
-                                                            <p class="card-text"><strong>
-                                                                    Diabetes: </strong>
-                                                                <img width="20"
-                                                                    src="<?php echo $medItem['Diabetes'] == 1 ? './assets/check-mark.png' : ($medItem['Diabetes'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
-                                                            </p>
-                                                            <p class="card-text"><strong>
-                                                                    Cardiovascular desease: </strong>
-                                                                <img width="20"
-                                                                    src="<?php echo $medItem['Cardiovascular_desease'] == 1 ? './assets/check-mark.png' : ($medItem['Cardiovascular_desease'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
-                                                            </p>
-                                                            <p class="card-text"><strong>
-                                                                    PTB: </strong>
-                                                                <img width="20"
-                                                                    src="<?php echo $medItem['PTB'] == 1 ? './assets/check-mark.png' : ($medItem['PTB'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
-                                                            </p>
-                                                            <p class="card-text"><strong>
-                                                                    Hyperacidity: </strong>
-                                                                <img width="20"
-                                                                    src="<?php echo $medItem['Hyperacidity'] == 1 ? './assets/check-mark.png' : ($medItem['Hyperacidity'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
-                                                            </p>
-                                                        </td>
-                                                        <td>
-
-                                                            <p class="card-text"><strong>
-                                                                    Allergy: </strong>
-                                                                <img width="20"
-                                                                    src="<?php echo $medItem['Allergy'] == 1 ? './assets/check-mark.png' : ($medItem['Allergy'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
-                                                            </p>
-                                                            <p class="card-text"><strong>
-                                                                    Epilepsy: </strong>
-                                                                <img width="20"
-                                                                    src="<?php echo $medItem['Epilepsy'] == 1 ? './assets/check-mark.png' : ($medItem['Epilepsy'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
-                                                            </p>
-                                                            <p class="card-text"><strong>
-                                                                    Dysmenorrhea: </strong>
-                                                                <img width="20"
-                                                                    src="<?php echo $medItem['Dysmenorrhea'] == 1 ? './assets/check-mark.png' : ($medItem['Dysmenorrhea'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
-                                                            </p>
-                                                            <p class="card-text"><strong>
-                                                                    Liver Desease: </strong>
-                                                                <img width="20"
-                                                                    src="<?php echo $medItem['liver_Desease'] == 1 ? './assets/check-mark.png' : ($medItem['liver_Desease'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
-                                                            </p>
-                                                        </td>
-                                                        <?php
+                                                                </h3>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td colspan="2">
+                                                                <p><b>Diagnosis:</b> <?= $medItem['mp_diagnosis'] ?></p>
+                                                                <p><b>Treatment:</b> <?= $medItem['mp_treatment'] ?></p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <p class="card-text"><strong>Hypertension:</strong>
+                                                                    <img width="20"
+                                                                        src="<?= $medItem['Hyperthension'] == 1 ? './assets/check-mark.png' : ($medItem['Hyperthension'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
+                                                                </p>
+                                                                <p class="card-text"><strong>Diabetes:</strong>
+                                                                    <img width="20"
+                                                                        src="<?= $medItem['Diabetes'] == 1 ? './assets/check-mark.png' : ($medItem['Diabetes'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
+                                                                </p>
+                                                                <p class="card-text"><strong>Cardiovascular Desease:</strong>
+                                                                    <img width="20"
+                                                                        src="<?= $medItem['Cardiovascular_desease'] == 1 ? './assets/check-mark.png' : ($medItem['Cardiovascular_desease'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
+                                                                </p>
+                                                                <p class="card-text"><strong>PTB:</strong>
+                                                                    <img width="20"
+                                                                        src="<?= $medItem['PTB'] == 1 ? './assets/check-mark.png' : ($medItem['PTB'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
+                                                                </p>
+                                                            </td>
+                                                            <td>
+                                                                <p class="card-text"><strong>Hyperacidity:</strong>
+                                                                    <img width="20"
+                                                                        src="<?= $medItem['Hyperacidity'] == 1 ? './assets/check-mark.png' : ($medItem['Hyperacidity'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
+                                                                </p>
+                                                                <p class="card-text"><strong>Allergy:</strong>
+                                                                    <img width="20"
+                                                                        src="<?= $medItem['Allergy'] == 1 ? './assets/check-mark.png' : ($medItem['Allergy'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
+                                                                </p>
+                                                                <p class="card-text"><strong>Epilepsy:</strong>
+                                                                    <img width="20"
+                                                                        src="<?= $medItem['Epilepsy'] == 1 ? './assets/check-mark.png' : ($medItem['Epilepsy'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
+                                                                </p>
+                                                                <p class="card-text"><strong>Asthma:</strong>
+                                                                    <img width="20"
+                                                                        src="<?= $medItem['Asthma'] == 1 ? './assets/check-mark.png' : ($medItem['Asthma'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
+                                                                </p>
+                                                                <p class="card-text"><strong>Dysmenorrhea:</strong>
+                                                                    <img width="20"
+                                                                        src="<?= $medItem['Dysmenorrhea'] == 1 ? './assets/check-mark.png' : ($medItem['Dysmenorrhea'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
+                                                                </p>
+                                                                <p class="card-text"><strong>Liver Desease:</strong>
+                                                                    <img width="20"
+                                                                        src="<?= $medItem['liver_Desease'] == 1 ? './assets/check-mark.png' : ($medItem['liver_Desease'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
+                                                                </p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <?php
+                                            }
+                                        } else {
+                                            echo "No medical record found for this employee.";
                                         }
-                                    } else {
                                         ?>
-                                                    <td>
-                                                        <h3 class="d-flex justify-content-center gap-4" style="background: #dcfce7">
-                                                            Medical</h3>
-                                                        <p class="text-danger">No medical record found!</p>
-                                                    </td>
-                                                    <?php
-                                    }
-                                    ?>
-
-
-
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    </div>
                                 </div>
                             </div>
-
-                        </div>
-
-                    </form>
-
-
-                    <?php
+                        </form>
+                        <?php
+                    }
                 }
-            }
-            ?>
+                ?>
+            </div>
         </div>
     </div>
+    <?php
+}
 
-</div>
-
-<?php
 include ('includes/scripts.php');
 include ('includes/footer.php');
 ?>

@@ -9,7 +9,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="consultform_add2">
+      <form id="consultform_add3">
         <div class="modal-body" style="overflow-y: auto; max-height: calc(90vh - 120px);">
           <div class="row justify-content-between">
             <div class="col-6" style="border-right: 2px solid #9ca3af">
@@ -107,6 +107,22 @@
                   <label>Medicine Prescription</label>
                   <textarea id="med_desc" rows="4" cols="50" class="form-control"></textarea>
                 </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th colspan="2" class="text-center" style="background: #bbf7d0">
+                        <h3>Medical</h3>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody id="medicalData_visitor">
+
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>

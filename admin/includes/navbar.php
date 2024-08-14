@@ -137,7 +137,7 @@
             </button>
             <div class="navbar-nav-text mx-3 text-dark">
                 <h5>
-                    <strong>CLINICA'S</strong>
+                    <strong>Medical Clinic</strong>
                 </h5>
             </div>
 

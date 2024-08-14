@@ -17,8 +17,8 @@
 
             <div class="col">
               <div class="form-group">
-                <label>Faculty No.</label>
-                <input type="text" id="employee_no" class="form-control form-control-sm">
+                <label>Employee ID No.</label>
+                <input type="text" id="employee_no" name="employee_no" class="form-control form-control-sm">
               </div>
             </div>
             <div class="col">

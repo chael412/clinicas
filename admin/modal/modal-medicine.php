@@ -26,7 +26,7 @@
               <div class="form-group">
                 <label>Dossage</label>
                 <input type="text" id="ml" name="ml" class="form-control form-control-sm" onchange="setTwoNumberDecimal"
-                  min="0" max="10" step="0.25" placeholder="Enter a Dossage ammount">
+                  min="0" max="10" step="0.25" placeholder="Enter a Dossage amount">
               </div>
 
               <div class="form-group">

@@ -777,6 +777,57 @@ if (isset($_POST["consult_id2"])) {
     mysqli_close($conn);
 }
 
+//visitor
+if (isset($_POST["consult_id3"])) {
+    $consult_id = $_POST['consult_id3'];
+
+    // Query to get the client's name
+    $clientNameQuery = "SELECT us.u_id, CONCAT(us.firstname,' ', us.middlename,' ' ,us.lastname) AS client_name 
+                        FROM users us
+                        INNER JOIN visitors vs ON us.u_id = vs.u_id
+                        WHERE vs.u_id = ? LIMIT 1";
+
+    $stmt = mysqli_prepare($conn, $clientNameQuery);
+    mysqli_stmt_bind_param($stmt, "i", $consult_id);
+    mysqli_stmt_execute($stmt);
+    $clientResult = mysqli_stmt_get_result($stmt);
+    $clientRow = mysqli_fetch_assoc($clientResult);
+
+    if ($clientRow) {
+        // Query to get medical records
+        $medicalQuery = "SELECT  us.u_id, mc.mc_id, mp.mp_id, mh.mh_id, 
+                                CONCAT(us.lastname, ' ', us.firstname,' ', us.middlename) AS client_name, 
+                                mc.med_type, mp.ispresent, mp.mp_diagnosis, mp.mp_treatment, 
+                                mh.Hyperthension, mh.Diabetes, mh.Cardiovascular_desease, mh.PTB, 
+                                mh.Hyperacidity, mh.Allergy, mh.Epilepsy, mh.Asthma, mh.Dysmenorrhea, 
+                                mh.liver_Desease  
+                         FROM  users us
+                         INNER JOIN med_cert AS mc ON us.u_id = mc.u_id
+                         INNER JOIN medical_present AS mp ON mc.mp_id = mp.mp_id
+                         INNER JOIN medical_history AS mh ON mc.mh_id = mh.mh_id
+                         WHERE us.u_id = ? LIMIT 1";
+
+        $stmt = mysqli_prepare($conn, $medicalQuery);
+        mysqli_stmt_bind_param($stmt, "i", $consult_id);
+        mysqli_stmt_execute($stmt);
+        $medicalResult = mysqli_stmt_get_result($stmt);
+        $medicalRow = mysqli_fetch_assoc($medicalResult);
+
+        if ($medicalRow) {
+            // Merge clientRow and medicalRow arrays to send all data in one response
+            $response = array_merge($clientRow, $medicalRow);
+            echo json_encode($response);
+        } else {
+            // Return only the client's name if no medical records are found
+            echo json_encode($clientRow);
+        }
+    } else {
+        echo json_encode(["error" => "No data found for client with ID: $consult_id"]);
+    }
+
+    mysqli_close($conn);
+}
+
 
 if (isset($_POST['consult_add'])) {
     // Sanitize input

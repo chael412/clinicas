@@ -1890,7 +1890,7 @@ $('#consult_add_btn12').on('click', function (e) {
 				}).then(() => {
 					$('#consultform_add2')[0].reset();
 					$('#modal_consultADD2').modal('hide');
-					$('.consult_table1').load(window.location.href + ' .consult_table2');
+					$('.consult_table2').load(window.location.href + ' .consult_table2');
 					setTimeout(() => {
 						window.location.reload();
 					}, 2000); // Delay of 2000ms (2 seconds)
@@ -1996,20 +1996,75 @@ $(document).on('click', '#search_consult_btn2', function () {
 });
 
 $(document).on('click', '.select_consult2', function () {
-	var consult_id = $(this).attr('id');
-	console.log(consult_id);
+	var consult_id3 = $(this).attr('id');
+	console.log(consult_id3);
 
 	$.ajax({
 		type: 'POST',
 		url: 'code.php',
-		data: { consult_id: consult_id },
+		data: { consult_id3: consult_id3 },
 		dataType: 'json',
 		success: function (res) {
 			console.log(res);
 			$('#modal_consultREQ2').modal('hide');
-			// $('#search_input').val('');
-			$('#modal_consultADD2 #uID').val(res.u_id);
-			$('#modal_consultADD2 #client_name').val(res.client_name);
+
+			// Update form fields with the data from the server
+			$('#consultform_add3 #uID').val(res.u_id);
+			$('#consultform_add3 #client_name').val(res.client_name);
+
+			// Check if medical records exist
+			if (res.mc_id) {
+				// Medical records exist, create the medicalInfo HTML
+				var medicalInfo = `
+                    <tr>
+                        <td colspan="2">
+                            <p><b>Diagnosis:</b> ${res.mp_diagnosis}</p>
+                            <p><b>Treatment:</b> ${res.mp_treatment}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p><strong>Hypertension:</strong> 
+                                <img width="20" src="${res.Hyperthension == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                            <p><strong>Diabetes:</strong> 
+                                <img width="20" src="${res.Diabetes == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                            <p><strong>Cardiovascular disease:</strong> 
+                                <img width="20" src="${res.Cardiovascular_desease == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+							<p><strong>PTB:</strong> 
+                                <img width="20" src="${res.PTB == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                            <p><strong>Hyperacidity:</strong> 
+                                <img width="20" src="${res.Hyperacidity == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                        </td>
+                        <td>
+                            <p><strong>Allergy:</strong> 
+                                <img width="20" src="${res.Allergy == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                            <p><strong>Epilepsy:</strong> 
+                                <img width="20" src="${res.Epilepsy == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                            <p><strong>Dysmenorrhea:</strong> 
+                                <img width="20" src="${res.Dysmenorrhea == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                            <p><strong>Liver Disease:</strong> 
+                                <img width="20" src="${res.liver_Desease == 1 ? './assets/check-mark.png' : './assets/no.png'}">
+                            </p>
+                        </td>
+                    </tr>`;
+
+				// Append the medicalInfo to your table body
+				$('#medicalData_visitor').html(medicalInfo);
+			} else {
+				// No medical records, show a message or clear the table
+				$('#medicalData_visitor').html('<tr><td colspan="2"><h4 class="text-danger">No medical records found.</h4></td></tr>');
+			}
+		},
+		error: function (xhr, status, error) {
+			console.error(xhr.responseText);
 		},
 	});
 });
@@ -2073,9 +2128,9 @@ $('#consult_add_btn2').on('click', function (e) {
 					title: 'Success',
 					text: 'Consultation Successfully Created',
 				}).then(() => {
-					$('#consultform_add2')[0].reset();
-					$('#modal_consultADD2').modal('hide');
-					$('.consult_table2').load(window.location.href + ' .consult_table2');
+					$('#consultform_add3')[0].reset();
+					$('#modal_consultADD3').modal('hide');
+					$('.consult_table3').load(window.location.href + ' .consult_table3');
 					setTimeout(() => {
 						window.location.reload();
 					}, 2000); // Delay of 2000ms (2 seconds)
@@ -2315,8 +2370,24 @@ function deleteMedicine(mdnID) {
 $('#visitorform_add').submit(function (e) {
 	e.preventDefault(); // Prevent form submission
 
+	// Get form data
 	var formData = $(this).serialize();
 	formData += '&visitor_add=1';
+
+	// Get the values of the required fields
+	var firstname = $('#firstname').val().trim();
+	var lastname = $('#lastname').val().trim();
+	var sex = $('#sex').val();
+
+	// Check if the required fields are filled
+	if (!firstname || !lastname || !sex) {
+		Swal.fire({
+			icon: 'error',
+			title: 'Oops...',
+			text: 'Please fill in all the required fields.',
+		});
+		return; // Stop the form submission
+	}
 
 	console.log(formData);
 
@@ -2339,6 +2410,7 @@ $('#visitorform_add').submit(function (e) {
 		},
 	});
 });
+
 $('#visitor_update_btn').on('click', function (e) {
 	e.preventDefault();
 
@@ -2439,7 +2511,22 @@ $('#employeeform_add').submit(function (e) {
 	var formData = $(this).serialize();
 	formData += '&employee_add=1';
 
-	console.log(formData);
+	//console.log(formData);
+
+	// Get the values of the required fields
+	var firstname = $('#firstname').val().trim();
+	var lastname = $('#lastname').val().trim();
+	var sex = $('#sex').val();
+
+	// Check if the required fields are filled
+	if (!firstname || !lastname || !sex) {
+		Swal.fire({
+			icon: 'error',
+			title: 'Oops...',
+			text: 'Please fill in all the required fields.',
+		});
+		return; // Stop the form submission
+	}
 
 	$.ajax({
 		type: 'POST',
