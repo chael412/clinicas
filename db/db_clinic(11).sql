@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 18, 2024 at 12:26 AM
+-- Generation Time: Aug 14, 2024 at 01:32 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,8 +40,7 @@ CREATE TABLE `admins` (
 INSERT INTO `admins` (`a_id`, `username`, `password`) VALUES
 (7, 'admin', 'admin'),
 (8, 'jayar', 'jayar123'),
-(9, 'mike', 'mike123'),
-(14, 'sam', 'sample');
+(15, 'a', 'a');
 
 -- --------------------------------------------------------
 
@@ -84,28 +83,15 @@ CREATE TABLE `consultations` (
 --
 
 INSERT INTO `consultations` (`ct_id`, `u_id`, `chief_complaints`, `recommendation`, `med_desc`, `process_date`) VALUES
-(1, 4, 'hh', 'hhhh', 'h', '2024-05-04 07:54:37'),
-(2, 1, 'nahaha', 'nahahah', 'no comment', '2024-05-04 23:48:42'),
-(3, 1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Libero enim sed faucibus turpis in eu mi. Suspendisse interdum consectetur libero id. Aenean et tortor at risus viverra adipiscing ', '2024-05-05 00:36:27'),
-(4, 2, 'vv', 'vv', 'ju', '2024-05-05 23:44:52'),
-(5, 8, 'bg', 'bgg', 'mkhg', '2024-05-05 23:54:08'),
-(6, 6, 'jjj', 'jjjj', 'jjjj', '2024-05-05 23:54:41'),
-(7, 7, 'nnjnn', 'nnnn', 'mmmma', '2024-05-05 23:57:05'),
-(8, 9, 'sasay', 'ss', 'wala lng description', '2024-05-06 02:13:48'),
-(9, 3, 'kkkk', 'kkkk', 'kkk', '2024-05-07 03:20:42'),
-(10, 15, 'sample chief com', 'sample recom', 'sample med pres', '2024-05-26 03:57:59'),
-(11, 15, 'gtyayay', 'recomen', 'precribe', '2024-05-26 04:18:55'),
-(12, 15, 'gg chief', 'gg recos', 'gg pres', '2024-05-26 04:21:20'),
-(18, 15, 'hahah chief', 'hahaha recom', 'hahah pres', '2024-05-26 04:52:23'),
-(19, 5, 'your love', 'nating', 'jajajaj', '2024-05-27 13:05:35'),
-(20, 5, 'aa', 'aa', 'aa', '2024-05-27 13:06:28'),
-(21, 3, 'bb', 'bbb', '', '2024-05-27 13:08:03'),
-(22, 5, 'mmm', 'mmm', 'mmm', '2024-05-27 13:08:33'),
-(23, 7, 'nnn', 'nnn', 'jj', '2024-05-27 13:09:29'),
-(24, 16, 'bb update try', 'cdczx', 'yun ka', '2024-05-27 13:15:02'),
-(25, 14, 'masakit ag panga', 'yahay up', 'type ko sya', '2024-05-27 14:53:33'),
-(26, 12, 'batusay washing', 'gggg hahaha pogi ako', 'ggggg', '2024-05-27 23:45:54'),
-(27, 12, 'aguy', 'hahah bleh', 'hahaah anno na', '2024-05-27 23:49:30');
+(3, 5, 'aagtaax', 'aa', 'aa', '2024-08-04 15:30:34'),
+(4, 12, 'yyyyy', 'yyyyy', 'yyyyy', '2024-08-04 15:31:02'),
+(5, 13, 'ttttta', 'eeee', 'gggg', '2024-08-04 15:33:29'),
+(6, 17, 'bbbb', 'kkkk', 'www', '2024-08-04 15:34:54'),
+(7, 13, 'mka', 'mk', 'mmk', '2024-08-04 15:54:14'),
+(8, 9, 'jujuq1', 'quqe1', 'asa1', '2024-08-04 16:00:27'),
+(9, 14, 'bbaxx', 'baaa', 'ff', '2024-08-04 16:01:05'),
+(10, 9, 'ARAW', 'GABI', 'prescribe', '2024-08-13 16:44:05'),
+(11, 17, 'tyyyy', 'jjjj', 'uyuu', '2024-08-14 00:24:40');
 
 -- --------------------------------------------------------
 
@@ -125,43 +111,17 @@ CREATE TABLE `consult_medicine` (
 --
 
 INSERT INTO `consult_medicine` (`cm_id`, `ct_id`, `mdn_id`, `cm_quantity`) VALUES
-(1, 1, 2, 6),
-(3, 2, 4, 33),
-(4, 2, 7, 34),
-(5, 3, 4, 2),
-(6, 3, 2, 3),
-(9, 5, 2, 6),
-(73, 4, 2, 3),
-(74, 4, 3, 6),
-(75, 4, 5, 8),
-(86, 7, 7, 7),
-(87, 7, 3, 1),
-(88, 6, 7, 1),
-(89, 6, 6, 2),
-(96, 9, 3, 5),
-(97, 9, 7, 8),
-(98, 10, 0, 0),
-(99, 12, 3, 10),
-(100, 12, 6, 8),
-(105, 18, 4, 1),
-(106, 18, 5, 1),
-(107, 19, 2, 2),
-(108, 20, 7, 2),
-(109, 21, 2, 1),
-(110, 21, 6, 1),
-(111, 22, 7, 1),
-(112, 22, 11, 1),
-(113, 23, 7, 5),
-(114, 23, 2, 2),
-(129, 27, 7, 2),
-(130, 27, 3, 1),
-(137, 24, 7, 2),
-(138, 24, 3, 2),
-(139, 25, 2, 5),
-(140, 25, 3, 2),
-(141, 8, 7, 10),
-(142, 26, 2, 1),
-(143, 26, 7, 2);
+(7, 3, 4, 1),
+(8, 4, 4, 1),
+(9, 5, 6, 1),
+(10, 6, 7, 1),
+(12, 8, 3, 1),
+(13, 8, 4, 1),
+(14, 9, 3, 1),
+(15, 10, 4, 1),
+(16, 10, 11, 1),
+(17, 11, 5, 1),
+(18, 11, 11, 1);
 
 -- --------------------------------------------------------
 
@@ -183,11 +143,8 @@ CREATE TABLE `consult_monthly` (
 --
 
 INSERT INTO `consult_monthly` (`ctm_id`, `u_id`, `chief_complaints`, `recommendation`, `med_desc`, `process_date`) VALUES
-(1, 9, 'sample mnth compliants', 'sample recommendation', '', '2024-06-10 00:23:13'),
-(2, 9, 'month comaplinats', 'tes123', 'test123', '2024-06-10 00:48:40'),
-(3, 9, 'xxxxx', 'xxxxxx', 'xxxx', '2024-06-10 00:49:15'),
-(4, 9, 'xxxxxxxxxxx', 'xxxxxxxxxxxxxxx', 'xxxxxxxxxxxx', '2024-06-10 00:51:09'),
-(5, 9, 'xxxxxxxxxxxxxxx', 'xxxxxxxxxxxxxx', 'xxxxxxxxx', '2024-06-10 00:52:08');
+(1, 14, 'monthly samplex', 'recox', 'happy', '2024-08-04 14:26:56'),
+(5, 9, 'g', 'g', 'rt', '2024-08-13 17:02:24');
 
 -- --------------------------------------------------------
 
@@ -207,8 +164,9 @@ CREATE TABLE `consult_monthly_medicine` (
 --
 
 INSERT INTO `consult_monthly_medicine` (`ctmm_id`, `ctm_id`, `mdn_id`, `ctmm_quantity`) VALUES
-(1, 1, 3, 5),
-(2, 5, 2, 1);
+(1, 1, 3, 1),
+(5, 4, 5, 1),
+(6, 5, 7, 1);
 
 -- --------------------------------------------------------
 
@@ -256,11 +214,8 @@ CREATE TABLE `departments` (
 --
 
 INSERT INTO `departments` (`dp_id`, `dp_name`) VALUES
-(1, 'CEAT'),
-(2, 'CEd'),
-(3, 'CoN'),
-(4, 'SoM'),
-(5, 'Admin');
+(1, 'Teaching'),
+(2, 'Non-Teaching');
 
 -- --------------------------------------------------------
 
@@ -307,9 +262,9 @@ CREATE TABLE `employees` (
 --
 
 INSERT INTO `employees` (`emp_id`, `employee_no`, `u_id`, `dp_id`) VALUES
-(1, 'atr-12345', 9, 0),
-(2, 'aaa-019191', 14, 0),
-(3, 'ascc-6666', 15, 0);
+(1, 'atr-12345', 9, 5),
+(2, 'aaa-01919121', 14, 2),
+(6, 't555', 28, 1);
 
 -- --------------------------------------------------------
 
@@ -353,8 +308,13 @@ CREATE TABLE `medical_history` (
 --
 
 INSERT INTO `medical_history` (`mh_id`, `Hyperthension`, `Diabetes`, `Cardiovascular_desease`, `PTB`, `Hyperacidity`, `Allergy`, `Epilepsy`, `Asthma`, `Dysmenorrhea`, `liver_Desease`) VALUES
-(2, '1', 1, 1, 1, 1, 1, 1, 1, 1, 1),
-(3, '1', 1, 1, 1, 1, 1, 1, 1, 1, 1);
+(4, '1', 0, 1, 0, 1, 0, 1, 0, 1, 0),
+(7, '1', 1, 1, 1, 0, 0, 0, 0, 0, 0),
+(10, '1', 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(11, '1', 0, 0, 1, 1, 1, 1, 1, 1, 1),
+(15, '1', 1, 1, 0, 0, 1, 1, 1, 1, 1),
+(16, '1', 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(17, '1', 1, 1, 1, 1, 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -374,8 +334,13 @@ CREATE TABLE `medical_present` (
 --
 
 INSERT INTO `medical_present` (`mp_id`, `ispresent`, `mp_diagnosis`, `mp_treatment`) VALUES
-(1, 1, 'sakit sa tyan', 'eart well'),
-(2, 1, 'nako', 'nako po');
+(3, 1, 'sample diagnosis1', 'sample treatment1'),
+(6, 1, 'yun lnh', ' sana all'),
+(9, 1, 'hahakdog', 'hakdog treatment'),
+(10, 1, 'ey tiramisu er', 'ka muna cake'),
+(14, 0, '', ''),
+(15, 1, 'e', 'as'),
+(16, 1, 'aaa', 'aaa');
 
 -- --------------------------------------------------------
 
@@ -388,7 +353,7 @@ CREATE TABLE `medicine` (
   `medicine_name` varchar(100) NOT NULL,
   `brand_name` varchar(100) NOT NULL,
   `type_id` int(11) NOT NULL,
-  `ml` decimal(6,2) NOT NULL,
+  `ml` varchar(100) NOT NULL,
   `quantity` int(11) NOT NULL,
   `med_prescription` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -398,13 +363,13 @@ CREATE TABLE `medicine` (
 --
 
 INSERT INTO `medicine` (`mdn_id`, `medicine_name`, `brand_name`, `type_id`, `ml`, `quantity`, `med_prescription`) VALUES
-(2, 'ascorbic acid', '', 2, 0.00, 9988, ''),
-(3, 'Mefenamic acid', '', 2, 0.00, 999994, ''),
-(4, 'Amoxicillin Cap', '', 1, 0.00, 0, ''),
-(5, 'Ambroxol Tab', '', 3, 4.50, 0, ''),
-(6, 'Azithromycin Tab', '', 3, 1.20, 0, ''),
-(7, 'vitamin x', '', 2, 0.00, 18, ''),
-(11, 'sample genericer', 'sample brander', 1, 1.75, 1, 'sample prescription');
+(3, 'Mefenamic acid', '', 2, '0.00', 999986, ''),
+(4, 'Amoxicillin Cap', '', 1, '0.00', 94, ''),
+(5, 'Ambroxol Tab', '', 3, '4.50', 97, ''),
+(6, 'Azithromycin Tab', '', 3, '1.20', 8887, ''),
+(7, 'vitamin x', '', 2, '0.00', 88, ''),
+(11, 'sample genericer', 'sample brander', 1, '1.75 dos', 97, 'sample prescription'),
+(12, 'Bio2', 'Brexender', 1, 'dos', 8, '');
 
 -- --------------------------------------------------------
 
@@ -449,9 +414,13 @@ CREATE TABLE `med_cert` (
 --
 
 INSERT INTO `med_cert` (`mc_id`, `u_id`, `mh_id`, `mp_id`, `med_type`) VALUES
-(1, 1, 2, 2, 1),
-(2, 8, 3, 2, 3),
-(3, 9, 2, 2, 2);
+(4, 5, 4, 3, 1),
+(7, 18, 7, 6, 1),
+(10, 3, 10, 9, 1),
+(11, 14, 11, 10, 1),
+(15, 9, 15, 14, 1),
+(16, 17, 16, 15, 1),
+(17, 13, 17, 16, 1);
 
 -- --------------------------------------------------------
 
@@ -565,13 +534,12 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`s_id`, `student_no`, `u_id`, `cs_id`) VALUES
-(1, '20-12345', 1, 1),
-(2, '22-99999', 2, 4),
-(3, '88-65655', 3, 8),
-(4, '55-00102', 4, 10),
-(5, '44-93933', 5, 1),
-(7, '22-189191', 7, 1),
-(10, '20-19234', 16, 9);
+(3, '44444', 3, 11),
+(5, '1122222', 5, 9),
+(7, '2022221', 7, 4),
+(11, '222', 18, 1),
+(12, '66', 19, 5),
+(13, 't11211', 20, 7);
 
 -- --------------------------------------------------------
 
@@ -614,22 +582,23 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`u_id`, `firstname`, `middlename`, `lastname`, `birthdate`, `sex`, `contact_no`) VALUES
-(1, 'leo', 'hanz', 'batusay', '2002-06-30', 1, ''),
 (2, 'jet', 'a', 'lee', '2000-03-07', 1, '0976767676'),
-(3, 'hanna', 'a', 'isabel', '2024-03-28', 1, '0988976867'),
-(4, 'jun', 'a', 'laki', '2002-03-28', 1, '098897844'),
-(5, 'jack', 'a', 'kiel', '2003-03-22', 1, '0987967876'),
+(3, 'hannac2', 'a2', 'isabel2', '2024-03-24', 1, '098897686712'),
+(5, 'jacke1', 'a1', 'kieler1', '2003-03-30', 2, '098796787611'),
 (6, 'joshua', 'asa', 'greymatsi', '2002-03-19', 2, '0898775676'),
-(7, 'song', 'asUUUU', 'yang', '2001-05-02', 1, '09898787'),
-(8, 'visit1', 'visit2', 'visit3', '2024-04-17', 1, '09877876767'),
-(9, 'employee1', 'employee2', 'employee3', '2015-04-08', 2, '09567657444'),
+(7, 'song', 'ez', 'yang', '2001-05-02', 1, '09898787'),
+(9, 'chael', 'ja', 'pogs', '2015-04-08', 2, '09567657444'),
 (10, 'hanso', 'a', 'hyu', '2003-05-01', 1, '089787686'),
 (11, 'lancelot', 'ju', 'poiiu', '2024-05-08', 1, '08797686575'),
 (12, 'moi', 'aa', 'bgty', '2024-05-10', 1, '0989678'),
 (13, 'igno', 'mkk', 'kkk', '2024-05-08', 1, '098978777'),
-(14, 'eros', '', 'cdfff', '2007-05-06', 0, '09787686'),
-(15, 'hyy', '', 'aasa', '2024-05-14', 0, '0987976856'),
-(16, 'Taguro', 'a', 'Gumenasai', '2001-05-09', 1, '09818181811');
+(14, 'eros', 'almarr', 'cdfff', '2007-05-06', 1, '09787686'),
+(17, 'jaket1', 'jaa1', 'revillanmie1', '2024-06-15', 1, '09879786761'),
+(18, 'fy', '', 'aa', '0000-00-00', 1, ''),
+(19, 'a', '', 'a', '0000-00-00', 1, ''),
+(20, 'gg', '', 'gg', '0000-00-00', 1, ''),
+(26, 'fd', '', 'wawa', '0000-00-00', 1, ''),
+(28, 'era', '', 'qwe', '0000-00-00', 0, '');
 
 -- --------------------------------------------------------
 
@@ -647,9 +616,10 @@ CREATE TABLE `visitors` (
 --
 
 INSERT INTO `visitors` (`v_id`, `u_id`) VALUES
-(1, 8),
 (2, 12),
-(3, 13);
+(3, 13),
+(4, 17),
+(9, 26);
 
 --
 -- Indexes for dumped tables
@@ -807,7 +777,7 @@ ALTER TABLE `visitors`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `a_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `a_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `confinement`
@@ -819,13 +789,13 @@ ALTER TABLE `confinement`
 -- AUTO_INCREMENT for table `consultations`
 --
 ALTER TABLE `consultations`
-  MODIFY `ct_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `ct_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `consult_medicine`
 --
 ALTER TABLE `consult_medicine`
-  MODIFY `cm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
+  MODIFY `cm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `consult_monthly`
@@ -837,7 +807,7 @@ ALTER TABLE `consult_monthly`
 -- AUTO_INCREMENT for table `consult_monthly_medicine`
 --
 ALTER TABLE `consult_monthly_medicine`
-  MODIFY `ctmm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ctmm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `courses`
@@ -861,7 +831,7 @@ ALTER TABLE `desease`
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `food_major`
@@ -873,19 +843,19 @@ ALTER TABLE `food_major`
 -- AUTO_INCREMENT for table `medical_history`
 --
 ALTER TABLE `medical_history`
-  MODIFY `mh_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `mh_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `medical_present`
 --
 ALTER TABLE `medical_present`
-  MODIFY `mp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `mp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `medicine`
 --
 ALTER TABLE `medicine`
-  MODIFY `mdn_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `mdn_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `medicine_types`
@@ -897,7 +867,7 @@ ALTER TABLE `medicine_types`
 -- AUTO_INCREMENT for table `med_cert`
 --
 ALTER TABLE `med_cert`
-  MODIFY `mc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `mc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `mhistory_desease`
@@ -927,7 +897,7 @@ ALTER TABLE `rle`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `s_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `s_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `types`
@@ -939,13 +909,13 @@ ALTER TABLE `types`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `visitors`
 --
 ALTER TABLE `visitors`
-  MODIFY `v_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `v_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
