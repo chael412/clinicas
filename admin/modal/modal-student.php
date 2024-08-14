@@ -45,19 +45,21 @@
               </div>
             </div>
           </div>
-          
+
           <div class="row">
             <div class="col-6">
               <div class="form-group">
                 <label>Firstname</label>
-                <input type="text" name="firstname" id="firstname" class="form-control form-control-sm" pattern="[A-Za-z\-'. ]+" oninput="this.value = this.value.replace(/[^A-Za-z .'-]/g, '')">
+                <input type="text" name="firstname" id="firstname" class="form-control form-control-sm"
+                  pattern="[A-Za-z\-'. ]+" oninput="this.value = this.value.replace(/[^A-Za-z .'-]/g, '')">
               </div>
 
             </div>
             <div class="col-6">
               <div class="form-group">
                 <label>Middlename</label>
-                <input type="text name=" id="middlename" class="form-control form-control-sm"pattern="[A-Za-z\-'. ]+" oninput="this.value = this.value.replace(/[^A-Za-z .'-]/g, '')">
+                <input type="text name=" id="middlename" class="form-control form-control-sm" pattern="[A-Za-z\-'. ]+"
+                  oninput="this.value = this.value.replace(/[^A-Za-z .'-]/g, '')">
               </div>
             </div>
           </div>
@@ -65,7 +67,8 @@
             <div class="col-6">
               <div class="form-group">
                 <label>Lastname</label>
-                <input type="text" name="lastname" id="lastname" class="form-control form-control-sm" pattern="[A-Za-z\-'. ]+" oninput="this.value = this.value.replace(/[^A-Za-z .'-]/g, '')">
+                <input type="text" name="lastname" id="lastname" class="form-control form-control-sm"
+                  pattern="[A-Za-z\-'. ]+" oninput="this.value = this.value.replace(/[^A-Za-z .'-]/g, '')">
               </div>
 
             </div>
@@ -80,7 +83,7 @@
             <div class="col-6">
               <div class="form-group">
                 <label>Sex</label>
-                <select name="" id="sex" class="form-control form-control-sm" pattern="[A-Za-z\-'. ]+" oninput="this.value = this.value.replace(/[^A-Za-z .'-]/g, '')">
+                <select name="" id="sex" class="form-control form-control-sm">
                   <option value="1" selected>Male</option>
                   <option value="2">Female</option>
                 </select>
@@ -90,7 +93,8 @@
             <div class="col-6">
               <div class="form-group">
                 <label>Mobile No.</label>
-                <input type="text" name="contact_no" id="contact_no" class="form-control form-control-sm" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11)">
+                <input type="text" name="contact_no" id="contact_no" class="form-control form-control-sm"
+                  oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11)">
               </div>
             </div>
           </div>

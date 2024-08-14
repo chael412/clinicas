@@ -82,8 +82,7 @@
             <div class="col-6">
               <div class="form-group">
                 <label>Sex</label>
-                <select name="" id="sex" class="form-control form-control-sm" pattern="[A-Za-z\-'. ]+"
-                  oninput="this.value = this.value.replace(/[^A-Za-z .'-]/g, '')">
+                <select name="" id="sex" class="form-control form-control-sm">
                   <option value="1" selected>Male</option>
                   <option value="2">Female</option>
                 </select>
