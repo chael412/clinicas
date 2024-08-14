@@ -151,7 +151,7 @@ include ('includes/footer.php');
 <script>
     $(document).ready(function () {
         // Toggle diagnosis and treatment input fields based on medication presence
-        $('input[type="radio"][name="student_medicationPresent"]').change(function () {
+        $('input[type="radio"][name="student_edit_medicationPresent"]').change(function () {
             if ($(this).val() == "1") {
                 $('#student_edit_diagnosis').prop('disabled', false);
                 $('#student_edit_treatment').prop('disabled', false);

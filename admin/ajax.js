@@ -303,7 +303,7 @@ $('#student_medical_update_btn').on('click', function (e) {
 	var mp_id = $('#student_edit_mpid').val();
 	var mh_id = $('#student_edit_mhid').val();
 
-	var medicationPresent = $('input[name="student_medicationPresent"]:checked').val();
+	var medicationPresent = $('input[name="student_edit_medicationPresent"]:checked').val();
 	var diagnosis = $('#student_edit_diagnosis').val();
 	var treatment = $('#student_edit_treatment').val();
 
