@@ -11,7 +11,7 @@ include ('modal/modal-medcert.php');
             <div class="card-header py-3">
 
                 <?php
-                $u_id = $_GET['edit_id'];
+                $u_id = $_POST['edit_id'];
                 $user_display = "SELECT u_id, CONCAT(firstname,' ', lastname) AS full_name FROM users WHERE u_id = '$u_id'";
                 $user_display_run = mysqli_query($conn, $user_display);
                 // Check if the query was successful and fetch the results as an associative array
@@ -26,7 +26,7 @@ include ('modal/modal-medcert.php');
                 $query = "SELECT mc.mc_id, mp.mp_id, mh.mh_id, CONCAT(us.lastname, ' ', us.firstname,' ', us.middlename) AS full_name, 
                         mc.med_type, mp.ispresent, mp.mp_diagnosis, mp.mp_treatment, mh.Hyperthension, mh.Diabetes, 
                         mh.Cardiovascular_desease, mh.PTB, mh.Hyperacidity, mh.Allergy, mh.Epilepsy, mh.Asthma, 
-                        mh.Dysmenorrhea, mh.liver_Desease  
+                        mh.Dysmenorrhea, mh.liver_Desease, mh.other_disease 
                         FROM users us
                         INNER JOIN med_cert AS mc ON us.u_id = mc.u_id
                         INNER JOIN medical_present AS mp ON mc.mp_id = mp.mp_id
@@ -117,6 +117,14 @@ include ('modal/modal-medcert.php');
                                     <input class="form-check-input" type="checkbox" id="employee_edit_liver" <?= (isset($medItem['liver_Desease']) && $medItem['liver_Desease'] == 1) ? 'checked' : ''; ?>>
                                     <label class="form-check-label">Liver/Gall Bladder Disease</label>
                                 </div>
+                                <div class="mt-3">
+                                    <div class="form-floating">
+                                        <textarea class="form-control" placeholder="Others"
+                                            id="employee_edit_other_disease"><?= $medItem['other_disease'] ?></textarea>
+                                        <label for="employee_edit_other_disease">Others: </label>
+                                    </div>
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -146,17 +154,17 @@ include ('includes/footer.php');
 <script>
     $(document).ready(function () {
         // Toggle diagnosis and treatment input fields based on medication presence
-        $('input[type="radio"][name="employee_medicationPresent"]').change(function () {
+        $('input[type="radio"][name="employee_edit_medicationPresent"]').change(function () {
             if ($(this).val() == "1") {
-                $('#employee_diagnosis').prop('disabled', false);
-                $('#employee_treatment').prop('disabled', false);
+                $('#employee_edit_diagnosis').prop('disabled', false);
+                $('#employee_edit_treatment').prop('disabled', false);
             } else {
-                $('#employee_diagnosis').prop('disabled', true).val('');
-                $('#employee_treatment').prop('disabled', true).val('');
+                $('#employee_edit_diagnosis').prop('disabled', true).val('');
+                $('#employee_edit_treatment').prop('disabled', true).val('');
             }
         });
 
         // Trigger change to set the initial state based on current selection
-        $('input[type="radio"][name="employee_medicationPresent"]:checked').trigger('change');
+        $('input[type="radio"][name="employee_edit_medicationPresent"]:checked').trigger('change');
     });
 </script>

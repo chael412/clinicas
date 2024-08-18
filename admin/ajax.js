@@ -21,6 +21,7 @@ $('#visitor_medical_update_btn').on('click', function (e) {
 	var asthma = $('#visitor_edit_asthma').is(':checked') ? 1 : 0;
 	var dysmenorrhea = $('#visitor_edit_dysmenorrhea').is(':checked') ? 1 : 0;
 	var liver = $('#visitor_edit_liver').is(':checked') ? 1 : 0;
+	var visitor_edit_other_disease = $('#visitor_edit_other_disease').val();
 
 	console.log(user_id);
 
@@ -42,6 +43,7 @@ $('#visitor_medical_update_btn').on('click', function (e) {
 		asthma: asthma,
 		dysmenorrhea: dysmenorrhea,
 		liver: liver,
+		visitor_edit_other_disease: visitor_edit_other_disease,
 	};
 
 	// Debugging: Log the data object
@@ -95,6 +97,7 @@ $('#visitor_medical_add_btn').on('click', function (e) {
 	var asthma = $('#visitor_add_asthma').is(':checked') ? 1 : 0;
 	var dysmenorrhea = $('#visitor_add_dysmenorrhea').is(':checked') ? 1 : 0;
 	var liver = $('#visitor_add_liver').is(':checked') ? 1 : 0;
+	var visitor_other_disease = $('#visitor_other_disease').val();
 
 	var data = {
 		visitor_medical_add: true,
@@ -112,6 +115,7 @@ $('#visitor_medical_add_btn').on('click', function (e) {
 		asthma: asthma,
 		dysmenorrhea: dysmenorrhea,
 		liver: liver,
+		visitor_other_disease: visitor_other_disease,
 	};
 
 	// Debugging: Log the data object
@@ -167,6 +171,7 @@ $('#employee_medical_add_btn').on('click', function (e) {
 	var asthma = $('#employee_add_asthma').is(':checked') ? 1 : 0;
 	var dysmenorrhea = $('#employee_add_dysmenorrhea').is(':checked') ? 1 : 0;
 	var liver = $('#employee_add_liver').is(':checked') ? 1 : 0;
+	var employee_other_disease = $('#employee_other_disease').val();
 
 	var data = {
 		employee_medical_add: true,
@@ -184,6 +189,7 @@ $('#employee_medical_add_btn').on('click', function (e) {
 		asthma: asthma,
 		dysmenorrhea: dysmenorrhea,
 		liver: liver,
+		employee_other_disease: employee_other_disease,
 	};
 
 	// Debugging: Log the data object
@@ -239,6 +245,7 @@ $('#employee_medical_update_btn').on('click', function (e) {
 	var asthma = $('#employee_edit_asthma').is(':checked') ? 1 : 0;
 	var dysmenorrhea = $('#employee_edit_dysmenorrhea').is(':checked') ? 1 : 0;
 	var liver = $('#employee_edit_liver').is(':checked') ? 1 : 0;
+	var employee_edit_other_disease = $('#employee_edit_other_disease').val();
 
 	console.log(user_id);
 
@@ -260,6 +267,7 @@ $('#employee_medical_update_btn').on('click', function (e) {
 		asthma: asthma,
 		dysmenorrhea: dysmenorrhea,
 		liver: liver,
+		employee_edit_other_disease: employee_edit_other_disease,
 	};
 
 	// Debugging: Log the data object
@@ -318,6 +326,8 @@ $('#student_medical_update_btn').on('click', function (e) {
 	var dysmenorrhea = $('#student_edit_dysmenorrhea').is(':checked') ? 1 : 0;
 	var liver = $('#student_edit_liver').is(':checked') ? 1 : 0;
 
+	var other_disease = $('#other_disease').val();
+
 	console.log(user_id);
 
 	var data = {
@@ -338,6 +348,7 @@ $('#student_medical_update_btn').on('click', function (e) {
 		asthma: asthma,
 		dysmenorrhea: dysmenorrhea,
 		liver: liver,
+		other_disease: other_disease,
 	};
 
 	// Debugging: Log the data object
@@ -393,6 +404,8 @@ $('#student_medical_add_btn').on('click', function (e) {
 	var dysmenorrhea = $('#student_dysmenorrhea').is(':checked') ? 1 : 0;
 	var liver = $('#student_liver').is(':checked') ? 1 : 0;
 
+	var other_disease = $('#other_desease').val();
+
 	var data = {
 		student_medical_add: true,
 		user_id: user_id,
@@ -409,6 +422,7 @@ $('#student_medical_add_btn').on('click', function (e) {
 		asthma: asthma,
 		dysmenorrhea: dysmenorrhea,
 		liver: liver,
+		other_disease: other_disease,
 	};
 
 	// Debugging: Log the data object
@@ -2562,7 +2576,7 @@ $('#employee_update_btn').on('click', function (e) {
 
 	// console.log(dep_id);
 
-	if (!employee_no || !empID || !dep_id || !firstname || !middlename || !lastname || !birthdate || !sex || !contact_no) {
+	if (!employee_no || !dep_id || !firstname || !lastname | !sex) {
 		Swal.fire({
 			icon: 'error',
 			title: 'Oops...',

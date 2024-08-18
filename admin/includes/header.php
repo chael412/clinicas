@@ -1,8 +1,8 @@
 <?php
 
-include ('../config/dbconfig.php');
+include('../config/dbconfig.php');
 session_start(); // Start the session
-include ('auth.php');
+include('auth.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +15,7 @@ include ('auth.php');
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>CLINICA'S</title>
+    <title>MEDICAL CLINIC</title>
 
     <!-- font awesome icons -->
     <link rel="stylesheet" type="text/css" href="../assets/fontawesome/css/all.min.css">

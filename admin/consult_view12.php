@@ -1,6 +1,6 @@
 <?php
-include ('includes/header.php');
-include ('includes/navbar.php');
+include('includes/header.php');
+include('includes/navbar.php');
 ?>
 
 <div class="container-fluid">
@@ -18,13 +18,14 @@ include ('includes/navbar.php');
         $user_fullname = $row_name ? $row_name['user_fullname'] : "No user found";
 
 
-        $query = "SELECT ctm.ctm_id, us.u_id, CONCAT(us.firstname, ' ', us.middlename, ' ', us.lastname) AS user_fullname, ctm.chief_complaints, ctm.recommendation, ctm.process_date, GROUP_CONCAT(CONCAT(m.medicine_name, ' (', cm.ctmm_quantity, ')') SEPARATOR ', ') AS medicines_with_quantity, ctm.med_desc
+        $query = "SELECT @row_number := @row_number + 1 AS row_number, ctm.ctm_id, us.u_id, CONCAT(us.firstname, ' ', us.middlename, ' ', us.lastname) AS user_fullname, ctm.chief_complaints, ctm.recommendation, ctm.process_date, GROUP_CONCAT(CONCAT(m.medicine_name, ' (', cm.ctmm_quantity, ')') SEPARATOR ', ') AS medicines_with_quantity, ctm.med_desc
                 FROM consult_monthly ctm
                 INNER JOIN consult_monthly_medicine cm ON ctm.ctm_id = cm.ctm_id 
                 LEFT JOIN medicine m ON cm.mdn_id = m.mdn_id 
                 INNER JOIN users us ON ctm.u_id = us.u_id  
                 WHERE us.u_id = '$u_id'
                 GROUP BY ctm.ctm_id, us.u_id
+                ORDER BY ctm.process_date DESC
         ";
 
         $result = mysqli_query($conn, $query);
@@ -124,8 +125,8 @@ include ('includes/navbar.php');
 
 
 <?php
-include ('includes/scripts.php');
-include ('includes/footer.php');
+include('includes/scripts.php');
+include('includes/footer.php');
 ?>
 
 <?php

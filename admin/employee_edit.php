@@ -1,6 +1,6 @@
 <?php
-include ('includes/header.php');
-include ('includes/navbar.php');
+include('includes/header.php');
+include('includes/navbar.php');
 
 // Assume $id2 is the variable for which you want to check the record
 $id2 = $_POST['edit_id'];
@@ -157,6 +157,6 @@ if (mysqli_num_rows($query2_run) == 0) {
     <?php
 }
 
-include ('includes/scripts.php');
-include ('includes/footer.php');
+include('includes/scripts.php');
+include('includes/footer.php');
 ?>

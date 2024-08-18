@@ -1,7 +1,7 @@
 <?php
 
-include ('includes/header.php');
-include ('includes/navbar.php');
+include('includes/header.php');
+include('includes/navbar.php');
 ?>
 
 <div class="container-fluid">
@@ -142,7 +142,7 @@ include ('includes/navbar.php');
                         <div class="col-12">
                             <div class="table-responsive">
                                 <?php
-                                $query2 = "SELECT  mc.mc_id, mp.mp_id, mh.mh_id, CONCAT(us.lastname, ' ', us.firstname,' ', us.middlename) AS full_name, mc.med_type, mp.ispresent, mp.mp_diagnosis, mp.mp_treatment, mh.Hyperthension, mh.Diabetes, mh.Cardiovascular_desease, mh.PTB, mh.Hyperacidity, mh.Allergy, mh.Epilepsy, mh.Asthma, mh.Dysmenorrhea, mh.liver_Desease  FROM  users us
+                                $query2 = "SELECT  mc.mc_id, mp.mp_id, mh.mh_id, CONCAT(us.lastname, ' ', us.firstname,' ', us.middlename) AS full_name, mc.med_type, mp.ispresent, mp.mp_diagnosis, mp.mp_treatment, mh.Hyperthension, mh.Diabetes, mh.Cardiovascular_desease, mh.PTB, mh.Hyperacidity, mh.Allergy, mh.Epilepsy, mh.Asthma, mh.Dysmenorrhea, mh.liver_Desease, mh.other_disease   FROM  users us
                                                 INNER JOIN med_cert AS mc ON us.u_id = mc.u_id
                                                 INNER JOIN medical_present AS mp ON mc.mp_id = mp.mp_id
                                                 INNER JOIN medical_history AS mh ON mc.mh_id = mh.mh_id
@@ -240,22 +240,34 @@ include ('includes/navbar.php');
                                                                 src="<?php echo $medItem['liver_Desease'] == 1 ? './assets/check-mark.png' : ($medItem['liver_Desease'] == 0 ? './assets/no.png' : 'no-record.png'); ?>">
                                                         </p>
                                                     </td>
-                                                    <?php
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <div class="card-text">
+                                                            <p><b>Other:</b> <?= $medItem['other_disease'] ?></p>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <?php
                                     }
                                 } else {
                                     ?>
+                                            <tr>
                                                 <td>
                                                     <h3 class="d-flex justify-content-center gap-4" style="background: #dcfce7">
                                                         Medical</h3>
                                                     <p class="text-danger">No medical record found!</p>
                                                 </td>
-                                                <?php
+                                            </tr>
+
+                                            <?php
                                 }
                                 ?>
 
 
 
-                                        </tr>
+
+
                                     </tbody>
                                 </table>
                             </div>
@@ -275,6 +287,6 @@ include ('includes/navbar.php');
 </div>
 
 <?php
-include ('includes/scripts.php');
-include ('includes/footer.php');
+include('includes/scripts.php');
+include('includes/footer.php');
 ?>

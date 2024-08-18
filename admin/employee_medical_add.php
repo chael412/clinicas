@@ -1,8 +1,8 @@
 <?php
 
-include ('includes/header.php');
-include ('includes/navbar.php');
-include ('modal/modal-medcert.php');
+include('includes/header.php');
+include('includes/navbar.php');
+include('modal/modal-medcert.php');
 ?>
 
 
@@ -135,6 +135,13 @@ include ('modal/modal-medcert.php');
                                     liver/Gall Blader Desease
                                 </label>
                             </div>
+                            <div class="mt-3">
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Others"
+                                        id="employee_other_disease"></textarea>
+                                    <label for="employee_other_disease">Others: </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -160,8 +167,8 @@ include ('modal/modal-medcert.php');
 
 
 <?php
-include ('includes/scripts.php');
-include ('includes/footer.php');
+include('includes/scripts.php');
+include('includes/footer.php');
 
 ?>
 <script>

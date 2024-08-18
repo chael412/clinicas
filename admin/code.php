@@ -1,6 +1,6 @@
 <?php
 
-require ('../config/dbconfig.php');
+require('../config/dbconfig.php');
 
 // Student Medical
 if (isset($_POST['student_medical_update'])) {
@@ -19,6 +19,7 @@ if (isset($_POST['student_medical_update'])) {
     $asthma = $_POST['asthma'];
     $dysmenorrhea = $_POST['dysmenorrhea'];
     $liver = $_POST['liver'];
+    $other_disease = $_POST['other_disease'];
 
     // Assuming mp_id and mh_id are known
     $mp_id = $_POST['mp_id'];
@@ -44,7 +45,8 @@ if (isset($_POST['student_medical_update'])) {
                     Epilepsy = '$epilepsy', 
                     Asthma = '$asthma', 
                     Dysmenorrhea = '$dysmenorrhea', 
-                    liver_Desease = '$liver' 
+                    liver_Desease = '$liver', 
+                    other_disease= '$other_disease' 
                     WHERE mh_id = '$mh_id'";
         $result2 = mysqli_query($conn, $query2);
 
@@ -74,6 +76,7 @@ if (isset($_POST['student_medical_add'])) {
     $asthma = $_POST['asthma'];
     $dysmenorrhea = $_POST['dysmenorrhea'];
     $liver = $_POST['liver'];
+    $other_disease = $_POST['other_disease'];
 
 
     $query = "INSERT INTO medical_present (ispresent, mp_diagnosis, mp_treatment) VALUES (' $medicationPresent', '$diagnosis', '$treatment')";
@@ -83,7 +86,7 @@ if (isset($_POST['student_medical_add'])) {
     if ($result) {
         $mp_id = mysqli_insert_id($conn);
 
-        $query2 = "INSERT INTO medical_history (Hyperthension, Diabetes, Cardiovascular_desease, PTB, Hyperacidity, Allergy, Epilepsy, Asthma, Dysmenorrhea, liver_Desease) VALUES ('$hyperthension', '$diabetes', '$cardio', '$ptb', '$hyperacidity', '$allergy', '$epilepsy', ' $asthma', '$dysmenorrhea', '$liver')";
+        $query2 = "INSERT INTO medical_history (Hyperthension, Diabetes, Cardiovascular_desease, PTB, Hyperacidity, Allergy, Epilepsy, Asthma, Dysmenorrhea, liver_Desease, other_disease ) VALUES ('$hyperthension', '$diabetes', '$cardio', '$ptb', '$hyperacidity', '$allergy', '$epilepsy', ' $asthma', '$dysmenorrhea', '$liver', '$other_disease')";
         $result2 = mysqli_query($conn, $query2);
 
         if ($result2) {
@@ -121,6 +124,7 @@ if (isset($_POST['employee_medical_update'])) {
     $asthma = $_POST['asthma'];
     $dysmenorrhea = $_POST['dysmenorrhea'];
     $liver = $_POST['liver'];
+    $employee_edit_other_disease = $_POST['employee_edit_other_disease'];
 
     // Assuming mp_id and mh_id are known
     $mp_id = $_POST['mp_id'];
@@ -146,7 +150,8 @@ if (isset($_POST['employee_medical_update'])) {
                     Epilepsy = '$epilepsy', 
                     Asthma = '$asthma', 
                     Dysmenorrhea = '$dysmenorrhea', 
-                    liver_Desease = '$liver' 
+                    liver_Desease = '$liver',
+                    other_disease = '$employee_edit_other_disease'
                     WHERE mh_id = '$mh_id'";
         $result2 = mysqli_query($conn, $query2);
 
@@ -176,6 +181,7 @@ if (isset($_POST['employee_medical_add'])) {
     $asthma = $_POST['asthma'];
     $dysmenorrhea = $_POST['dysmenorrhea'];
     $liver = $_POST['liver'];
+    $employee_other_disease = $_POST['employee_other_disease'];
 
 
     $query = "INSERT INTO medical_present (ispresent, mp_diagnosis, mp_treatment) VALUES (' $medicationPresent', '$diagnosis', '$treatment')";
@@ -185,7 +191,7 @@ if (isset($_POST['employee_medical_add'])) {
     if ($result) {
         $mp_id = mysqli_insert_id($conn);
 
-        $query2 = "INSERT INTO medical_history (Hyperthension, Diabetes, Cardiovascular_desease, PTB, Hyperacidity, Allergy, Epilepsy, Asthma, Dysmenorrhea, liver_Desease) VALUES ('$hyperthension', '$diabetes', '$cardio', '$ptb', '$hyperacidity', '$allergy', '$epilepsy', ' $asthma', '$dysmenorrhea', '$liver')";
+        $query2 = "INSERT INTO medical_history (Hyperthension, Diabetes, Cardiovascular_desease, PTB, Hyperacidity, Allergy, Epilepsy, Asthma, Dysmenorrhea, liver_Desease, other_disease) VALUES ('$hyperthension', '$diabetes', '$cardio', '$ptb', '$hyperacidity', '$allergy', '$epilepsy', ' $asthma', '$dysmenorrhea', '$liver', '$employee_other_disease')";
         $result2 = mysqli_query($conn, $query2);
 
         if ($result2) {
@@ -222,6 +228,7 @@ if (isset($_POST['visitor_medical_add'])) {
     $asthma = $_POST['asthma'];
     $dysmenorrhea = $_POST['dysmenorrhea'];
     $liver = $_POST['liver'];
+    $other_disease = $_POST['visitor_other_disease'];
 
 
     $query = "INSERT INTO medical_present (ispresent, mp_diagnosis, mp_treatment) VALUES (' $medicationPresent', '$diagnosis', '$treatment')";
@@ -231,7 +238,7 @@ if (isset($_POST['visitor_medical_add'])) {
     if ($result) {
         $mp_id = mysqli_insert_id($conn);
 
-        $query2 = "INSERT INTO medical_history (Hyperthension, Diabetes, Cardiovascular_desease, PTB, Hyperacidity, Allergy, Epilepsy, Asthma, Dysmenorrhea, liver_Desease) VALUES ('$hyperthension', '$diabetes', '$cardio', '$ptb', '$hyperacidity', '$allergy', '$epilepsy', ' $asthma', '$dysmenorrhea', '$liver')";
+        $query2 = "INSERT INTO medical_history (Hyperthension, Diabetes, Cardiovascular_desease, PTB, Hyperacidity, Allergy, Epilepsy, Asthma, Dysmenorrhea, liver_Desease, other_disease) VALUES ('$hyperthension', '$diabetes', '$cardio', '$ptb', '$hyperacidity', '$allergy', '$epilepsy', ' $asthma', '$dysmenorrhea', '$liver', '$other_disease')";
         $result2 = mysqli_query($conn, $query2);
 
         if ($result2) {
@@ -267,6 +274,7 @@ if (isset($_POST['visitor_medical_update'])) {
     $asthma = $_POST['asthma'];
     $dysmenorrhea = $_POST['dysmenorrhea'];
     $liver = $_POST['liver'];
+    $other_disease = $_POST['visitor_edit_other_disease'];
 
     // Assuming mp_id and mh_id are known
     $mp_id = $_POST['mp_id'];
@@ -292,7 +300,8 @@ if (isset($_POST['visitor_medical_update'])) {
                     Epilepsy = '$epilepsy', 
                     Asthma = '$asthma', 
                     Dysmenorrhea = '$dysmenorrhea', 
-                    liver_Desease = '$liver' 
+                    liver_Desease = '$liver',
+                    other_disease  = '$other_disease'
                     WHERE mh_id = '$mh_id'";
         $result2 = mysqli_query($conn, $query2);
 

@@ -1,7 +1,7 @@
 <?php
-include ('includes/header.php');
-include ('includes/navbar.php');
-include ('modal/modal-employee.php');
+include('includes/header.php');
+include('includes/navbar.php');
+include('modal/modal-employee.php');
 ?>
 
 
@@ -112,6 +112,6 @@ include ('modal/modal-employee.php');
 
 
 <?php
-include ('includes/scripts.php');
-include ('includes/footer.php');
+include('includes/scripts.php');
+include('includes/footer.php');
 ?>

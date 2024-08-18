@@ -28,7 +28,7 @@ if (isset($_POST['edit_btn'])) {
                 $query = "SELECT mc.mc_id, mp.mp_id, mh.mh_id, CONCAT(us.lastname, ' ', us.firstname,' ', us.middlename) AS full_name, 
                         mc.med_type, mp.ispresent, mp.mp_diagnosis, mp.mp_treatment, mh.Hyperthension, mh.Diabetes, 
                         mh.Cardiovascular_desease, mh.PTB, mh.Hyperacidity, mh.Allergy, mh.Epilepsy, mh.Asthma, 
-                        mh.Dysmenorrhea, mh.liver_Desease  
+                        mh.Dysmenorrhea, mh.liver_Desease, mh.other_disease   
                         FROM users us
                         INNER JOIN med_cert AS mc ON us.u_id = mc.u_id
                         INNER JOIN medical_present AS mp ON mc.mp_id = mp.mp_id
@@ -120,6 +120,12 @@ if (isset($_POST['edit_btn'])) {
                                     <input class="form-check-input" type="checkbox" id="student_edit_liver" <?= (isset($medItem['liver_Desease']) && $medItem['liver_Desease'] == 1) ? 'checked' : ''; ?>>
                                     <label class="form-check-label">Liver/Gall Bladder Disease</label>
                                 </div>
+                                <div class="mt-3">
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Others" id="other_disease"><?= $medItem['other_disease'] ?></textarea>
+                                    <label for="other_desease">Others: </label>
+                                </div>
+                            </div>
                             </div>
                         </div>
                     </div>

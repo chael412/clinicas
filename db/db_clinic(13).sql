@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 14, 2024 at 01:32 PM
+-- Generation Time: Aug 18, 2024 at 04:31 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -91,7 +91,10 @@ INSERT INTO `consultations` (`ct_id`, `u_id`, `chief_complaints`, `recommendatio
 (8, 9, 'jujuq1', 'quqe1', 'asa1', '2024-08-04 16:00:27'),
 (9, 14, 'bbaxx', 'baaa', 'ff', '2024-08-04 16:01:05'),
 (10, 9, 'ARAW', 'GABI', 'prescribe', '2024-08-13 16:44:05'),
-(11, 17, 'tyyyy', 'jjjj', 'uyuu', '2024-08-14 00:24:40');
+(11, 17, 'tyyyy', 'jjjj', 'uyuu', '2024-08-14 00:24:40'),
+(12, 18, 'ASF', 'AFASF', 'ASFAFS', '2024-08-15 01:45:21'),
+(13, 13, 'AFSF', 'SAFASF', 'ASFASF', '2024-08-15 01:46:11'),
+(14, 5, 'n', 'n', 'aa', '2024-08-15 01:59:03');
 
 -- --------------------------------------------------------
 
@@ -121,7 +124,10 @@ INSERT INTO `consult_medicine` (`cm_id`, `ct_id`, `mdn_id`, `cm_quantity`) VALUE
 (15, 10, 4, 1),
 (16, 10, 11, 1),
 (17, 11, 5, 1),
-(18, 11, 11, 1);
+(18, 11, 11, 1),
+(19, 12, 4, 1),
+(20, 13, 4, 2),
+(21, 14, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -144,7 +150,9 @@ CREATE TABLE `consult_monthly` (
 
 INSERT INTO `consult_monthly` (`ctm_id`, `u_id`, `chief_complaints`, `recommendation`, `med_desc`, `process_date`) VALUES
 (1, 14, 'monthly samplex', 'recox', 'happy', '2024-08-04 14:26:56'),
-(5, 9, 'g', 'g', 'rt', '2024-08-13 17:02:24');
+(5, 9, 'g', 'g', 'rt', '2024-08-13 17:02:24'),
+(6, 29, 'ASFAS', 'ASFASF', 'ASFSF', '2024-08-15 01:45:46'),
+(7, 9, 'ju', 'dsdd', '11', '2024-08-15 02:03:18');
 
 -- --------------------------------------------------------
 
@@ -166,7 +174,9 @@ CREATE TABLE `consult_monthly_medicine` (
 INSERT INTO `consult_monthly_medicine` (`ctmm_id`, `ctm_id`, `mdn_id`, `ctmm_quantity`) VALUES
 (1, 1, 3, 1),
 (5, 4, 5, 1),
-(6, 5, 7, 1);
+(6, 5, 7, 1),
+(7, 6, 4, 2),
+(8, 7, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -214,8 +224,8 @@ CREATE TABLE `departments` (
 --
 
 INSERT INTO `departments` (`dp_id`, `dp_name`) VALUES
-(1, 'Teaching'),
-(2, 'Non-Teaching');
+(1, 'Teaching Staff'),
+(2, 'Non-Teaching Staff');
 
 -- --------------------------------------------------------
 
@@ -264,7 +274,11 @@ CREATE TABLE `employees` (
 INSERT INTO `employees` (`emp_id`, `employee_no`, `u_id`, `dp_id`) VALUES
 (1, 'atr-12345', 9, 5),
 (2, 'aaa-01919121', 14, 2),
-(6, 't555', 28, 1);
+(6, 't555', 28, 1),
+(7, '77', 29, 0),
+(8, 'y777', 30, 0),
+(9, 'u8888', 31, 2),
+(10, '202020', 32, 1);
 
 -- --------------------------------------------------------
 
@@ -300,21 +314,31 @@ CREATE TABLE `medical_history` (
   `Epilepsy` int(1) NOT NULL DEFAULT 0,
   `Asthma` int(1) NOT NULL DEFAULT 0,
   `Dysmenorrhea` int(1) NOT NULL DEFAULT 0,
-  `liver_Desease` int(1) NOT NULL DEFAULT 0
+  `liver_Desease` int(1) NOT NULL DEFAULT 0,
+  `other_disease` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `medical_history`
 --
 
-INSERT INTO `medical_history` (`mh_id`, `Hyperthension`, `Diabetes`, `Cardiovascular_desease`, `PTB`, `Hyperacidity`, `Allergy`, `Epilepsy`, `Asthma`, `Dysmenorrhea`, `liver_Desease`) VALUES
-(4, '1', 0, 1, 0, 1, 0, 1, 0, 1, 0),
-(7, '1', 1, 1, 1, 0, 0, 0, 0, 0, 0),
-(10, '1', 1, 1, 1, 1, 1, 1, 1, 1, 1),
-(11, '1', 0, 0, 1, 1, 1, 1, 1, 1, 1),
-(15, '1', 1, 1, 0, 0, 1, 1, 1, 1, 1),
-(16, '1', 1, 1, 1, 1, 1, 1, 1, 1, 1),
-(17, '1', 1, 1, 1, 1, 1, 1, 1, 1, 1);
+INSERT INTO `medical_history` (`mh_id`, `Hyperthension`, `Diabetes`, `Cardiovascular_desease`, `PTB`, `Hyperacidity`, `Allergy`, `Epilepsy`, `Asthma`, `Dysmenorrhea`, `liver_Desease`, `other_disease`) VALUES
+(4, '1', 0, 1, 0, 1, 0, 1, 0, 1, 0, ''),
+(7, '1', 1, 1, 1, 1, 0, 1, 1, 1, 1, 'y0hy0h'),
+(10, '1', 1, 1, 1, 1, 1, 1, 1, 1, 1, ''),
+(11, '1', 0, 0, 1, 1, 1, 1, 1, 1, 1, ''),
+(15, '1', 1, 1, 0, 0, 1, 1, 1, 1, 1, ''),
+(16, '1', 1, 1, 1, 1, 1, 1, 1, 1, 1, ''),
+(17, '1', 1, 1, 1, 1, 1, 1, 1, 1, 1, ''),
+(19, '0', 0, 0, 1, 0, 0, 0, 0, 0, 0, ''),
+(20, '0', 0, 0, 0, 1, 0, 0, 0, 0, 0, ''),
+(21, '1', 0, 0, 0, 0, 0, 0, 0, 0, 0, ''),
+(22, '1', 0, 1, 0, 0, 0, 0, 0, 0, 1, ''),
+(23, '0', 1, 0, 0, 0, 0, 0, 0, 0, 0, ''),
+(24, '0', 0, 0, 0, 0, 0, 0, 0, 0, 0, 'nyamittin'),
+(25, '1', 1, 1, 1, 1, 1, 1, 1, 1, 1, 'ewan q l ng'),
+(26, '1', 1, 1, 1, 1, 1, 1, 1, 1, 1, 'gg rtt ey'),
+(27, '0', 0, 0, 0, 1, 1, 0, 0, 0, 0, 'text vs comma');
 
 -- --------------------------------------------------------
 
@@ -335,12 +359,27 @@ CREATE TABLE `medical_present` (
 
 INSERT INTO `medical_present` (`mp_id`, `ispresent`, `mp_diagnosis`, `mp_treatment`) VALUES
 (3, 1, 'sample diagnosis1', 'sample treatment1'),
-(6, 1, 'yun lnh', ' sana all'),
+(6, 1, 'yu', 'yu'),
 (9, 1, 'hahakdog', 'hakdog treatment'),
 (10, 1, 'ey tiramisu er', 'ka muna cake'),
 (14, 0, '', ''),
 (15, 1, 'e', 'as'),
-(16, 1, 'aaa', 'aaa');
+(16, 1, 'aaa', 'aaa'),
+(18, 1, 'asf', 'asfsf'),
+(19, 1, 'asf', 'afa'),
+(20, 1, 't', 'w'),
+(21, 1, 'yes sir ok', 'yec no'),
+(22, 1, 'afsa', 'safasf'),
+(23, 1, 'aa', 'mi'),
+(24, 1, 'twice', 'nyah2x'),
+(25, 1, 'test emp', 'treat emp'),
+(26, 1, 'test emp', 'treat emp'),
+(27, 1, 'test emp', 'treat emp'),
+(28, 1, '', ''),
+(29, 1, 'a', 'a'),
+(30, 1, 'a', 'a'),
+(31, 1, 'hay nako', 'shhhhh...'),
+(32, 1, 'vs ', 'bss');
 
 -- --------------------------------------------------------
 
@@ -364,9 +403,9 @@ CREATE TABLE `medicine` (
 
 INSERT INTO `medicine` (`mdn_id`, `medicine_name`, `brand_name`, `type_id`, `ml`, `quantity`, `med_prescription`) VALUES
 (3, 'Mefenamic acid', '', 2, '0.00', 999986, ''),
-(4, 'Amoxicillin Cap', '', 1, '0.00', 94, ''),
-(5, 'Ambroxol Tab', '', 3, '4.50', 97, ''),
-(6, 'Azithromycin Tab', '', 3, '1.20', 8887, ''),
+(4, 'Amoxicillin Cap', '', 1, '0.00', 89, ''),
+(5, 'Ambroxol Tab', '', 3, '4.50', 96, ''),
+(6, 'Azithromycin Tab', '', 3, '1.20', 8886, ''),
 (7, 'vitamin x', '', 2, '0.00', 88, ''),
 (11, 'sample genericer', 'sample brander', 1, '1.75 dos', 97, 'sample prescription'),
 (12, 'Bio2', 'Brexender', 1, 'dos', 8, '');
@@ -420,7 +459,16 @@ INSERT INTO `med_cert` (`mc_id`, `u_id`, `mh_id`, `mp_id`, `med_type`) VALUES
 (11, 14, 11, 10, 1),
 (15, 9, 15, 14, 1),
 (16, 17, 16, 15, 1),
-(17, 13, 17, 16, 1);
+(17, 13, 17, 16, 1),
+(19, 29, 19, 18, 1),
+(20, 20, 20, 19, 1),
+(21, 28, 21, 20, 1),
+(22, 31, 22, 21, 1),
+(23, 32, 23, 22, 1),
+(24, 19, 24, 23, 1),
+(25, 7, 25, 24, 1),
+(26, 30, 26, 31, 1),
+(27, 26, 27, 32, 1);
 
 -- --------------------------------------------------------
 
@@ -595,10 +643,14 @@ INSERT INTO `users` (`u_id`, `firstname`, `middlename`, `lastname`, `birthdate`,
 (14, 'eros', 'almarr', 'cdfff', '2007-05-06', 1, '09787686'),
 (17, 'jaket1', 'jaa1', 'revillanmie1', '2024-06-15', 1, '09879786761'),
 (18, 'fy', '', 'aa', '0000-00-00', 1, ''),
-(19, 'a', '', 'a', '0000-00-00', 1, ''),
+(19, 'aa', '', 'a', '0000-00-00', 1, ''),
 (20, 'gg', '', 'gg', '0000-00-00', 1, ''),
 (26, 'fd', '', 'wawa', '0000-00-00', 1, ''),
-(28, 'era', '', 'qwe', '0000-00-00', 0, '');
+(28, 'era', '', 'qwe', '0000-00-00', 0, ''),
+(29, 'gt', '', 'kl', '0000-00-00', 0, ''),
+(30, 'ared', '', 'uu', '0000-00-00', 0, ''),
+(31, 'chaele', '', 'yr', '0000-00-00', 1, ''),
+(32, 'asdasdas', '', 'asfasfsaf', '0000-00-00', 1, '');
 
 -- --------------------------------------------------------
 
@@ -789,25 +841,25 @@ ALTER TABLE `confinement`
 -- AUTO_INCREMENT for table `consultations`
 --
 ALTER TABLE `consultations`
-  MODIFY `ct_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ct_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `consult_medicine`
 --
 ALTER TABLE `consult_medicine`
-  MODIFY `cm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `cm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `consult_monthly`
 --
 ALTER TABLE `consult_monthly`
-  MODIFY `ctm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ctm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `consult_monthly_medicine`
 --
 ALTER TABLE `consult_monthly_medicine`
-  MODIFY `ctmm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ctmm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `courses`
@@ -831,7 +883,7 @@ ALTER TABLE `desease`
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `food_major`
@@ -843,13 +895,13 @@ ALTER TABLE `food_major`
 -- AUTO_INCREMENT for table `medical_history`
 --
 ALTER TABLE `medical_history`
-  MODIFY `mh_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `mh_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `medical_present`
 --
 ALTER TABLE `medical_present`
-  MODIFY `mp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `mp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `medicine`
@@ -867,7 +919,7 @@ ALTER TABLE `medicine_types`
 -- AUTO_INCREMENT for table `med_cert`
 --
 ALTER TABLE `med_cert`
-  MODIFY `mc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `mc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `mhistory_desease`
@@ -909,7 +961,7 @@ ALTER TABLE `types`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `visitors`
